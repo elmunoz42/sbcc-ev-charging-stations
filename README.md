@@ -8,14 +8,14 @@ How can historical electric vehicle (EV) charging station utilization data be us
 
 ### Rationale
 
-The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liason at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the [CSB's transportation department website](https://www.countyofsb.org/3218/Transportation).
+The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liaison at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the [CSB's transportation department website](https://www.countyofsb.org/3218/Transportation).
 
 #### County of Santa Barbara Zero Emission Vehicle Plan (Public Draft) - May 2025 - Transportation Department
 
 ##### URL: https://cosantabarbara.app.box.com/s/uyds828nxptcrtsjbqssyiu4rpps5odr
 ##### Excerpt:
 
-"The County has been a leader in climate action, taking steps to reduce greenhouse gas (GHG) emissions and prepare for climate impacts. The 2030 Climate Action Plan (CAP) has a target to reduce community-wide emissions 50% by 2030 (below 2018 levels). On-road vehicle transportation account for 48% of the County's GHG emissions¹. As of 2022, zero emission vehicles (ZEV) make up less than 2% of all vehicles on the road in Santa Barbara County.
+"The County has been a leader in climate action, taking steps to reduce greenhouse gas (GHG) emissions and prepare for climate impacts. The 2030 Climate Action Plan (CAP) has a target to reduce community-wide emissions 50% by 2030 (below 2018 levels). On-road vehicle transportation accounts for 48% of the County's GHG emissions¹. As of 2022, zero emission vehicles (ZEV) make up less than 2% of all vehicles on the road in Santa Barbara County.
 
 To meet State and local emission reduction targets, the CAP includes the following goals to reduce transportation-related emissions:
 
@@ -33,24 +33,24 @@ ZEV planning and implementation transects nearly all County operations and commu
 
 ### Data Sources
 
-CSB's charging stations are integrated with a PowerFlex reporting system with up to date utilization metrics. The historical charging station utilization data including session times, idle times, and energy consumption. Jerel Francisco exported the data from January 1sth 2020 to December 31st 2024 for two types of data exports:
-- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv]:
-      - This data has 88919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage etc.
-      - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources we filter out for public usage only early on in our analysis of this dataset.
-- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv]:
-      - This data has 1827 rows and 22 columns. Each row represents a day in the 4 year period with data agregated from all charging sites with information about metric averages.
+CSB's charging stations are integrated with a PowerFlex reporting system with up-to-date utilization metrics. The historical charging station utilization data includes session times, idle times, and energy consumption. Jerel Francisco exported the data from January 1st 2020 to December 31st 2024 for two types of data exports:
+- [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv):
+      - This data has 88,919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage etc.
+      - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources, we filter out for public usage only early on in our analysis of this dataset.
+- [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv):
+      - This data has 1,827 rows and 22 columns. Each row represents a day in the 4-year period with data aggregated from all charging sites with information about metric averages.
 
 For a breakdown of all the features please review the respective feature catalogues:
-- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md]
-- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/days-feature-catalogue.md]
+- [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md)
+- [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/days-feature-catalogue.md)
 
 ### Methodology
 
 #### Discovery and Continuous Engagement with County of Santa Barbara Domain Expert
 
-The project began with a 1 hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
+The project began with a 1-hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
 
-Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thusfar. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analysed. 
+Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thus far. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analyzed. 
 
 #### Phase 1: Data Preparation
 
@@ -124,7 +124,7 @@ Cross-validation using time series split
 Error metrics (RMSE, MAE, MAPE)
 Residual analysis
 
-2030 Forecasting
+##### 2030 Forecasting
 
 Projection of daily kWh delivered through 2030
 Confidence intervals
@@ -160,7 +160,7 @@ Establishing a framework for ongoing monitoring and optimization
 
 ### Results
 
-The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA. Furthermore the data might need a higher differencing value so that it is stationary. Other hyper-parameters can also be adjusted as well.
+The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA. Furthermore, the data might need a higher differencing value so that it is stationary. Other hyper-parameters can also be adjusted as well.
 
 ![image](https://github.com/user-attachments/assets/8ae1b73d-754f-457f-85b1-587ab74e563c)
 
@@ -168,8 +168,8 @@ The initial baseline forecast model fails to represent the upward trajectory of 
 
 - Investigate different values for differencing.
 - Add seasonality and trends to the model.
-- In my searches a recommendation for the GARCH model was recommended to better handle the volatility of the data.
-- Investigate how outliers and data volatility might be affecting the preditions.
+- In my searches, a recommendation for the GARCH model was recommended to better handle the volatility of the data.
+- Investigate how outliers and data volatility might be affecting the predictions.
 - Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary.
   
 ### Outline of project
