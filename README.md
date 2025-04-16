@@ -160,7 +160,7 @@ Establishing a framework for ongoing monitoring and optimization
 
 ### Results
 
-The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA furthermore the data might a higher differencing value so that it is stationary. 
+The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA. Furthermore the data might need a higher differencing value so that it is stationary. Other hyper-parameters can also be adjusted as well.
 
 ![image](https://github.com/user-attachments/assets/8ae1b73d-754f-457f-85b1-587ab74e563c)
 
