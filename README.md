@@ -1,25 +1,25 @@
-### How Can the County of Santa Barbara's Electric Vehicle Charging Infrastructure Data Advance the Implementation of the Zero Emission Vehicle Plan? 
+## How Can the County of Santa Barbara's Electric Vehicle Charging Infrastructure Data Advance the Implementation of the Zero Emission Vehicle Plan? 
 
-#### Executive Summary
+### Executive Summary
 
-#### Research Question
+### Research Question
 
 How can historical electric vehicle (EV) charging station utilization data be used to forecast future charging capacity needs and optimize charging station placement in the County of Santa Barbara to help meet the "Zero Emission Vehicle Plan" goals?
 
-#### Rationale
+### Rationale
 
-The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liason at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the (CSB's transportation department website)[https://www.countyofsb.org/3218/Transportation].
+The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liaison at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the [CSB's transportation department website](https://www.countyofsb.org/3218/Transportation).
 
-##### County of Santa Barbara Zero Emission Vehicle Plan (Public Draft) - May 2025 - Transportation Department
+#### County of Santa Barbara Zero Emission Vehicle Plan (Public Draft) - May 2025 - Transportation Department
 
-###### URL: https://cosantabarbara.app.box.com/s/uyds828nxptcrtsjbqssyiu4rpps5odr
-###### Excerpt:
+##### URL: https://cosantabarbara.app.box.com/s/uyds828nxptcrtsjbqssyiu4rpps5odr
+##### Excerpt:
 
-"The County has been a leader in climate action, taking steps to reduce greenhouse gas (GHG) emissions and prepare for climate impacts. The 2030 Climate Action Plan (CAP) has a target to reduce community-wide emissions 50% by 2030 (below 2018 levels). On-road vehicle transportation account for 48% of the County's GHG emissions¹. As of 2022, zero emission vehicles (ZEV) make up less than 2% of all vehicles on the road in Santa Barbara County.
+"The County has been a leader in climate action, taking steps to reduce greenhouse gas (GHG) emissions and prepare for climate impacts. The 2030 Climate Action Plan (CAP) has a target to reduce community-wide emissions 50% by 2030 (below 2018 levels). On-road vehicle transportation accounts for 48% of the County's GHG emissions¹. As of 2022, zero emission vehicles (ZEV) make up less than 2% of all vehicles on the road in Santa Barbara County.
 
 To meet State and local emission reduction targets, the CAP includes the following goals to reduce transportation-related emissions:
 
-###### Table 1. 2030 Climate Action Plan Zero Emission Mobility Goals
+##### Table 1. 2030 Climate Action Plan Zero Emission Mobility Goals
 
 | CAP Goal | 2030 Goal | 2045 Goal |
 |----------|-----------|-----------|
@@ -31,145 +31,149 @@ To meet State and local emission reduction targets, the CAP includes the followi
 
 ZEV planning and implementation transects nearly all County operations and community functions, from fleet vehicles, building regulations, infrastructure, parking and energy management. It will require action from both internal County Departments and local community and municipal partners to help implement the Actions (page 31) identified in this plan."
 
-#### Data Sources
+### Data Sources
 
-CSB's charging stations are integrated with a PowerFlex reporting system with up to date utilization metrics. The historical charging station utilization data including session times, idle times, and energy consumption. Jerel Francisco exported the data from January 1sth 2020 to December 31st 2024 for two types of data exports:
-- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv]:
-      - This data has 88919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage etc.
-      - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources we filter out for public usage only early on in our analysis of this dataset.
-- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv]:
-      - This data has 1827 rows and 22 columns. Each row represents a day in the 4 year period with data agregated from all charging sites with information about metric averages.
+CSB's charging stations are integrated with a PowerFlex reporting system with up-to-date utilization metrics. The historical charging station utilization data includes session times, idle times, and energy consumption. Jerel Francisco exported the data from January 1st 2020 to December 31st 2024 for two types of data exports:
+- [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv):
+      - This data has 88,919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage etc.
+      - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources, we filter out for public usage only early on in our analysis of this dataset.
+- [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv):
+      - This data has 1,827 rows and 22 columns. Each row represents a day in the 4-year period with data aggregated from all charging sites with information about metric averages.
 
 For a breakdown of all the features please review the respective feature catalogues:
-- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md]
-- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/days-feature-catalogue.md]
+- [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md)
+- [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/days-feature-catalogue.md)
 
-#### Methodology
+### Methodology
 
-##### Discovery and Continuous Engagement with County of Santa Barbara Domain Expert
+#### Discovery and Continuous Engagement with County of Santa Barbara Domain Expert
 
-The project began with a 1 hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
+- Discovery session: The project began with a 1-hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
 
-Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thusfar. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analysed. Simple insights about session i
+- Bi-weely cadence of collaboration: Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thus far. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analyzed. 
 
-##### Phase 1: Data Preparation
+#### Phase 1: Data Preparation
 
-###### Data Cleaning
+##### Data Cleaning
 
-Remove duplicate records (if any)
-Standardize date/time formats
-Convert data types as needed (e.g., string dates to datetime objects)
+- Remove duplicate records (if any)
+- Standardize date/time formats
+- Convert data types as needed (e.g., string dates to datetime objects)
+
+##### Outlier Identification and Handling
+
+- Use statistical methods (z-scores, IQR) to identify anomalous values
+- Evaluate contextual validity of outliers (e.g., unusually long sessions)
+- Apply appropriate treatment (removal, capping, or flagging)
 
 
-###### Outlier Identification and Handling
+##### Missing Value Imputation
 
-Use statistical methods (z-scores, IQR) to identify anomalous values
-Evaluate contextual validity of outliers (e.g., unusually long sessions)
-Apply appropriate treatment (removal, capping, or flagging)
+- Assess patterns of missingness in both datasets
+- Apply appropriate imputation techniques based on data characteristics.
 
+#### Phase 2: Efficiency Analysis (Sessions Data)
+- This analysis responds to the County's request to evaluate current infrastructure efficiency before expanding capacity. Key metrics to analyze include:
 
-###### Missing Value Imputation
+##### Idle Time Analysis
 
-Assess patterns of missingness in both datasets
-Apply appropriate imputation techniques based on data characteristics.
+-At first, we had seen some concerning signs of excessive idle states for the charging stations. When Jerel and I reviewed the initial statistical data, we were both taken aback by the fact that the average session duration was upwards of 900 minutes. After some investigation though, we were able to identify some patterns and filter out CSB's fleet utilization. 
+- Fortunately, the public charging stations only have excessive idleness 6% of the time. Nevertheless, this is encouraging further investigation and perhaps some policy changes for "peak hour" utilization of charging stations.
+- The concern is that people park their cars for much longer than they need for EV charging thus reducing the availability of charging stations for those in actual need of them.
 
-##### Phase 2: Efficiency Analysis (Sessions Data)
-This analysis responds to the County's request to evaluate current infrastructure efficiency before expanding capacity. Key metrics to analyze include:
+##### Utilization Pattern Analysis
 
-###### Idle Time Analysis
+- Peak usage periods vs. low-demand periods
+- Geographic distribution of high/low utilization
+- Correlation between station type and utilization rate
 
-Initial finding: Public charging stations show only 6% idle time
-Further segmentation by:
+##### Charging Behavior Analysis
 
-Time of day
-Day of week
-Location
-User type (if available)
+- Distribution of session durations
+- Energy consumption patterns
+- Relationship between charging duration and energy delivered
 
-###### Utilization Pattern Analysis
-
-Peak usage periods vs. low-demand periods
-Geographic distribution of high/low utilization
-Correlation between station type and utilization rate
-
-###### Charging Behavior Analysis
-
-Distribution of session durations
-Energy consumption patterns
-Relationship between charging duration and energy delivered
-
-##### Phase 3: Time Series Forecasting (Days Data)
+#### Phase 3: Time Series Forecasting (Days Data)
 A SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) model will be developed to forecast future charging demand, focusing primarily on daily energy delivered (kWh).
 
-###### Time Series Decomposition
+##### Time Series Decomposition
+- Adfuller test
+- Trend component
+- Seasonal components (daily, weekly, monthly patterns)
+- Irregular components
 
-Trend component
-Seasonal components (daily, weekly, monthly patterns)
-Irregular components
+##### Model Development
 
-###### Model Development
+- Parameter selection (p, d, q, P, D, Q)
+- Inclusion of seasonal components
+- Integration of exogenous variables:
 
-Parameter selection (p, d, q, P, D, Q)
-Inclusion of seasonal components
-Integration of exogenous variables:
-
-EV adoption rates in Santa Barbara County
-Economic indicators
-Policy changes
+    - EV adoption rates in Santa Barbara County
+    - Economic indicators
+    - Policy changes
 
 
-###### Model Validation
+##### Model Validation
 
-Cross-validation using time series split
-Error metrics (RMSE, MAE, MAPE)
-Residual analysis
+- Cross-validation using time series split
+- Error metrics (RMSE, MAE, MAPE)
+- Residual analysis
 
-2030 Forecasting
+##### 2030 Forecasting
 
-Projection of daily kWh delivered through 2030
-Confidence intervals
-Scenario analysis based on different EV adoption rates
+- Projection of daily kWh delivered through 2030
+- Confidence intervals
+- Scenario analysis based on different EV adoption rates
 
-##### Expected Outcomes
+#### Expected Outcomes
 
-###### Infrastructure Efficiency Assessment
+##### Infrastructure Efficiency Assessment
 
-Quantification of current utilization rates
-Identification of optimization opportunities
-Recommendations for improved efficiency
+- Quantification of current utilization rates
+- Identification of optimization opportunities
+- Recommendations for improved efficiency
 
-###### Capacity Forecasting Model
+##### Capacity Forecasting Model
 
-Projected daily and annual energy delivery requirements through 2030
-Estimated number of additional charging stations needed
-Geographic distribution recommendations
+- Projected daily and annual energy delivery requirements through 2030
+- Estimated number of additional charging stations needed
+- Geographic distribution recommendations
 
-###### Policy Recommendations
+##### Policy Recommendations
 
-Evidence-based strategies to support the County's climate goals
-Prioritization framework for infrastructure investments
-Monitoring approach for ongoing performance assessment
+- Evidence-based strategies to support the County's climate goals
+- Prioritization framework for infrastructure investments
+- Monitoring approach for ongoing performance assessment
 
-##### Alignment with Climate Action Plan Goals
+#### Alignment with Climate Action Plan Goals
 This analysis directly supports the County's 2030 Climate Action Plan Zero Emission Mobility Goals by:
 
-Providing data-driven projections to support the 25% passenger EV ownership goal
-Identifying infrastructure needs for the 15% commercial EV use goal
-Informing strategic placement of the 375 publicly available EV chargers
-Establishing a framework for ongoing monitoring and optimization
+- Providing data-driven projections to support the 25% passenger EV ownership goal
+- Identifying infrastructure needs for the 15% commercial EV use goal
+- Informing strategic placement of the 375 publicly available EV chargers
+- Establishing a framework for ongoing monitoring and optimization
 
-#### Results
-What did your research find?
+### Results
 
-#### Next steps
-What suggestions do you have for next steps?
+The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA. Furthermore, the data might need a higher differencing value so that it is stationary. Other hyper-parameters can also be adjusted as well.
 
-#### Outline of project
+![image](https://github.com/user-attachments/assets/8ae1b73d-754f-457f-85b1-587ab74e563c)
+
+### Next steps
+
+- Investigate different values for differencing.
+- Add seasonality and trends to the model.
+- In my searches, a recommendation for the GARCH model was mentioned to better handle the volatility of the data.
+- Investigate how outliers and data volatility might be affecting the predictions. In Fig2_C in the [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb) notebook there are significant outliers that need to be accounted for to improve the preditions.
+  ![image](https://github.com/user-attachments/assets/cdabc2ed-4154-4071-83a2-50c2a24e2994)
+- Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary.
+  
+### Outline of project
 
 - [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
 - [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
 
-##### Contact and Further Information
+#### Contact and Further Information
 
 https://carlosmunozkampff.com/contact 
 https://www.linkedin.com/in/carlos-munoz-kampff/
