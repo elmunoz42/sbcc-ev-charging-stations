@@ -50,7 +50,7 @@ For a breakdown of all the features please review the respective feature catalog
 
 The project began with a 1 hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
 
-Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thusfar. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analysed. 
+Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thusfar. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analysed. Simple insights about session i
 
 ##### Phase 1: Data Preparation
 
@@ -159,7 +159,7 @@ Informing strategic placement of the 375 publicly available EV chargers
 Establishing a framework for ongoing monitoring and optimization
 
 #### Results
-
+What did your research find?
 
 #### Next steps
 What suggestions do you have for next steps?
