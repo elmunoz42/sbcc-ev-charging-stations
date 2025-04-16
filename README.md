@@ -103,7 +103,7 @@ For a breakdown of all the features please review the respective feature catalog
 
 #### Idle Time Analysis
 
--At first, we had seen some concerning signs of excessive idle states for the charging stations. When Jerel and I reviewed the initial statistical data, we were both taken aback by the fact that the average session duration was upwards of 900 minutes. After some investigation though, we were able to identify some patterns and filter out CSB's fleet utilization. 
+- At first, we had seen some concerning signs of excessive idle states for the charging stations. When Jerel and I reviewed the initial statistical data, we were both taken aback by the fact that the average session duration was upwards of 900 minutes. After some investigation though, we were able to identify some patterns and filter out CSB's fleet utilization. 
 - Fortunately, the public charging stations only have excessive idleness 6% of the time. Nevertheless, this is encouraging further investigation and perhaps some policy changes for "peak hour" utilization of charging stations.
 - The concern is that people park their cars for much longer than they need for EV charging thus reducing the availability of charging stations for those in actual need of them.
 
