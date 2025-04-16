@@ -181,7 +181,7 @@ This analysis directly supports the County's 2030 Climate Action Plan Zero Emiss
 
 ## Results
 
-The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA. Furthermore, the data might need a higher differencing value so that it is stationary. Other hyper-parameters can also be adjusted as well.
+The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA. Furthermore, the data might need a higher differencing value so that it is stationary. Other hyper-parameters can also be adjusted as well. Additionally, as previously discussed besides the "natural" growth trend we will also compute the "aspirational" upward trend that is part of the Zero Emission Vehicle Plan. So a few different models will need to be calculated and reviewed to accomplish our objectives.
 
 ![image](https://github.com/user-attachments/assets/8ae1b73d-754f-457f-85b1-587ab74e563c)
 
