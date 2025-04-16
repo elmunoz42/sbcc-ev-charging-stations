@@ -8,7 +8,7 @@ How can historical electric vehicle (EV) charging station utilization data be us
 
 ### Rationale
 
-The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liason at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the (CSB's transportation department website)[https://www.countyofsb.org/3218/Transportation].
+The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liason at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the [CSB's transportation department website](https://www.countyofsb.org/3218/Transportation).
 
 #### County of Santa Barbara Zero Emission Vehicle Plan (Public Draft) - May 2025 - Transportation Department
 
