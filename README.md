@@ -200,8 +200,8 @@ The initial baseline forecast model fails to represent the upward trajectory of 
 - [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
 
 ## Additional deliverables
-- The data visualizations are available for download "Images" folder.
-- Certain report tables will be added as CSV files for example the statistical analysis of Type 2 (Webasto) and Type 3 (Delta) charging stations.
+- The data visualizations are available for download in the "Images" folder.
+- Certain report tables will have been added to this project as CSV files. For example the statistical analysis of Type 2 (Webasto) and Type 3 (Delta) charging stations.
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/webasto_dx_statistics.csv
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/delta_statistics.csv
 
