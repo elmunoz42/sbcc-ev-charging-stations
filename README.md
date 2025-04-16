@@ -10,10 +10,11 @@ How can historical electric vehicle (EV) charging station utilization data be us
 
 The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liason at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the (CSB's transportation department website)[https://www.countyofsb.org/3218/Transportation].
 
-##### County of Santa Barbara Zero Emission Vehicle Plan (Public Draft) May 2025
+##### County of Santa Barbara Zero Emission Vehicle Plan (Public Draft) - May 2025 - Transportation Department
 
 ###### URL: https://cosantabarbara.app.box.com/s/uyds828nxptcrtsjbqssyiu4rpps5odr
 ###### Excerpt:
+
 "The County has been a leader in climate action, taking steps to reduce greenhouse gas (GHG) emissions and prepare for climate impacts. The 2030 Climate Action Plan (CAP) has a target to reduce community-wide emissions 50% by 2030 (below 2018 levels). On-road vehicle transportation account for 48% of the County's GHG emissions¹. As of 2022, zero emission vehicles (ZEV) make up less than 2% of all vehicles on the road in Santa Barbara County.
 
 To meet State and local emission reduction targets, the CAP includes the following goals to reduce transportation-related emissions:
@@ -159,11 +160,10 @@ What suggestions do you have for next steps?
 
 #### Outline of project
 
-- [Link to notebook 1]()
-- [Link to notebook 2]()
-- [Link to notebook 3]()
-
+- [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
+- [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
 
 ##### Contact and Further Information
 
-carlosmunozkampff@outlook.com 
+https://carlosmunozkampff.com/contact 
+https://www.linkedin.com/in/carlos-munoz-kampff/
