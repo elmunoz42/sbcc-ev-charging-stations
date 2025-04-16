@@ -2,6 +2,14 @@
 
 ### Executive Summary
 
+This ongoing research project analyzes historical electric vehicle (EV) charging data to support the County of Santa Barbara's Zero Emission Vehicle Plan. With transportation accounting for 48% of the County's greenhouse gas emissions and an ambitious goal to reduce community-wide emissions by 50% by 2030, optimizing EV charging infrastructure is critical to achieving climate targets.
+The study examines four years (2020-2024) of charging station utilization data collected from the County's PowerFlex reporting system. Two primary datasets were analyzed: a session-level dataset containing 88,919 individual charging events and a day-level dataset with 1,827 days of aggregated metrics.
+
+#### Key findings include:
+
+- Public charging stations experience excessive idleness only 6% of the time, indicating efficient utilization
+- Initial forecasting models of energy demand require refinement to accurately capture the upward trajectory in EV adoption
+
 ### Research Question
 
 How can historical electric vehicle (EV) charging station utilization data be used to forecast future charging capacity needs and optimize charging station placement in the County of Santa Barbara to help meet the "Zero Emission Vehicle Plan" goals?
