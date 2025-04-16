@@ -41,16 +41,19 @@ ZEV planning and implementation transects nearly all County operations and commu
 
 ### Hypothesis of How Data Analysis and Machine Learning Algorithms Can Help CSB's Goals
 
-Given CSB's stated goals, a number of important questions arise:
+Given CSB's stated goals, a number of specific questions arise:
 
 1) If CSB is to increase the passenger electric vehicle ownership by 25%, what impact does that have on energy utilization? Especially, what kinds of spikes should we expect?
-Response strategy: By training a forecasting model, we will be able to get a sense of the rapid oscillations and seasonal peaks and troughs we are to expect. I.e., tourist seasons, work commute rush, etc.
+
+*Response strategy:* By training a forecasting model, we will be able to get a sense of the rapid oscillations and seasonal peaks and troughs we are to expect. I.e., tourist seasons, work commute rush, etc.
 
 2) If CSB is to install at least 375 publicly available electric vehicle chargers, where are the best places to build new charging stations?
-Response strategy: Once we have the forecasting model and our range of needed grid capacity, we will look at the "Sessions" data to review individual charging stations and identify capacity strain. This should allow us to make recommendations for expansion of charging infrastructure.
+
+*Response strategy:* Once we have the forecasting model and our range of needed grid capacity, we will look at the "Sessions" data to review individual charging stations and identify capacity strain. This should allow us to make recommendations for expansion of charging infrastructure.
 
 3) Are there ways to optimize the grid to meet more energy output demand by modifying public utilization policies?
-Response strategy: We will review the sessions data with visualizations, coefficient matrices, and decision tree modeling and inference. This will enable a much deeper understanding of the factors that are at play and allow for effective policy recommendations. E.g., reducing the idling time allowance during peak hours from 4 to 2 hours before a penalty charge. Please note that any such policy change will need to thoroughly consider not just logistic impacts but also accessibility impact on the CSB's citizens, especially marginalized groups, as this is an imperative clearly stated in the "Zero Emission Vehicle Plan".
+
+*Response strategy:* We will review the sessions data with visualizations, coefficient matrices, and decision tree modeling and inference. This will enable a much deeper understanding of the factors that are at play and allow for effective policy recommendations. E.g., reducing the idling time allowance during peak hours from 4 to 2 hours before a penalty charge. Please note that any such policy change will need to thoroughly consider not just logistic impacts but also accessibility impact on the CSB's citizens, especially marginalized groups, as this is an imperative clearly stated in the "Zero Emission Vehicle Plan".
 
 This capstone research paper will work to address these 3 items in turn, additionaly we have already been providing CSB value in performing statistical analysis and visualizations for data that had never before been thoroughly explored. Our hope is that the timing coincides and findings from this report can actually inform CSB's "Zero Emission Vehicle Plan" official report that is being actively worked on by Jerel Francisco and his colleagues.
    
