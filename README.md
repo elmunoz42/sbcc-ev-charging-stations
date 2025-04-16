@@ -169,7 +169,8 @@ The initial baseline forecast model fails to represent the upward trajectory of 
 - Investigate different values for differencing.
 - Add seasonality and trends to the model.
 - In my searches, a recommendation for the GARCH model was mentioned to better handle the volatility of the data.
-- Investigate how outliers and data volatility might be affecting the predictions.
+- Investigate how outliers and data volatility might be affecting the predictions. In Fig2_C in the [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb) notebook there are significant outliers that need to be accounted for to improve the preditions.
+  ![image](https://github.com/user-attachments/assets/cdabc2ed-4154-4071-83a2-50c2a24e2994)
 - Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary.
   
 ### Outline of project
