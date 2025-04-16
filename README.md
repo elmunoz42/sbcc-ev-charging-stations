@@ -168,7 +168,7 @@ The initial baseline forecast model fails to represent the upward trajectory of 
 
 - Investigate different values for differencing.
 - Add seasonality and trends to the model.
-- In my searches, a recommendation for the GARCH model was recommended to better handle the volatility of the data.
+- In my searches, a recommendation for the GARCH model was mentioned to better handle the volatility of the data.
 - Investigate how outliers and data volatility might be affecting the predictions.
 - Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary.
   
