@@ -160,10 +160,18 @@ Establishing a framework for ongoing monitoring and optimization
 
 #### Results
 
+The initial baseline forecast model fails to represent the upward trajectory of the test data. This might be improved using the SARIMAX model instead of ARIMA furthermore the data might a higher differencing value so that it is stationary. 
+
+![image](https://github.com/user-attachments/assets/8ae1b73d-754f-457f-85b1-587ab74e563c)
 
 #### Next steps
-What suggestions do you have for next steps?
 
+- Investigate different values for differencing.
+- Add seasonality and trends to the model.
+- In my searches a recommendation for the GARCH model was recommended to better handle the volatility of the data.
+- Investigate how outliers and data volatility might be affecting the preditions.
+- Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary.
+  
 #### Outline of project
 
 - [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
