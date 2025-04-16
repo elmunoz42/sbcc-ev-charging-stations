@@ -40,44 +40,116 @@ CSB's charging stations are integrated with a PowerFlex reporting system with up
       - This data has 1827 rows and 22 columns. Each row represents a day in the 4 year period with data agregated from all charging sites with information about metric averages.
 
 For a breakdown of all the features please review the respective feature catalogues:
-- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv]
-- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv]
+- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md]
+- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/days-feature-catalogue.md]
 
 #### Methodology
 
-Time series analysis and forecasting using SARIMAX models to project future capacity needs
-Statistical analysis to identify patterns in charging behavior (duration, peak times, idle times)
-Classification models to predict potential outages and faulted states
-Geographic Information System (GIS) analysis to identify optimal locations for new charging stations
-MLOps principles for model development, deployment, and maintenance
+##### Phase 1: Data Preparation
+
+###### Data Cleaning
+
+Remove duplicate records (if any)
+Standardize date/time formats
+Convert data types as needed (e.g., string dates to datetime objects)
 
 
-A forecasting model that predicts future EV charging capacity requirements for Santa Barbara County
-Identification of usage patterns and inefficiencies in current charging infrastructure
-Recommendations for optimizing existing station usage by addressing idle time issues
-Maps identifying priority areas for new charging station placement based on predicted demand
-A framework for continuous monitoring and updating of predictions as new data becomes available
+###### Outlier Identification and Handling
+
+Use statistical methods (z-scores, IQR) to identify anomalous values
+Evaluate contextual validity of outliers (e.g., unusually long sessions)
+Apply appropriate treatment (removal, capping, or flagging)
 
 
+###### Missing Value Imputation
+
+Assess patterns of missingness in both datasets
+Apply appropriate imputation techniques based on data characteristics.
+
+##### Phase 2: Efficiency Analysis (Sessions Data)
+This analysis responds to the County's request to evaluate current infrastructure efficiency before expanding capacity. Key metrics to analyze include:
+
+###### Idle Time Analysis
+
+Initial finding: Public charging stations show only 6% idle time
+Further segmentation by:
+
+Time of day
+Day of week
+Location
+User type (if available)
+
+###### Utilization Pattern Analysis
+
+Peak usage periods vs. low-demand periods
+Geographic distribution of high/low utilization
+Correlation between station type and utilization rate
+
+###### Charging Behavior Analysis
+
+Distribution of session durations
+Energy consumption patterns
+Relationship between charging duration and energy delivered
+
+##### Phase 3: Time Series Forecasting (Days Data)
+A SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) model will be developed to forecast future charging demand, focusing primarily on daily energy delivered (kWh).
+
+###### Time Series Decomposition
+
+Trend component
+Seasonal components (daily, weekly, monthly patterns)
+Irregular components
+
+###### Model Development
+
+Parameter selection (p, d, q, P, D, Q)
+Inclusion of seasonal components
+Integration of exogenous variables:
+
+EV adoption rates in Santa Barbara County
+Economic indicators
+Policy changes
 
 
-### Project Title
+###### Model Validation
 
-**Author**
+Cross-validation using time series split
+Error metrics (RMSE, MAE, MAPE)
+Residual analysis
 
-#### Executive summary
+2030 Forecasting
 
-#### Rationale
-Why should anyone care about this question?
+Projection of daily kWh delivered through 2030
+Confidence intervals
+Scenario analysis based on different EV adoption rates
 
-#### Research Question
-What are you trying to answer?
+##### Expected Outcomes
 
-#### Data Sources
-What data will you use to answer you question?
+###### Infrastructure Efficiency Assessment
 
-#### Methodology
-What methods are you using to answer the question?
+Quantification of current utilization rates
+Identification of optimization opportunities
+Recommendations for improved efficiency
+
+###### Capacity Forecasting Model
+
+Projected daily and annual energy delivery requirements through 2030
+Estimated number of additional charging stations needed
+Geographic distribution recommendations
+
+###### Policy Recommendations
+
+Evidence-based strategies to support the County's climate goals
+Prioritization framework for infrastructure investments
+Monitoring approach for ongoing performance assessment
+
+##### Alignment with Climate Action Plan Goals
+This analysis directly supports the County's 2030 Climate Action Plan Zero Emission Mobility Goals by:
+
+Providing data-driven projections to support the 25% passenger EV ownership goal
+Identifying infrastructure needs for the 15% commercial EV use goal
+Informing strategic placement of the 375 publicly available EV chargers
+Establishing a framework for ongoing monitoring and optimization
 
 #### Results
 What did your research find?
@@ -93,3 +165,5 @@ What suggestions do you have for next steps?
 
 
 ##### Contact and Further Information
+
+carlosmunozkampff@outlook.com 
