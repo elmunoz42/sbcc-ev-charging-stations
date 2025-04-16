@@ -43,7 +43,7 @@ ZEV planning and implementation transects nearly all County operations and commu
 
 Given CSB's stated goals, a number of specific questions arise:
 
-1) If CSB is to increase the passenger electric vehicle (EV) ownership by 25%, what impact does that have on energy utilization? Especially, what kinds of spikes should we expect?
+1) If CSB is to increase the passenger electric vehicle (EV) ownership to 25%, what impact does that have on energy utilization? Especially, what kinds of spikes should we expect?
 
 *Response strategy:* By training a forecasting model, we will be able to get a sense of the rapid oscillations and seasonal peaks and troughs we are to expect. E.g., tourist seasons, work commute rush, etc. One important consideration is that we will need to forecast the amount of total passenger cars the CSB will have by then compared to today to accurately predict the pertinent metrics for the 25% we are hoping will be EVs. In other words: If the amount of EVs today requires a charging grid with a certain capacity, how much will the future amount of EVs that we are hoping for require?
 
