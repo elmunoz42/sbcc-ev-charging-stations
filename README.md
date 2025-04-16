@@ -48,70 +48,63 @@ For a breakdown of all the features please review the respective feature catalog
 
 #### Discovery and Continuous Engagement with County of Santa Barbara Domain Expert
 
-The project began with a 1-hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
+- Discovery session: The project began with a 1-hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
 
-Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thus far. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analyzed. 
+- Bi-weely cadence of collaboration: Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thus far. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analyzed. 
 
 #### Phase 1: Data Preparation
 
 ##### Data Cleaning
 
-Remove duplicate records (if any)
-Standardize date/time formats
-Convert data types as needed (e.g., string dates to datetime objects)
-
+- Remove duplicate records (if any)
+- Standardize date/time formats
+- Convert data types as needed (e.g., string dates to datetime objects)
 
 ##### Outlier Identification and Handling
 
-Use statistical methods (z-scores, IQR) to identify anomalous values
-Evaluate contextual validity of outliers (e.g., unusually long sessions)
-Apply appropriate treatment (removal, capping, or flagging)
+- Use statistical methods (z-scores, IQR) to identify anomalous values
+- Evaluate contextual validity of outliers (e.g., unusually long sessions)
+- Apply appropriate treatment (removal, capping, or flagging)
 
 
 ##### Missing Value Imputation
 
-Assess patterns of missingness in both datasets
-Apply appropriate imputation techniques based on data characteristics.
+- Assess patterns of missingness in both datasets
+- Apply appropriate imputation techniques based on data characteristics.
 
 #### Phase 2: Efficiency Analysis (Sessions Data)
-This analysis responds to the County's request to evaluate current infrastructure efficiency before expanding capacity. Key metrics to analyze include:
+- This analysis responds to the County's request to evaluate current infrastructure efficiency before expanding capacity. Key metrics to analyze include:
 
 ##### Idle Time Analysis
 
-Initial finding: Public charging stations show only 6% idle time
-Further segmentation by:
-
-Time of day
-Day of week
-Location
-User type (if available)
+- At first we had seen some concerning signs of excessive idle states for the charging stations. When Jerel and I reviewed the initial statistical data we were both taken aback by the fact that the average session duration was upwards of 900 minutes. After some investigation though we were able to identify some paterns and filter out CSB's fleet utilisation. Fortunately, the public charging stations only have excessive idleness 6% of the time. Nevertheless, this is encouraging further investigation and perhaps some policy changes for "peak hour" utilization of charging stations. The concern is that people park their cars for much longer than they need for E.V. charging.
 
 ##### Utilization Pattern Analysis
 
-Peak usage periods vs. low-demand periods
-Geographic distribution of high/low utilization
-Correlation between station type and utilization rate
+- Peak usage periods vs. low-demand periods
+- Geographic distribution of high/low utilization
+- Correlation between station type and utilization rate
 
 ##### Charging Behavior Analysis
 
-Distribution of session durations
-Energy consumption patterns
-Relationship between charging duration and energy delivered
+- Distribution of session durations
+- Energy consumption patterns
+- Relationship between charging duration and energy delivered
 
 #### Phase 3: Time Series Forecasting (Days Data)
 A SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) model will be developed to forecast future charging demand, focusing primarily on daily energy delivered (kWh).
 
 ##### Time Series Decomposition
-
-Trend component
-Seasonal components (daily, weekly, monthly patterns)
-Irregular components
+- Adfuller test
+- Trend component
+- Seasonal components (daily, weekly, monthly patterns)
+- Irregular components
 
 ##### Model Development
 
-Parameter selection (p, d, q, P, D, Q)
-Inclusion of seasonal components
-Integration of exogenous variables:
+- Parameter selection (p, d, q, P, D, Q)
+- Inclusion of seasonal components
+- Integration of exogenous variables:
 
 EV adoption rates in Santa Barbara County
 Economic indicators
@@ -120,43 +113,43 @@ Policy changes
 
 ##### Model Validation
 
-Cross-validation using time series split
-Error metrics (RMSE, MAE, MAPE)
-Residual analysis
+- Cross-validation using time series split
+- Error metrics (RMSE, MAE, MAPE)
+- Residual analysis
 
 ##### 2030 Forecasting
 
-Projection of daily kWh delivered through 2030
-Confidence intervals
-Scenario analysis based on different EV adoption rates
+- Projection of daily kWh delivered through 2030
+- Confidence intervals
+- Scenario analysis based on different EV adoption rates
 
 #### Expected Outcomes
 
 ##### Infrastructure Efficiency Assessment
 
-Quantification of current utilization rates
-Identification of optimization opportunities
-Recommendations for improved efficiency
+- Quantification of current utilization rates
+- Identification of optimization opportunities
+- Recommendations for improved efficiency
 
 ##### Capacity Forecasting Model
 
-Projected daily and annual energy delivery requirements through 2030
-Estimated number of additional charging stations needed
-Geographic distribution recommendations
+- Projected daily and annual energy delivery requirements through 2030
+- Estimated number of additional charging stations needed
+- Geographic distribution recommendations
 
 ##### Policy Recommendations
 
-Evidence-based strategies to support the County's climate goals
-Prioritization framework for infrastructure investments
-Monitoring approach for ongoing performance assessment
+- Evidence-based strategies to support the County's climate goals
+- Prioritization framework for infrastructure investments
+- Monitoring approach for ongoing performance assessment
 
 #### Alignment with Climate Action Plan Goals
 This analysis directly supports the County's 2030 Climate Action Plan Zero Emission Mobility Goals by:
 
-Providing data-driven projections to support the 25% passenger EV ownership goal
-Identifying infrastructure needs for the 15% commercial EV use goal
-Informing strategic placement of the 375 publicly available EV chargers
-Establishing a framework for ongoing monitoring and optimization
+- Providing data-driven projections to support the 25% passenger EV ownership goal
+- Identifying infrastructure needs for the 15% commercial EV use goal
+- Informing strategic placement of the 375 publicly available EV chargers
+- Establishing a framework for ongoing monitoring and optimization
 
 ### Results
 
