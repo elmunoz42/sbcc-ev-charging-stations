@@ -33,15 +33,15 @@ ZEV planning and implementation transects nearly all County operations and commu
 #### Data Sources
 
 CSB's charging stations are integrated with a PowerFlex reporting system with up to date utilization metrics. The historical charging station utilization data including session times, idle times, and energy consumption. Jerel Francisco exported the data from January 1sth 2020 to December 31st 2024 for two types of data exports:
-- Sessions: SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv:
+- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv]:
       - This data has 88919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage etc.
       - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources we filter out for public usage only early on in our analysis of this dataset.
-- Days: "SB-County-County Public reporting 2020-01-01_2024-12-31.csv":
+- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv]:
       - This data has 1827 rows and 22 columns. Each row represents a day in the 4 year period with data agregated from all charging sites with information about metric averages.
 
 For a breakdown of all the features please review the respective feature catalogues:
-- (Sessions)[]
-- (Days)[]
+- (Sessions)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv]
+- (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv]
 
 #### Methodology
 

@@ -1,4 +1,7 @@
 # Days EV Charging Station Data - Feature Catalog
+Data file: (Days)[https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv]
+
+## Feature description:
 
 | Feature Name | Data Type | Description |
 |--------------|-----------|-------------|
