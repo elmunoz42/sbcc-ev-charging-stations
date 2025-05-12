@@ -65,6 +65,8 @@ CSB's charging stations are integrated with a PowerFlex reporting system with up
       - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources, we filter out for public usage only early on in our analysis of this dataset.
 - [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv):
       - This data has 1,827 rows and 22 columns. Each row represents a day in the 4-year period with data aggregated from all charging sites with information about metric averages.
+- [Cars](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb):
+      - This is data from the California Energy department [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. PLEASE NOTE THAT A DATA UPDATE IS GOING TO OCCURR ON APRIL 30 2025 WE SHOULD UPDATE THIS REPORT ACCORDINGLY.
 
 For a breakdown of all the features please review the respective feature catalogues:
 - [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md)
