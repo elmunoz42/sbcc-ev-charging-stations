@@ -46,6 +46,10 @@ To run this application on your local machine, follow these steps:
     ```
     This will typically open the application in your default web browser.
 
+## Loading the data
+
+The data import file is formatted to work with the Powerflex EV Charging Station Infrastructure format. As an example the sample data in the 'data\SB-County-County Public reporting 2020-01-01_2024-12-31.csv' in this repository can be used to demonstrate the functionality. For practical purposes of course newer data should be used to provide actionable forecasting.
+
 ### Troubleshooting
 
 **`ModuleNotFoundError: No module named 'streamlit.cli'` or similar import errors:**

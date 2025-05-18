@@ -48,6 +48,20 @@ def main():
                     st.write(f"Average Daily Energy Forecast: {forecast_data['forecast'].mean():.2f} kWh")
                     st.write(f"Peak Energy Day: {forecast_data['forecast'].max():.2f} kWh")
                     
+                    # Show top 10 peak forecast days
+                    st.subheader("Top 10 Peak Energy Days")
+                    top_peaks = forecast_data.sort_values(by='forecast', ascending=False).head(10)
+                    
+                    # Create a dataframe with the date and forecast value for better display
+                    peak_df = pd.DataFrame({
+                        'Date': top_peaks.index.strftime('%Y-%m-%d'),
+                        'Day of Week': top_peaks.index.strftime('%A'),
+                        'Forecasted Energy (kWh)': top_peaks['forecast'].round(2)
+                    })
+                    
+                    # Display the top peaks as a table
+                    st.table(peak_df)
+                    
                     # Download forecast as CSV
                     st.download_button(
                         label="Download Forecast Data",
