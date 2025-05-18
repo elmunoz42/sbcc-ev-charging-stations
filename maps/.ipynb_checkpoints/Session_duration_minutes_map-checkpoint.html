@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_b9b08983af970223bd0603c4844f7667 {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+    <h3 align="center" style="font-size:20px"><b>Session duration (minutes) - Count and Mean by Site</b></h3>
+    
+    
+            <div class="folium-map" id="map_b9b08983af970223bd0603c4844f7667" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_b9b08983af970223bd0603c4844f7667 = L.map(
+                "map_b9b08983af970223bd0603c4844f7667",
+                {
+                    center: [34.4208, -119.6982],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_e79e75cfaefc56689a9401dae03638b0 = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_e79e75cfaefc56689a9401dae03638b0.addTo(map_b9b08983af970223bd0603c4844f7667);
+        
+    
+            var circle_marker_34d3aa896509d6302ad86d69614b1666 = L.circleMarker(
+                [34.425207, -119.703244],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 2}
+            ).addTo(map_b9b08983af970223bd0603c4844f7667);
+        
+    
+        var popup_0caaf8cad1b9b9c962c6947a78c08d49 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_229441b49a3ebdf779b939203df2d0d1 = $(`<div id="html_229441b49a3ebdf779b939203df2d0d1" style="width: 100.0%; height: 100.0%;">             <b>SB Admin</b><br>             <i>105 E. Anapamu St, Santa Barbara, CA 93101</i><br><br>             <b>Session duration (minutes)</b><br>             Count: 10238<br>             Mean: 89.69             </div>`)[0];
+                popup_0caaf8cad1b9b9c962c6947a78c08d49.setContent(html_229441b49a3ebdf779b939203df2d0d1);
+            
+        
+
+        circle_marker_34d3aa896509d6302ad86d69614b1666.bindPopup(popup_0caaf8cad1b9b9c962c6947a78c08d49)
+        ;
+
+        
+    
+    
+            circle_marker_34d3aa896509d6302ad86d69614b1666.bindTooltip(
+                `<div>
+                     SB Admin: Mean: 89.69
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_6917a04cc4562b27a57a31d70f5ceb46 = L.circleMarker(
+                [34.4205864, -119.6014916],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 2}
+            ).addTo(map_b9b08983af970223bd0603c4844f7667);
+        
+    
+        var popup_aa1b246aee1fc8033c8c4155432967dc = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_cede94f5821cd097f52832a2afa11da2 = $(`<div id="html_cede94f5821cd097f52832a2afa11da2" style="width: 100.0%; height: 100.0%;">             <b>SB CARP Lookout Park</b><br>             <i>102 Lookout Park Rd, Summerland, CA 93067</i><br><br>             <b>Session duration (minutes)</b><br>             Count: 1791<br>             Mean: 82.67             </div>`)[0];
+                popup_aa1b246aee1fc8033c8c4155432967dc.setContent(html_cede94f5821cd097f52832a2afa11da2);
+            
+        
+
+        circle_marker_6917a04cc4562b27a57a31d70f5ceb46.bindPopup(popup_aa1b246aee1fc8033c8c4155432967dc)
+        ;
+
+        
+    
+    
+            circle_marker_6917a04cc4562b27a57a31d70f5ceb46.bindTooltip(
+                `<div>
+                     SB CARP Lookout Park: Mean: 82.67
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_394e997e1bb308a05283bf327fa51d5c = L.circleMarker(
+                [34.3868781, -119.4923912],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 2}
+            ).addTo(map_b9b08983af970223bd0603c4844f7667);
+        
+    
+        var popup_d21c947b25ddf4763cda845e49c89b0a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_dcf2aa5f354cdac63be3b24dd35269bc = $(`<div id="html_dcf2aa5f354cdac63be3b24dd35269bc" style="width: 100.0%; height: 100.0%;">             <b>SB CARP South Via Real</b><br>             <i>6728 Via Real, Carpinteria, CA 93013</i><br><br>             <b>Session duration (minutes)</b><br>             Count: 2791<br>             Mean: 92.02             </div>`)[0];
+                popup_d21c947b25ddf4763cda845e49c89b0a.setContent(html_dcf2aa5f354cdac63be3b24dd35269bc);
+            
+        
+
+        circle_marker_394e997e1bb308a05283bf327fa51d5c.bindPopup(popup_d21c947b25ddf4763cda845e49c89b0a)
+        ;
+
+        
+    
+    
+            circle_marker_394e997e1bb308a05283bf327fa51d5c.bindTooltip(
+                `<div>
+                     SB CARP South Via Real: Mean: 92.02
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_237c5b406ccc3770a4ed94ce65f21f33 = L.circleMarker(
+                [34.4444019, -119.7807012],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 2}
+            ).addTo(map_b9b08983af970223bd0603c4844f7667);
+        
+    
+        var popup_7cea439fd315e80cfa0fa429a0301f76 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_5a310a394ab522aaf780804b7d2ef7b7 = $(`<div id="html_5a310a394ab522aaf780804b7d2ef7b7" style="width: 100.0%; height: 100.0%;">             <b>SB Health Services</b><br>             <i>315 Camino del Remedio, Santa Barbara, CA  93110</i><br><br>             <b>Session duration (minutes)</b><br>             Count: 9684<br>             Mean: 99.61             </div>`)[0];
+                popup_7cea439fd315e80cfa0fa429a0301f76.setContent(html_5a310a394ab522aaf780804b7d2ef7b7);
+            
+        
+
+        circle_marker_237c5b406ccc3770a4ed94ce65f21f33.bindPopup(popup_7cea439fd315e80cfa0fa429a0301f76)
+        ;
+
+        
+    
+    
+            circle_marker_237c5b406ccc3770a4ed94ce65f21f33.bindTooltip(
+                `<div>
+                     SB Health Services: Mean: 99.61
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_df6cd115cd03a95d78bc7b4705ad820f = L.circleMarker(
+                [34.4140364, -119.857149],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 2}
+            ).addTo(map_b9b08983af970223bd0603c4844f7667);
+        
+    
+        var popup_d1e9bd08257d54d88383499a98dc3c8a = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_9827ac4582c9b7fd07a752faa569bfcb = $(`<div id="html_9827ac4582c9b7fd07a752faa569bfcb" style="width: 100.0%; height: 100.0%;">             <b>SB IV Embarcadero</b><br>             <i>881 Embarcadero del Mar, Isla Vista, CA 93117</i><br><br>             <b>Session duration (minutes)</b><br>             Count: 2523<br>             Mean: 137.37             </div>`)[0];
+                popup_d1e9bd08257d54d88383499a98dc3c8a.setContent(html_9827ac4582c9b7fd07a752faa569bfcb);
+            
+        
+
+        circle_marker_df6cd115cd03a95d78bc7b4705ad820f.bindPopup(popup_d1e9bd08257d54d88383499a98dc3c8a)
+        ;
+
+        
+    
+    
+            circle_marker_df6cd115cd03a95d78bc7b4705ad820f.bindTooltip(
+                `<div>
+                     SB IV Embarcadero: Mean: 137.37
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+            var circle_marker_ffb75db006bdfe48d7c035b21eb74211 = L.circleMarker(
+                [34.448398, -119.7737595],
+                {"bubblingMouseEvents": true, "color": "darkblue", "dashArray": null, "dashOffset": null, "fill": true, "fillColor": "lightblue", "fillOpacity": 0.7, "fillRule": "evenodd", "lineCap": "round", "lineJoin": "round", "opacity": 1.0, "radius": 30, "stroke": true, "weight": 2}
+            ).addTo(map_b9b08983af970223bd0603c4844f7667);
+        
+    
+        var popup_7153e19ccf65f189eea2d3ef69512640 = L.popup({
+  "maxWidth": 300,
+});
+
+        
+            
+                var html_aad10b190cae72c5f62d1f8dd1653d4e = $(`<div id="html_aad10b190cae72c5f62d1f8dd1653d4e" style="width: 100.0%; height: 100.0%;">             <b>SB Jail</b><br>             <i>4430 Calle Real, Santa Barbara, CA 93110</i><br><br>             <b>Session duration (minutes)</b><br>             Count: 3674<br>             Mean: 201.84             </div>`)[0];
+                popup_7153e19ccf65f189eea2d3ef69512640.setContent(html_aad10b190cae72c5f62d1f8dd1653d4e);
+            
+        
+
+        circle_marker_ffb75db006bdfe48d7c035b21eb74211.bindPopup(popup_7153e19ccf65f189eea2d3ef69512640)
+        ;
+
+        
+    
+    
+            circle_marker_ffb75db006bdfe48d7c035b21eb74211.bindTooltip(
+                `<div>
+                     SB Jail: Mean: 201.84
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+</script>
+</html>

@@ -1,0 +1,476 @@
+<!DOCTYPE html>
+<html>
+<head>
+    
+    <meta http-equiv="content-type" content="text/html; charset=UTF-8" />
+    
+        <script>
+            L_NO_TOUCH = false;
+            L_DISABLE_3D = false;
+        </script>
+    
+    <style>html, body {width: 100%;height: 100%;margin: 0;padding: 0;}</style>
+    <style>#map {position:absolute;top:0;bottom:0;right:0;left:0;}</style>
+    <script src="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.js"></script>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/leaflet@1.9.3/dist/leaflet.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css"/>
+    <link rel="stylesheet" href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap-glyphicons.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.2.0/css/all.min.css"/>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/Leaflet.awesome-markers/2.0.2/leaflet.awesome-markers.css"/>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/python-visualization/folium/folium/templates/leaflet.awesome.rotate.min.css"/>
+    
+            <meta name="viewport" content="width=device-width,
+                initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+            <style>
+                #map_1d7c94b7e3afc0002c88a1d3b681512b {
+                    position: relative;
+                    width: 100.0%;
+                    height: 100.0%;
+                    left: 0.0%;
+                    top: 0.0%;
+                }
+                .leaflet-container { font-size: 1rem; }
+            </style>
+        
+</head>
+<body>
+    
+    
+            <div class="folium-map" id="map_1d7c94b7e3afc0002c88a1d3b681512b" ></div>
+        
+</body>
+<script>
+    
+    
+            var map_1d7c94b7e3afc0002c88a1d3b681512b = L.map(
+                "map_1d7c94b7e3afc0002c88a1d3b681512b",
+                {
+                    center: [34.4208, -119.6982],
+                    crs: L.CRS.EPSG3857,
+                    ...{
+  "zoom": 11,
+  "zoomControl": true,
+  "preferCanvas": false,
+}
+
+                }
+            );
+
+            
+
+        
+    
+            var tile_layer_a1f57fe5de799c413651ce05eb4c50ff = L.tileLayer(
+                "https://tile.openstreetmap.org/{z}/{x}/{y}.png",
+                {
+  "minZoom": 0,
+  "maxZoom": 19,
+  "maxNativeZoom": 19,
+  "noWrap": false,
+  "attribution": "\u0026copy; \u003ca href=\"https://www.openstreetmap.org/copyright\"\u003eOpenStreetMap\u003c/a\u003e contributors",
+  "subdomains": "abc",
+  "detectRetina": false,
+  "tms": false,
+  "opacity": 1,
+}
+
+            );
+        
+    
+            tile_layer_a1f57fe5de799c413651ce05eb4c50ff.addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var marker_908c9f8582e722cd06f0444a08c75568 = L.marker(
+                [34.4444019, -119.7807012],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var icon_a7d32685abd6b3baa8eaa06e42f67384 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_e1a3b61002d847ab954fd07e99c9ba2e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_2992055d447521ab01427efaaa4675e4 = $(`<div id="html_2992055d447521ab01427efaaa4675e4" style="width: 100.0%; height: 100.0%;"><b>SB Health Services</b><br>Lat: 34.4444019<br>Lon: -119.7807012</div>`)[0];
+                popup_e1a3b61002d847ab954fd07e99c9ba2e.setContent(html_2992055d447521ab01427efaaa4675e4);
+            
+        
+
+        marker_908c9f8582e722cd06f0444a08c75568.bindPopup(popup_e1a3b61002d847ab954fd07e99c9ba2e)
+        ;
+
+        
+    
+    
+            marker_908c9f8582e722cd06f0444a08c75568.bindTooltip(
+                `<div>
+                     SB Health Services
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_908c9f8582e722cd06f0444a08c75568.setIcon(icon_a7d32685abd6b3baa8eaa06e42f67384);
+            
+    
+            var marker_839c761f070bbeea27572d9f54ef1cfc = L.marker(
+                [34.4444019, -119.7807012],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var div_icon_3adde74f4ed252e9b6f5cba1a4f5af58 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; text-shadow: 1px 1px 1px white;\"\u003e\u003cb\u003eSB Health Services\u003c/b\u003e\u003c/div\u003e",
+  "className": "empty",
+});
+            marker_839c761f070bbeea27572d9f54ef1cfc.setIcon(div_icon_3adde74f4ed252e9b6f5cba1a4f5af58);
+        
+    
+                marker_839c761f070bbeea27572d9f54ef1cfc.setIcon(div_icon_3adde74f4ed252e9b6f5cba1a4f5af58);
+            
+    
+            var marker_560af40ae11218ffd0abf39c09676df9 = L.marker(
+                [34.425207, -119.703244],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var icon_eca76d73545563d8d8c6ca5da4a1acd7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_41ea8f9a347c6757b41f392863d2e1e8 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_8a0c6b22ccfe83758f73c2e5bae1905f = $(`<div id="html_8a0c6b22ccfe83758f73c2e5bae1905f" style="width: 100.0%; height: 100.0%;"><b>SB Admin</b><br>Lat: 34.425207<br>Lon: -119.703244</div>`)[0];
+                popup_41ea8f9a347c6757b41f392863d2e1e8.setContent(html_8a0c6b22ccfe83758f73c2e5bae1905f);
+            
+        
+
+        marker_560af40ae11218ffd0abf39c09676df9.bindPopup(popup_41ea8f9a347c6757b41f392863d2e1e8)
+        ;
+
+        
+    
+    
+            marker_560af40ae11218ffd0abf39c09676df9.bindTooltip(
+                `<div>
+                     SB Admin
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_560af40ae11218ffd0abf39c09676df9.setIcon(icon_eca76d73545563d8d8c6ca5da4a1acd7);
+            
+    
+            var marker_53662f019f8a3ecc97e440721dfd1868 = L.marker(
+                [34.425207, -119.703244],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var div_icon_2ec2309e407c4ffe0537042a5df544d8 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; text-shadow: 1px 1px 1px white;\"\u003e\u003cb\u003eSB Admin\u003c/b\u003e\u003c/div\u003e",
+  "className": "empty",
+});
+            marker_53662f019f8a3ecc97e440721dfd1868.setIcon(div_icon_2ec2309e407c4ffe0537042a5df544d8);
+        
+    
+                marker_53662f019f8a3ecc97e440721dfd1868.setIcon(div_icon_2ec2309e407c4ffe0537042a5df544d8);
+            
+    
+            var marker_d33f81ad221ee690a9c043d2c94be567 = L.marker(
+                [34.3868781, -119.4923912],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var icon_bc0286831d71b524516dedb9e4bc07c7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_24286739490c4be5b1a296cad70b7f30 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_97d6da544dac25faa777e99a5fa35a7c = $(`<div id="html_97d6da544dac25faa777e99a5fa35a7c" style="width: 100.0%; height: 100.0%;"><b>SB CARP South Via Real</b><br>Lat: 34.3868781<br>Lon: -119.4923912</div>`)[0];
+                popup_24286739490c4be5b1a296cad70b7f30.setContent(html_97d6da544dac25faa777e99a5fa35a7c);
+            
+        
+
+        marker_d33f81ad221ee690a9c043d2c94be567.bindPopup(popup_24286739490c4be5b1a296cad70b7f30)
+        ;
+
+        
+    
+    
+            marker_d33f81ad221ee690a9c043d2c94be567.bindTooltip(
+                `<div>
+                     SB CARP South Via Real
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_d33f81ad221ee690a9c043d2c94be567.setIcon(icon_bc0286831d71b524516dedb9e4bc07c7);
+            
+    
+            var marker_ba4c500cc78a936c2f7fc25c8a491a3a = L.marker(
+                [34.3868781, -119.4923912],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var div_icon_f470400a3c93b750e6f57484f5d34a77 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; text-shadow: 1px 1px 1px white;\"\u003e\u003cb\u003eSB CARP South Via Real\u003c/b\u003e\u003c/div\u003e",
+  "className": "empty",
+});
+            marker_ba4c500cc78a936c2f7fc25c8a491a3a.setIcon(div_icon_f470400a3c93b750e6f57484f5d34a77);
+        
+    
+                marker_ba4c500cc78a936c2f7fc25c8a491a3a.setIcon(div_icon_f470400a3c93b750e6f57484f5d34a77);
+            
+    
+            var marker_a5e4577a01a6379ea70fce3230c1d6b4 = L.marker(
+                [34.4205864, -119.6014916],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var icon_784f14f297aac26c32fd876ada4d70e7 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_3c443011e88afc247224939a65c696da = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_c75df6ec552d45853f03844fc7405981 = $(`<div id="html_c75df6ec552d45853f03844fc7405981" style="width: 100.0%; height: 100.0%;"><b>SB CARP Lookout Park</b><br>Lat: 34.4205864<br>Lon: -119.6014916</div>`)[0];
+                popup_3c443011e88afc247224939a65c696da.setContent(html_c75df6ec552d45853f03844fc7405981);
+            
+        
+
+        marker_a5e4577a01a6379ea70fce3230c1d6b4.bindPopup(popup_3c443011e88afc247224939a65c696da)
+        ;
+
+        
+    
+    
+            marker_a5e4577a01a6379ea70fce3230c1d6b4.bindTooltip(
+                `<div>
+                     SB CARP Lookout Park
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_a5e4577a01a6379ea70fce3230c1d6b4.setIcon(icon_784f14f297aac26c32fd876ada4d70e7);
+            
+    
+            var marker_fc43e699a4b4362bc637621150aa380b = L.marker(
+                [34.4205864, -119.6014916],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var div_icon_29c80b0dbae38f756053b45b1ca5a4ab = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; text-shadow: 1px 1px 1px white;\"\u003e\u003cb\u003eSB CARP Lookout Park\u003c/b\u003e\u003c/div\u003e",
+  "className": "empty",
+});
+            marker_fc43e699a4b4362bc637621150aa380b.setIcon(div_icon_29c80b0dbae38f756053b45b1ca5a4ab);
+        
+    
+                marker_fc43e699a4b4362bc637621150aa380b.setIcon(div_icon_29c80b0dbae38f756053b45b1ca5a4ab);
+            
+    
+            var marker_0c80146ecc89fe62a47b3c6a2999b605 = L.marker(
+                [34.4140364, -119.857149],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var icon_bdce843dc022a0ef5e9c71d43450ad4a = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_29de77533cccb9e2692337f015d9a877 = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_870021f4e2e4d930f7df3f8eb998b091 = $(`<div id="html_870021f4e2e4d930f7df3f8eb998b091" style="width: 100.0%; height: 100.0%;"><b>SB IV Embarcadero</b><br>Lat: 34.4140364<br>Lon: -119.857149</div>`)[0];
+                popup_29de77533cccb9e2692337f015d9a877.setContent(html_870021f4e2e4d930f7df3f8eb998b091);
+            
+        
+
+        marker_0c80146ecc89fe62a47b3c6a2999b605.bindPopup(popup_29de77533cccb9e2692337f015d9a877)
+        ;
+
+        
+    
+    
+            marker_0c80146ecc89fe62a47b3c6a2999b605.bindTooltip(
+                `<div>
+                     SB IV Embarcadero
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_0c80146ecc89fe62a47b3c6a2999b605.setIcon(icon_bdce843dc022a0ef5e9c71d43450ad4a);
+            
+    
+            var marker_fa13b6f88d41a9e975b2035fcf017f24 = L.marker(
+                [34.4140364, -119.857149],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var div_icon_164be74f4faaf25fe5fb44540c8738fe = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; text-shadow: 1px 1px 1px white;\"\u003e\u003cb\u003eSB IV Embarcadero\u003c/b\u003e\u003c/div\u003e",
+  "className": "empty",
+});
+            marker_fa13b6f88d41a9e975b2035fcf017f24.setIcon(div_icon_164be74f4faaf25fe5fb44540c8738fe);
+        
+    
+                marker_fa13b6f88d41a9e975b2035fcf017f24.setIcon(div_icon_164be74f4faaf25fe5fb44540c8738fe);
+            
+    
+            var marker_fffcbb711c94c54b5b25a5f8b3ef13c5 = L.marker(
+                [34.448398, -119.7737595],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var icon_ee2f22742cf7af076977bff7bb6ee1a3 = L.AwesomeMarkers.icon(
+                {
+  "markerColor": "green",
+  "iconColor": "white",
+  "icon": "info-sign",
+  "prefix": "glyphicon",
+  "extraClasses": "fa-rotate-0",
+}
+            );
+        
+    
+        var popup_c0b2abadf9f32b3a96cce27339f6099e = L.popup({
+  "maxWidth": "100%",
+});
+
+        
+            
+                var html_cb0cd80fd3353830e157d8a749da49ca = $(`<div id="html_cb0cd80fd3353830e157d8a749da49ca" style="width: 100.0%; height: 100.0%;"><b>SB Jail</b><br>Lat: 34.448398<br>Lon: -119.7737595</div>`)[0];
+                popup_c0b2abadf9f32b3a96cce27339f6099e.setContent(html_cb0cd80fd3353830e157d8a749da49ca);
+            
+        
+
+        marker_fffcbb711c94c54b5b25a5f8b3ef13c5.bindPopup(popup_c0b2abadf9f32b3a96cce27339f6099e)
+        ;
+
+        
+    
+    
+            marker_fffcbb711c94c54b5b25a5f8b3ef13c5.bindTooltip(
+                `<div>
+                     SB Jail
+                 </div>`,
+                {
+  "sticky": true,
+}
+            );
+        
+    
+                marker_fffcbb711c94c54b5b25a5f8b3ef13c5.setIcon(icon_ee2f22742cf7af076977bff7bb6ee1a3);
+            
+    
+            var marker_03c23713cbbbeee71c7de3578520ff9a = L.marker(
+                [34.448398, -119.7737595],
+                {
+}
+            ).addTo(map_1d7c94b7e3afc0002c88a1d3b681512b);
+        
+    
+            var div_icon_a5aef51624b6eb305d0d85ad56834d24 = L.divIcon({
+  "html": "\u003cdiv style=\"font-size: 12pt; color: black; text-shadow: 1px 1px 1px white;\"\u003e\u003cb\u003eSB Jail\u003c/b\u003e\u003c/div\u003e",
+  "className": "empty",
+});
+            marker_03c23713cbbbeee71c7de3578520ff9a.setIcon(div_icon_a5aef51624b6eb305d0d85ad56834d24);
+        
+    
+                marker_03c23713cbbbeee71c7de3578520ff9a.setIcon(div_icon_a5aef51624b6eb305d0d85ad56834d24);
+            
+</script>
+</html>
