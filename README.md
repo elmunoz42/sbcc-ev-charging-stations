@@ -78,7 +78,7 @@ For a breakdown of all the features please review the respective feature catalog
 
 - Discovery session: The project began with a 1-hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
 
-- Bi-weely cadence of collaboration: Since then Jerel Francisco and I have met for 1 hour every two weeks and have already had 4 meetings thus far. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analyzed.
+- Bi-weely cadence of collaboration: Since then [Jerel Francisco](https://www.linkedin.com/in/jerel-francisco/) and I have met for 1 hour every two weeks and have already had 4 meetings thus far. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analyzed.
 
 ![SB-County-Zero-Emission-Vehicle-Plane-Demo-SQR](https://github.com/user-attachments/assets/63d12f93-2ca9-4e63-8173-f39556ff0fe4)
 Count Of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 2025 - Carlos Munoz Kampff and Jerel Francisco (left to right)
