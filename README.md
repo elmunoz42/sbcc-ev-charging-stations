@@ -7,8 +7,11 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 ### Key findings include:
 
-- Public charging stations experience excessive idleness only 6% of the time, indicating efficient utilization
-- Initial forecasting models of energy demand require refinement to accurately capture the upward trajectory in EV adoption
+- **Growth in Energy Demand**: PowerFlex time series data reveals a consistent upward trend in kilowatt-hours of energy delivered through charging stations, with identifiable seasonality patterns that have been captured in our forecasting models.
+  
+- **Accelerating EV Adoption**: California Energy Department data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans.
+  
+- **Optimization Opportunities**: Decision tree analysis identified efficiency improvements that could complement new station construction—specifically, targeting the 6% of charging sessions with excessive idle times through policy adjustments could significantly increase existing infrastructure capacity.
 
 ## Research Question
 
@@ -51,7 +54,7 @@ Given CSB's stated goals, a number of specific questions arise:
 
 *Response strategy:* We will review the sessions data with visualizations, coefficient matrices, and decision tree modeling and inference. This will enable a much deeper understanding of the factors that are at play and allow for effective policy recommendations. E.g., reducing the idling time allowance during peak hours from 4 to 2 hours before a penalty charge. Please note that any such policy change will need to thoroughly consider not just logistic impacts but also accessibility impact on the CSB's citizens, especially marginalized groups, as this is an imperative clearly stated in the "Zero Emission Vehicle Plan".
 
-*Summary:* This capstone research paper will work to address these 2 items in turn. Additionally, we have already been providing CSB value in performing statistical analysis and visualizations for data that had never before been thoroughly explored. Our hope is that the timing coincides and findings from this report can actually inform CSB's "Zero Emission Vehicle Plan" official report that is being actively worked on by Jerel Francisco and his colleagues.
+*Summary:* This capstone research paper will work to address these 2 items in turn. Additionally, we have already been providing CSB value in performing statistical analysis and visualizations for data that had never before been thoroughly explored. Our hope is that the timing coincides and findings from this report can actually inform CSB's "Zero Emission Vehicle Plan" official report that is being actively worked on by Jerel Francisco and his colleagues. Furthermore, there is a ROADMAP document with future improvements we plan to deploy in the next few months.
    
 ## Data Sources
 
@@ -225,6 +228,8 @@ The initial baseline forecast model fails to represent the upward trajectory of 
 
 - [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
 - [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
+- [dashboard-app](https://github.com/elmunoz42/sbcc-ev-charging-stations/tree/main/dashboard-app)
+- [ROADMAP](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/ROADMAP.md)
 
 ## Additional deliverables
 - The data visualizations are available for download in the "Images" folder.
