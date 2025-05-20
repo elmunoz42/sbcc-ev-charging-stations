@@ -47,15 +47,11 @@ Given CSB's stated goals, a number of specific questions arise:
 
 *Response strategy:* By training a forecasting model, we will be able to get a sense of the rapid oscillations and seasonal peaks and troughs we are to expect. E.g., tourist seasons, work commute rush, etc. One important consideration is that we will need to forecast the amount of total passenger cars the CSB will have by then compared to today to accurately predict the pertinent metrics for the 25% we are hoping will be EVs. In other words: If the amount of EVs today requires a charging grid with a certain capacity, how much will the future amount of EVs that we are hoping for require?
 
-2) If CSB is to install at least 375 publicly available electric vehicle chargers, where are the best places to build new charging stations?
-
-*Response strategy:* Once we have the forecasting model and our range of needed grid capacity, we will look at the "Sessions" data to review individual charging stations and identify capacity strain. This should allow us to make recommendations for expansion of charging infrastructure.
-
-3) Are there ways to optimize the grid to meet more energy output demand by modifying public utilization policies?
+2) Are there ways to optimize the grid to meet more energy output demand by modifying public utilization policies?
 
 *Response strategy:* We will review the sessions data with visualizations, coefficient matrices, and decision tree modeling and inference. This will enable a much deeper understanding of the factors that are at play and allow for effective policy recommendations. E.g., reducing the idling time allowance during peak hours from 4 to 2 hours before a penalty charge. Please note that any such policy change will need to thoroughly consider not just logistic impacts but also accessibility impact on the CSB's citizens, especially marginalized groups, as this is an imperative clearly stated in the "Zero Emission Vehicle Plan".
 
-*Summary:* This capstone research paper will work to address these 3 items in turn. Additionally, we have already been providing CSB value in performing statistical analysis and visualizations for data that had never before been thoroughly explored. Our hope is that the timing coincides and findings from this report can actually inform CSB's "Zero Emission Vehicle Plan" official report that is being actively worked on by Jerel Francisco and his colleagues.
+*Summary:* This capstone research paper will work to address these 2 items in turn. Additionally, we have already been providing CSB value in performing statistical analysis and visualizations for data that had never before been thoroughly explored. Our hope is that the timing coincides and findings from this report can actually inform CSB's "Zero Emission Vehicle Plan" official report that is being actively worked on by Jerel Francisco and his colleagues.
    
 ## Data Sources
 
@@ -66,7 +62,7 @@ CSB's charging stations are integrated with a PowerFlex reporting system with up
 - [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv):
       - This data has 1,827 rows and 22 columns. Each row represents a day in the 4-year period with data aggregated from all charging sites with information about metric averages.
 - [Cars](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb):
-      - This is data from the California Energy department [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. PLEASE NOTE THAT A DATA UPDATE IS GOING TO OCCURR ON APRIL 30 2025 WE SHOULD UPDATE THIS REPORT ACCORDINGLY.
+      - This is data from the California Energy department [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. 
 
 For a breakdown of all the features please review the respective feature catalogues:
 - [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md)
@@ -74,14 +70,40 @@ For a breakdown of all the features please review the respective feature catalog
 
 ## Methodology
 
+### CRISP-DM Framework
+
+The project follows the Cross-Industry Standard Process for Data Mining (CRISP-DM) framework to ensure a structured and comprehensive approach:
+
+- **Business Understanding**: Through extensive collaboration with the County of Santa Barbara's transportation department and detailed analysis of their Zero Emission Vehicle Plan, we identified key business objectives—specifically, forecasting future charging capacity needs and optimizing station placement to meet the County's emission reduction goals.
+
+- **Data Understanding**: We explored and analyzed two primary datasets (sessions and daily aggregates) from the PowerFlex reporting system, supplemented by vehicle population data from the California Energy Department, to understand patterns, quality issues, and potential insights.
+
+- **Data Preparation**: Rigorous cleaning, transformation, and feature engineering was performed, including standardizing date formats, handling outliers in charging duration data, and filtering for public charging sessions.
+
+- **Modeling**: We developed multiple forecasting approaches, starting with baseline ARIMA models and advancing to STL (Seasonal and Trend decomposition using Loess) forecasting models to account for seasonality and external factors. Additionally, Decision Tree models were used to provide inference insight into questions the domain expert had about specific operational conditions. Lastly, future work planning includes neural network implementation for improved spike prediction (see ROADMAP.md file in this repository).
+
+- **Evaluation**: Models are assessed using time-series cross-validation with metrics like RMSE, MAE, MAPE, and residual analysis to ensure forecasts accurately capture both current utilization patterns and future growth trajectories.
+
+- **Deployment**: Results are being integrated directly into the County's decision-making process for their Zero Emission Vehicle Plan, with ongoing biweekly collaboration ensuring findings translate into actionable infrastructure planning. Furthermore, a Streamlit dashboard application was created so that the county specialist can upload new file exports and get up-to-date forecast predictions, including warnings about energy usage spikes.
+
 ### Discovery and Continuous Engagement with County of Santa Barbara Domain Expert
 
-- Discovery session: The project began with a 1-hour discovery meeting. We discussed the CSB's objectives, plans and pain points. We went over their different data sources and additional resources we could merge into our research effort.
+- Beyond CRISP-DM, the project also leveraged the BizML framework described in [The AI Playbook](https://www.machinelearningkeynote.com/the-ai-playbook) by Eric Siegel. We applied the six core concepts of BizML to structure our collaboration with the County of Santa Barbara:
 
-- Bi-weely cadence of collaboration: Since then [Jerel Francisco](https://www.linkedin.com/in/jerel-francisco/) - Zero-Emission Vehicle Specialist - and I have met for 1 hour every two weeks and have already had 5 meetings thus far. Some of the visualizations and statistical analysis in the Jupyter Notebooks are direct answers to questions he had about the data since it has not been previously analyzed.
+      1. **Establish the deployment goal**: We defined how machine learning would directly support CSB's Zero Emission Vehicle Plan. Our deployment goal was to create a Streamlit dashboard application that enables the County to anticipate charging infrastructure needs and make data-driven decisions about station placement and capacity planning. We established a ROADMAP with immediate goals and future improvements.
+      
+      2. **Establish the prediction goal**: During our biweekly discovery sessions with [Jerel Francisco](https://www.linkedin.com/in/jerel-francisco/), Zero-Emission Vehicle Specialist and I, we determined that forecasting daily energy demand (kWh delivered) would most effectively support the deployment goal. This prediction directly addresses CSB's need to understand future infrastructure requirements as EV adoption increases toward the 25% target.
+      
+      3. **Establish the evaluation metrics**: We selected RMSE, MAE, and MAPE as our primary metrics, with special emphasis on model performance during demand spikes, as these periods are critical for infrastructure planning. After consultation with Jerel, we established that forecasts needed to capture both the general trend and seasonal fluctuations (e.g., tourist seasons, commute patterns).
+      
+      4. **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (1,827 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data.
+      
+      5. **Train the model**: We developed progressively more sophisticated forecasting models, starting with baseline ARIMA models and advancing to STL forecasting to better capture seasonal patterns. Decision Tree models were also used to provide insight into specific operational questions from the domain expert.
+      
+      6. **Deploy the model**: The forecasting models were integrated into a Streamlit dashboard application that allows CSB staff to upload new PowerFlex data exports and receive updated predictions, including alerts for anticipated demand spikes. This deployment directly supports the County's infrastructure planning process.
 
-![SB-County-Zero-Emission-Vehicle-Plane-Demo-SQR](https://github.com/user-attachments/assets/63d12f93-2ca9-4e63-8173-f39556ff0fe4)
-Count Of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 2025 - Carlos Munoz Kampff and Jerel Francisco (left to right)
+![SB-County-Zero-Emission-Vehicle-Plan-Demo-SQR](https://github.com/user-attachments/assets/63d12f93-2ca9-4e63-8173-f39556ff0fe4)
+County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 2025 - Carlos Munoz Kampff (left) and Jerel Francisco (right)
 
 ### Phase 1: Data Preparation
 
