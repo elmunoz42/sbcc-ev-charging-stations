@@ -99,13 +99,17 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
       
 - **Establish the evaluation metrics**: While the CRISP-DM section covers traditional model accuracy metrics, our BizML approach focused on defining success criteria for the entire deployment from an operational perspective. Working with the CSB representative, we established key performance indicators including:
 
-      - **Infrastructure utilization improvement**: Measuring the percentage increase in charging station availability after policy recommendations are implemented
-      - **Planning efficiency**: Tracking the reduction in time required to make infrastructure expansion decisions using data-driven forecasts versus previous methods
-      - **Stakeholder confidence**: Assessing County officials' confidence in planning decisions through structured feedback sessions
-      - **Resource allocation impact**: Measuring how forecasted demand spikes correlate with actual peak periods, allowing the County to optimize resource allocation
-      - **Equity metrics**: Tracking whether charging infrastructure improvements reach underserved communities equitably
+**Infrastructure utilization improvement**: Measuring the percentage increase in charging station availability after policy recommendations are implemented.
+
+**Planning efficiency**: Tracking the reduction in time required to make infrastructure expansion decisions using data-driven forecasts versus previous methods.
+
+**Stakeholder confidence**: Assessing County officials' confidence in planning decisions through structured feedback sessions.
+
+**Resource allocation impact**: Measuring how forecasted demand spikes correlate with actual peak periods, allowing the County to optimize resource allocation.
+
+**Equity metrics**: Tracking whether charging infrastructure improvements reach underserved communities equitably.
    
-   These evaluation metrics shift the focus from model performance to business impact, ensuring that our technical solution translates into meaningful progress toward the Zero Emission Vehicle Plan's 25% EV adoption target.
+These evaluation metrics shift the focus from model performance to business impact, ensuring that our technical solution translates into meaningful progress toward the Zero Emission Vehicle Plan's 25% EV adoption target.
       
 - **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (1,827 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data. Jerel and I reviewed several different data sources of which only a few were integrated in this report so far.
       
