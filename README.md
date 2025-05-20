@@ -98,6 +98,7 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
 - **Establish the prediction goal**: During our biweekly discovery sessions with [Jerel Francisco](https://www.linkedin.com/in/jerel-francisco/), Zero-Emission Vehicle Specialist and I, we determined that forecasting daily energy demand (kWh delivered) would most effectively support the deployment goal. This prediction directly addresses CSB's need to understand future infrastructure requirements as EV adoption increases toward the 25% target.
       
 - **Establish the evaluation metrics**: While the CRISP-DM section covers traditional model accuracy metrics, our BizML approach focused on defining success criteria for the entire deployment from an operational perspective. Working with the CSB representative, we established key performance indicators including:
+
       - **Infrastructure utilization improvement**: Measuring the percentage increase in charging station availability after policy recommendations are implemented
       - **Planning efficiency**: Tracking the reduction in time required to make infrastructure expansion decisions using data-driven forecasts versus previous methods
       - **Stakeholder confidence**: Assessing County officials' confidence in planning decisions through structured feedback sessions
