@@ -134,6 +134,7 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 - Evaluate contextual validity of outliers (e.g., unusually long sessions)
 - Apply appropriate treatment (removal, capping, or flagging)
 
+![image](https://github.com/user-attachments/assets/7151f9f4-3781-4a0a-949f-34ad3ab043bd)
 
 #### Missing Value Imputation
 
