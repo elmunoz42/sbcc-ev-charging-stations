@@ -262,7 +262,7 @@ In this graph we are modeling 2 Scenarios, the "linear" growth trend suggested b
 
 One key difference between these data sources is that the energy department's vehicle population data spans from 2010 to 2023. This larger time period allows for a deeper understanding of long term trends. 
 
-
+![image](https://github.com/user-attachments/assets/8d612815-f260-48f8-a3e4-b5b0620df916)
 
 ## Future Model Enhancements
 
