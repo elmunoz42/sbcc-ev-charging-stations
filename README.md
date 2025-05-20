@@ -97,9 +97,16 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
       
 - **Establish the prediction goal**: During our biweekly discovery sessions with [Jerel Francisco](https://www.linkedin.com/in/jerel-francisco/), Zero-Emission Vehicle Specialist and I, we determined that forecasting daily energy demand (kWh delivered) would most effectively support the deployment goal. This prediction directly addresses CSB's need to understand future infrastructure requirements as EV adoption increases toward the 25% target.
       
-- **Establish the evaluation metrics**: We selected RMSE, MAE, and MAPE as our primary metrics, with special emphasis on model performance during demand spikes, as these periods are critical for infrastructure planning. After consultation with Jerel, we established that forecasts needed to capture both the general trend and seasonal fluctuations (e.g., tourist seasons, commute patterns).
+- **Establish the evaluation metrics**: While the CRISP-DM section covers traditional model accuracy metrics, our BizML approach focused on defining success criteria for the entire deployment from an operational perspective. Working with the CSB representative, we established key performance indicators including:
+      - **Infrastructure utilization improvement**: Measuring the percentage increase in charging station availability after policy recommendations are implemented
+      - **Planning efficiency**: Tracking the reduction in time required to make infrastructure expansion decisions using data-driven forecasts versus previous methods
+      - **Stakeholder confidence**: Assessing County officials' confidence in planning decisions through structured feedback sessions
+      - **Resource allocation impact**: Measuring how forecasted demand spikes correlate with actual peak periods, allowing the County to optimize resource allocation
+      - **Equity metrics**: Tracking whether charging infrastructure improvements reach underserved communities equitably
+   
+   These evaluation metrics shift the focus from model performance to business impact, ensuring that our technical solution translates into meaningful progress toward the Zero Emission Vehicle Plan's 25% EV adoption target.
       
-- **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (1,827 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data.
+- **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (1,827 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data. Jerel and I reviewed several different data sources of which only a few were integrated in this report so far.
       
 - **Train the model**: We developed progressively more sophisticated forecasting models, starting with baseline ARIMA models and advancing to STL forecasting to better capture seasonal patterns. Decision Tree models were also used to provide insight into specific operational questions from the domain expert.
       
