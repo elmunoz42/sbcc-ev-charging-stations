@@ -264,6 +264,8 @@ One key difference between these data sources is that the energy department's ve
 
 ![image](https://github.com/user-attachments/assets/8d612815-f260-48f8-a3e4-b5b0620df916)
 
+![image](https://github.com/user-attachments/assets/55ad42ee-2526-431a-8f14-cad89ed0e36f)
+
 ## Future Model Enhancements
 
 Based on our analysis and the current model performance, we've identified several promising avenues for further improvement:
