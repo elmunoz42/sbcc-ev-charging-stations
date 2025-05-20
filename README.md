@@ -254,9 +254,9 @@ The model now serves as a reliable foundation for the County's short and medium-
 
 While STL-ARIMA provides reliable short-term forecasting (3–6 months), long-term infrastructure planning requires scenario-based projections rather than strict predictive modeling.
 
-To estimate 2030 demand, we use a linear or exponential extrapolation based on current EV adoption targets and historical usage growth. The STL-ARIMA short-term forecast supports this by revealing seasonal variability and baseline trends, which are layered onto the long-range scenarios. 
+To estimate 2030 demand, we use a linear or exponential extrapolation based on current EV adoption trends and targets juxtaposed with historical usage growth. The STL-ARIMA short-term forecast supports this by revealing seasonal variability and baseline trends, which are layered onto the long-range scenarios. 
 
-Together, this hybrid approach enables both operational forecasting and strategic capacity planning—giving Santa Barbara County a way to manage the near-term while preparing for the long-term.
+Together, this hybrid approach enables both operational forecasting and strategic capacity planning—giving Santa Barbara County a way to manage the near-term while preparing for the long-term. In the short and medium term CSB needs to predict usage peaks so they can be remedied immediately. In the long term the grid needs to be built to match the projected need of ~30,000 kWh in your average day. [ADD SPECIFIC NUMBERS HERE]
 
 In this graph we are modeling 2 Scenarios, the "linear" growth trend suggested by the charging data and the exponential trend derived from the California Department of Energy's Zery-Emission Vehicle data. 
 
