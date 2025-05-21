@@ -92,6 +92,8 @@ def describe_dataset_with_fallback(df, custom_prompt=CUSTOM_PROMPT):
     
     Here is the statistical summary of the dataset:
     {json.dumps(dataset_info, default=json_serialize, indent=2)}
+
+    IMPORTANT: NO MORE THANT 160 WORDS FOR THE RESPONSE
     """
     
     # Use the fallback API
