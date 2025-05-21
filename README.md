@@ -77,6 +77,7 @@ CSB's charging stations are integrated with a PowerFlex reporting system with up
 For a breakdown of all the features please review the respective feature catalogues:
 - [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md)
 - [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/days-feature-catalogue.md)
+- [Cars](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/cars-feature-catalogue.md)
 
 ## Methodology
 
