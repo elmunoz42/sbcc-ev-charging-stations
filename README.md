@@ -251,25 +251,57 @@ The model now serves as a reliable foundation for the County's short and medium-
 
 ![image](https://github.com/user-attachments/assets/f09ba3df-0102-4b99-b1dd-283ee2e9deda)
 
-### Scenario Projections to 2030 and Beyond
+# Scenario Projections to 2030 and Beyond
 
-While STL-ARIMA provides reliable short-term forecasting (3–6 months), long-term infrastructure planning requires scenario-based projections rather than strict predictive modeling.
+## Forecasting Methodology
+While our STL-ARIMA model provides reliable short-term forecasting (3–6 months), long-term infrastructure planning requires scenario-based projections that incorporate broader EV adoption trends. Our approach combines statistical time series analysis with growth factors derived from multiple authoritative sources.
 
-To estimate 2030 demand, we use a linear or exponential extrapolation based on current EV adoption trends and targets juxtaposed with historical usage growth. The STL-ARIMA short-term forecast supports this by revealing seasonal variability and baseline trends, which are layered onto the long-range scenarios. 
+## Hybrid Forecasting Approach
+We developed a hybrid forecasting methodology that:
+1. Uses STL-ARIMA for baseline forecasting with seasonal patterns and underlying trends
+2. Applies various growth factors to model different EV adoption scenarios
+3. Projects these scenarios through 2030 to support strategic infrastructure planning
 
-Together, this hybrid approach enables both operational forecasting and strategic capacity planning—giving Santa Barbara County a way to manage the near-term while preparing for the long-term. In the short and medium term CSB needs to predict usage peaks so they can be remedied immediately. In the long term the grid needs to be built to match the projected need of ~30,000 kWh in your average day. [ADD SPECIFIC NUMBERS HERE]
+This approach enables both operational forecasting and strategic capacity planning—giving Santa Barbara County a way to manage near-term fluctuations while preparing for long-term infrastructure needs.
 
-In this graph we are modeling 2 Scenarios, the "linear" growth trend suggested by the charging data and the exponential trend derived from the California Department of Energy's Zery-Emission Vehicle data. 
+## Three Key Scenarios
 
-One key difference between these data sources is that the energy department's vehicle population data spans from 2010 to 2023. This larger time period allows for a deeper understanding of long term trends. 
+Our analysis modeled three distinct scenarios for daily energy demand by 2030:
+
+| Scenario | Daily Energy (2030) | Growth Factor | Data Source |
+|----------|---------------------|---------------|-------------|
+| Conservative | 2,929 kWh | 1.0862 | Empirical charging station usage trends |
+| Historical Trend | 14,111 kWh | 1.3698 | California Energy Commission vehicle adoption data (2010-2023) |
+| ZEV Plan Target | 39,601 kWh | 1.5784 | California Zero-Emission Vehicle plan targets |
+
+## Key Insights
+
+The substantial variance between scenarios highlights the importance of flexible infrastructure planning:
+
+- **Conservative Scenario**: Based solely on charging station usage patterns, this represents minimal growth. While statistically sound, it likely underestimates future demand by not accounting for accelerating EV adoption.
+
+- **Historical Trend Scenario**: Derived from California Energy Commission data spanning 2010-2023, this scenario applies the observed annual growth factor of 1.3698 (36.98% annual growth). The longer timeframe captures established adoption patterns and provides a more realistic projection.
+
+- **ZEV Plan Target Scenario**: Aligned with California's Zero-Emission Vehicle targets, this scenario represents the policy-driven goal of reaching 25% EV penetration in Santa Barbara County by 2030. This requires the most aggressive infrastructure expansion.
+
+## Planning Implications
+
+- **Short-term (≤6 months)**: Use the STL-ARIMA forecast to optimize daily operations and identify immediate peak usage remediation needs.
+
+- **Medium-term (6 months to 2 years)**: Plan infrastructure upgrades based on the Historical Trend scenario while monitoring actual adoption rates.
+
+- **Long-term (3+ years)**: Design grid capacity to accommodate flexible scaling between the Historical Trend and ZEV Plan Target scenarios, with regular reassessment as adoption patterns evolve.
+
+This multi-scenario approach provides Santa Barbara County with a robust framework for EV infrastructure planning that balances immediate operational needs with strategic long-term capacity development.
 
 ### Historical Data From California Department of Energy
 
 ![image](https://github.com/user-attachments/assets/8d612815-f260-48f8-a3e4-b5b0620df916)
 
-### Our Scenario Projection Based on the PowerFlex Data Modeling (Base Forecast) and Adjusted Forecast
+### Three Scenario Projections Based on the PowerFlex Data Modeling (Base Forecast), the Energy Department Data Trends and the Zero-Emission Vehicle Plan Targets
 
-![image](https://github.com/user-attachments/assets/55ad42ee-2526-431a-8f14-cad89ed0e36f)
+![image](https://github.com/user-attachments/assets/188839e2-f587-407c-bd5d-8ec6280b93de)
+
 
 ## Future Model Enhancements
 
