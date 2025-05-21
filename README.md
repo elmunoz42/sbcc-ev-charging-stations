@@ -79,6 +79,12 @@ For a breakdown of all the features please review the respective feature catalog
 - [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/days-feature-catalogue.md)
 - [Cars](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/cars-feature-catalogue.md)
 
+## Jupyter Notebooks
+
+- PRIMARY NOTEBOOK FOR MODEL DEVELOPMENT: [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
+- EXPLORATORY NOTEBOOK: [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
+- EXPLORATORY NOTEBOOK: [data-analysis-vehicle-population](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb)
+  
 ## Methodology
 
 ### CRISP-DM Framework
