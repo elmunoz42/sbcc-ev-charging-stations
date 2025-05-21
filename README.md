@@ -10,7 +10,7 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 - **Growth in Energy Demand**: PowerFlex time series data reveals a consistent upward trend in kilowatt-hours of energy delivered through charging stations, with identifiable seasonality patterns that have been captured in our forecasting models.
   
-- **Accelerating EV Adoption**: California Energy Department data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans.
+- **Accelerating EV Adoption**: California Energy Commission data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans.
   
 - **Optimization Opportunities**: Decision tree analysis identified efficiency improvements that could complement new station construction—specifically, targeting the 6% of charging sessions with excessive idle times through policy adjustments could significantly increase existing infrastructure capacity.
 
@@ -26,7 +26,7 @@ How can historical electric vehicle (EV) charging station utilization data be us
 
 ## Rationale
 
-The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liaison at the transportation department Jerel Francisco is working on. The document is already in a public draft format and available on the [CSB's transportation department website](https://www.countyofsb.org/3218/Transportation).
+The County of Santa Barbara (CSB) has ambitious greenhouse gas emission goals. The following excerpt is from a document my CSB liaison Jerel Francisco is working on. The document is already in a public draft format and available on the [CSB's transportation commision website](https://www.countyofsb.org/3218/Transportation).
 
 ### County of Santa Barbara Zero Emission Vehicle Plan (Public Draft) - May 2025
 
@@ -72,7 +72,7 @@ CSB's charging stations are integrated with a PowerFlex reporting system with up
 - [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv):
       - This data has 1,827 rows and 22 columns. Each row represents a day in the 4-year period with data aggregated from all charging sites with information about metric averages.
 - [Cars](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb):
-      - This is data from the California Energy Department [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. 
+      - This is data from the California Energy Commission [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. 
 
 For a breakdown of all the features please review the respective feature catalogues:
 - [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md)
@@ -91,9 +91,9 @@ For a breakdown of all the features please review the respective feature catalog
 
 The project follows the Cross-Industry Standard Process for Data Mining (CRISP-DM) framework to ensure a structured and comprehensive approach:
 
-- **Business Understanding**: Through extensive collaboration with the County of Santa Barbara's transportation department and detailed analysis of their Zero Emission Vehicle Plan, we identified key business objectives—specifically, forecasting future charging capacity needs and optimizing station placement to meet the County's emission reduction goals.
+- **Business Understanding**: Through extensive collaboration with the County of Santa Barbar and detailed analysis of their Zero Emission Vehicle Plan, we identified key business objectives—specifically, forecasting future charging capacity needs and optimizing station placement to meet the County's emission reduction goals.
 
-- **Data Understanding**: We explored and analyzed two primary datasets (sessions and daily aggregates) from the PowerFlex reporting system, supplemented by vehicle population data from the California Energy Department, to understand patterns, quality issues, and potential insights.
+- **Data Understanding**: We explored and analyzed two primary datasets (sessions and daily aggregates) from the PowerFlex reporting system, supplemented by vehicle population data from the California Energy Commission, to understand patterns, quality issues, and potential insights.
 
 - **Data Preparation**: Rigorous cleaning, transformation, and feature engineering were performed, including standardizing date formats, handling outliers in charging duration data, and filtering for public charging sessions.
 
@@ -293,7 +293,7 @@ We developed a series of time series forecasting models to predict future EV cha
 
 - **Growth Factor Integration**: Incorporated two different growth scenarios based on:
   1. **Zero-Emission Vehicle Plan Growth Rate**: Calculated from the CSB's plan to increase from 6,000 to 81,250 EVs by 2030
-  2. **Observed Historical Growth Rate**: Derived from California Energy Department data (1.3698 annual growth factor)
+  2. **Observed Historical Growth Rate**: Derived from California Energy Commission data (1.3698 annual growth factor)
 
 - **Multi-Scenario Forecasting**: Generated three distinct forecasts:
   ```python
@@ -429,11 +429,11 @@ The substantial variance between scenarios highlights the importance of flexible
 
 This multi-scenario approach provides Santa Barbara County with a robust framework for EV infrastructure planning that balances immediate operational needs with strategic long-term capacity development.
 
-### Three Scenario Projections Based on the PowerFlex Data Modeling (Base Forecast), the Energy Department Data Trends and the Zero-Emission Vehicle Plan Targets
+### Three Scenario Projections Based on the PowerFlex Data Modeling (Base Forecast), the Energy Commission Data Trends and the Zero-Emission Vehicle Plan Targets
 
 ![image](https://github.com/user-attachments/assets/188839e2-f587-407c-bd5d-8ec6280b93de)
 
-### For Reference: This is the Historical EV Adoption Data From California Department of Energy for CSB
+### For Reference: This is the Historical EV Adoption Data From California Energy Commission for CSB
 
 ![image](https://github.com/user-attachments/assets/8d612815-f260-48f8-a3e4-b5b0620df916)
 
@@ -458,7 +458,7 @@ Based on our analysis and the current model performance, we've identified severa
 - **Develop automated retraining pipelines** to incorporate new data as it becomes available
 - **Integrate forecasts with the County's infrastructure planning tools** to translate predictions directly into actionable capacity planning recommendations
 
-These enhancements will be prioritized based on the County Transportation Department's immediate planning needs and available resources.
+These enhancements will be prioritized based on the County's immediate planning needs and available resources.
 
 ### Additional Forecasting Targets
 - Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary
