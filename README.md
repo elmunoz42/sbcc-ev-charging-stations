@@ -13,7 +13,7 @@ The study examines four years (2020-2024) of charging station utilization data c
   
 - **Optimization Opportunities**: Decision tree analysis identified efficiency improvements that could complement new station construction—specifically, targeting the 6% of charging sessions with excessive idle times through policy adjustments could significantly increase existing infrastructure capacity.
 
-### Deployed Streamlit Application With Live Forecasting and Custom LLM Integration
+### Deployed Streamlit Application With Forecasting and Custom LLM Powered Statistical Analysis
 
 [dashboard-app](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/)
 
