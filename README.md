@@ -334,29 +334,31 @@ We developed a series of time series forecasting models to predict future EV cha
 
 #### Infrastructure Efficiency Assessment
 
-- Quantification of current utilization rates
-- Identification of optimization opportunities
-- Recommendations for improved efficiency
+- Quantification of current utilization rates.
+- Identification of optimization opportunities.
+- Recommendations for improved efficiency.
 
 #### Capacity Forecasting Model
 
-- Projected daily and annual energy delivery requirements through 2030
-- Estimated number of additional charging stations needed
-- Geographic distribution recommendations
+- Time-series analysis based on historical data to estimate daily energy delivery requirements through 2030.
+- Three forecast scenarios: baseline growth, ZEV mandate alignment, and historical trend extrapolation.
+- Current limitations include uncertainty in long-term adoption patterns and limited geographic granularity.
+- Provides directional insights to inform infrastructure planning rather than precise capacity requirements.
 
 #### Policy Recommendations
 
-- Evidence-based strategies to support the County's climate goals
-- Prioritization framework for infrastructure investments
-- Monitoring approach for ongoing performance assessment
+- Data-informed strategies for optimizing existing charging infrastructure utilization.
+- Prioritization criteria for future infrastructure investments based on actual usage patterns.
+- Recommended metrics and KPIs for measuring ongoing performance against climate goals.
+- Guidelines for balancing immediate operational needs with long-term strategic objectives.
 
 ### Alignment with Climate Action Plan Goals
-This analysis directly supports the County's 2030 Climate Action Plan Zero Emission Mobility Goals by:
+This analysis contributes to the County's 2030 Climate Action Plan Zero Emission Mobility Goals through:
 
-- Providing data-driven projections to support the 25% passenger EV ownership goal
-- Identifying infrastructure needs for the 15% commercial EV use goal
-- Informing strategic placement of the 375 publicly available EV chargers
-- Establishing a framework for ongoing monitoring and optimization
+- Quantifying current infrastructure utilization to establish a baseline for measuring progress toward the 25% passenger EV ownership goal.
+- Identifying potential bottlenecks and optimization opportunities to support the transition toward 15% commercial EV use.
+- Providing data-driven insights to inform decisions about the placement and specifications of future public EV chargers.
+- Creating a measurement framework that enables regular assessment of infrastructure performance against adoption targets.
 
 ## Results
 
@@ -364,15 +366,15 @@ This analysis directly supports the County's 2030 Climate Action Plan Zero Emiss
 
 Our final model implements a hybrid STL-ARIMA approach with 30-day seasonality, which has significantly improved forecasting accuracy compared to earlier iterations. This sophisticated model:
 
-1. **Decomposes the time series** using Seasonal and Trend decomposition with Loess (STL), effectively separating the data into seasonal, trend, and residual components
-2. **Applies ARIMA modeling** to the residual component to capture remaining patterns after seasonality and trend have been accounted for
-3. **Reintroduces the 30-day seasonality pattern** based on detailed analysis of the historical charging data, which revealed monthly utilization cycles aligned with county employee work patterns and public facility usage
+1. **Decomposes the time series** using Seasonal and Trend decomposition with Loess (STL), effectively separating the data into seasonal, trend, and residual components.
+2. **Applies ARIMA modeling** to the residual component to capture remaining patterns after seasonality and trend have been accounted for.
+3. **Reintroduces the 30-day seasonality pattern** based on detailed analysis of the historical charging data, which revealed monthly utilization cycles aligned with county employee work patterns and public facility usage.
 
 As shown in the forecast visualization, the model successfully:
 
-1. Tracks the rising trend in energy delivered (kWh), aligning with the accelerating EV adoption rates in Santa Barbara County
-2. Captures both weekly and monthly seasonal fluctuations in charging patterns
-3. Provides predictions that follow the general volatility pattern of the actual test data, including appropriate confidence intervals
+1. Tracks the rising trend in energy delivered (kWh), aligning with the accelerating EV adoption rates in Santa Barbara County.
+2. Captures both weekly and monthly seasonal fluctuations in charging patterns.
+3. Provides predictions that follow the general volatility pattern of the actual test data, including appropriate confidence intervals.
 
 ### Performance Metrics
 
@@ -394,9 +396,9 @@ While our STL-ARIMA model provides reliable short-term forecasting (3–6 months
 
 ## Hybrid Forecasting Approach
 We developed a hybrid forecasting methodology that:
-1. Uses STL-ARIMA for baseline forecasting with seasonal patterns and underlying trends
-2. Applies various growth factors to model different EV adoption scenarios
-3. Projects these scenarios through 2030 to support strategic infrastructure planning
+1. Uses STL-ARIMA for baseline forecasting with seasonal patterns and underlying trends.
+2. Applies various growth factors to model different EV adoption scenarios.
+3. Projects these scenarios through 2030 to support strategic infrastructure planning.
 
 This approach enables both operational forecasting and strategic capacity planning—giving Santa Barbara County a way to manage near-term fluctuations while preparing for long-term infrastructure needs.
 
