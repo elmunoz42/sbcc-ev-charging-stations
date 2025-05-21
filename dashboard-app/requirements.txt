@@ -4,3 +4,5 @@ numpy
 statsmodels
 matplotlib
 seaborn
+requests
+python-dotenv
