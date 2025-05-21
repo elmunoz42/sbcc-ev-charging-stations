@@ -206,7 +206,7 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 #### Decision Tree Modeling as A Tool For Inference
 
 - By exploring a few different correlation matrixes and decision trees Jerel and I had informative conversation about what factors affect the efficiency of the charging stations. 
-- In this visualization for example you can see how the most predictive nodes when determining if a "chargin" session will be 4 hours or longer is whether the driver is using the sites by the county jail. 
+- In this visualization for example you can see how the most predictive nodes when determining if a "charging" session will be 4 hours or longer is whether the driver is using the sites by the county jail. 
 
 ![image](https://github.com/user-attachments/assets/19290255-5584-422d-85e8-2dd9aee48308)
 
