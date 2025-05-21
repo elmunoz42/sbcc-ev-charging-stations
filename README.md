@@ -464,6 +464,17 @@ These enhancements will be prioritized based on the County's immediate planning 
 ### Additional Forecasting Targets
 - Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary
   
+## Recommendations and Implementation
+
+- Please review the [IMPLEMENTATION](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/IMPLEMENTATION.md) file for more detailed insights and proposals. 
+- Additionally, there is a [ROADMAP](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/ROADMAP.md) file that provides guidance for the next steps of the collaboration with the County of Santa Barbara. 
+- The [Streamlit dashboard application](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) serves as the primary tool for transportation department staff to interact with the EV charging data and forecasting models, providing valuable insights to support the Zero Emission Vehicle Plan implementation. This dashboard uses OpenAI-powered AI analysis (with fallback support) to automatically highlight significant trends and anomalies in the charging data, while also enabling staff to generate forecasts that directly support capacity planning, policy optimization, and progress tracking toward climate goals. 
+
+### The data revealed two key actionable insights:
+1. The Zero-Emission Vehicle Plan sets an aggressive target that exceeds current trends revealed by the data. If that target is to be reached, 39,601 kWh of daily electricity usage would be needed according to our model. More comprehensive evaluation is necessary to create robust predictions and to understand potential energy spikes. At minimum, consultation with an energy capacity expert is recommended.
+
+2. The civilian fleet is engaging in excessively long "idling" sessions. This pattern was initially masked by the County's BEV fleet, since county cars are parked for days on charging stations used exclusively by the county. Our data filtering revealed that while public utilization is mostly efficient, there are specific areas for improvement. Although only 6% of sessions last 4 hours or longer (as shown in the data-analysis-sessions notebook), each such vehicle occupies valuable charging station space. For perspective, 8 cars could each charge for 30 minutes during a 4-hour window. This indicates significant opportunity to increase capacity through smart policy changes.
+
 ## Outline of project
 
 - PRIMARY NOTEBOOK FOR MODEL DEVELOPMENT: [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
@@ -478,6 +489,13 @@ These enhancements will be prioritized based on the County's immediate planning 
 - Certain report tables have been added to this project as CSV files. For example, the statistical analysis of Type 2 (Webasto) and Type 3 (Delta) charging stations:
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/webasto_dx_statistics.csv
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/delta_statistics.csv
+- The maps folder has 6 maps of the County's public charging stations each focusing on a different feature's statistics.
+      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/4_plus_hour_session_map.html
+      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Charging_duration_minutes_map.html
+      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Cost_to_driver_map.html
+      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Cost_to_site_map.html
+      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Session_duration_minutes_map.html
+      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/kWh_delivered_map.html
 
 ### Contact and Further Information
 
