@@ -40,7 +40,7 @@ def describe_dataset_with_fallback(df, custom_prompt=CUSTOM_PROMPT):
         
     # Get basic statistics - limit to numeric columns only for reliability
     try:
-        stats = df.describe()
+        stats = df[['Started Sessions', 'AVG session duration (minutes)', 'Energy delivered (kWh)']].describe()
     except Exception as e:
         return f"Error calculating statistics: {str(e)}"
     
