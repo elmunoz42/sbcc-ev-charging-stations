@@ -198,18 +198,24 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 - At first, we had seen some concerning signs of excessive idle states for the charging stations. When Jerel and I reviewed the initial statistical data, we were both taken aback by the fact that the average session duration was upwards of 900 minutes. After some investigation though, we were able to identify some patterns and filter out CSB's fleet utilization. 
 - Fortunately, the public charging stations only have excessive idleness 6% of the time. Nevertheless, this is encouraging further investigation and perhaps some policy changes for "peak hour" utilization of charging stations.
 - The concern is that people park their cars for much longer than they need for EV charging thus reducing the availability of charging stations for those in actual need of them.
+- As you can see in this graph idleness correlates very strongly with session duration.
 
-#### Utilization Pattern Analysis
+  ![image](https://github.com/user-attachments/assets/f2652ca9-6dbb-483f-bd36-0490f8d48fc8)
 
-- Peak usage periods vs. low-demand periods
-- Geographic distribution of high/low utilization
-- Correlation between station type and utilization rate
 
-#### Charging Behavior Analysis
+#### Decision Tree Modeling as A Tool For Inference
 
-- Distribution of session durations
-- Energy consumption patterns
-- Relationship between charging duration and energy delivered
+- By exploring a few different correlation matrixes and decision trees Jerel and I had informative conversation about what factors affect the efficiency of the charging stations. 
+- In this visualization for example you can see how the most predictive nodes when determining if a "chargin" session will be 4 hours or longer is whether the driver is using the sites by the county jail. 
+
+![image](https://github.com/user-attachments/assets/19290255-5584-422d-85e8-2dd9aee48308)
+
+#### Visual Exploration w/ Mapping
+
+- To explore the relationship between proximity to highways and other landmarks to features we've produced 6 maps that can be reviewed in the /maps folder.
+- This will be an area for future development as per the ROADMAP.md
+![image](https://github.com/user-attachments/assets/67465bb9-05c5-467e-bcc5-9afb32c4486d)
+
 
 ### Phase 3: Time Series Forecasting (Days Data)
 A SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) model will be developed to forecast future charging demand, focusing primarily on daily energy delivered (kWh).
@@ -224,12 +230,7 @@ A SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous vari
 
 - Parameter selection (p, d, q, P, D, Q)
 - Inclusion of seasonal components
-- Integration of exogenous variables:
-
-    - EV adoption rates in Santa Barbara County
-    - Economic indicators
-    - Policy changes
-
+- Integration of EV adoption rates in Santa Barbara County as described in this notebook: data-analysis-vehicle-population.ipynb
 
 #### Model Validation
 
