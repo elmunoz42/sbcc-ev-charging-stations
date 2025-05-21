@@ -13,6 +13,12 @@ The study examines four years (2020-2024) of charging station utilization data c
   
 - **Optimization Opportunities**: Decision tree analysis identified efficiency improvements that could complement new station construction—specifically, targeting the 6% of charging sessions with excessive idle times through policy adjustments could significantly increase existing infrastructure capacity.
 
+### Deployed Streamlit Application With Live Forecasting and Custom LLM Integration
+
+[dashboard-app](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/)
+
+The application allows the specialst to get up-to-date forecasts and AI generated statistical analysis. For more detail please review the IMPLEMENTATION.md file in this repository.
+
 ## Research Question
 
 How can historical electric vehicle (EV) charging station utilization data be used to forecast future charging capacity needs and optimize charging station placement in the County of Santa Barbara to help meet the "Zero Emission Vehicle Plan" goals?
@@ -122,24 +128,67 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 
 ### Phase 1: Data Preparation
 
-#### Data Cleaning
+#### Data Cleaning and Feature Engineering
 
-- Remove duplicate records (if any)
-- Standardize date/time formats
-- Convert data types as needed (e.g., string dates to datetime objects)
+- **Dataset Assessment**: The daily PowerFlex reporting data contained 1,827 rows and 22 columns, covering the period from January 2020 to December 2024.
 
-#### Outlier Identification and Handling
+- **Feature Removal**: Removed problematic features including:
+  - `Max kW hour (kW)` due to systematic logging errors (consistently reporting 1am regardless of actual peak usage time)
+  - `Max Utilization (%)`, `Faulted Stations`, and `Uptime (%)` were excluded from the main analysis as these were only consistently available after December 2023 (as confirmed by the CSB domain expert)
 
-- Use statistical methods (z-scores, IQR) to identify anomalous values
-- Evaluate contextual validity of outliers (e.g., unusually long sessions)
-- Apply appropriate treatment (removal, capping, or flagging)
+- **Date Formatting**: Converted the `Day` column to datetime format and set it as the index to create a proper time series dataset with daily frequency.
+
+- **Partitioning**: Created a separate dataset (`df_reporting_2024`) for analyzing the newer metrics available only in 2024 data.
+
+#### Missing Value Analysis and Imputation
+
+- **Visualization of Missingness**: Generated comprehensive visualizations of missing value patterns across all features to identify data quality issues.
+
+- **Targeted Imputation**: Applied mean imputation for features with minimal missing data:
+  - `AVG session duration (minutes)`: Imputed with column mean
+  - `AVG session idle (minutes)`: Imputed with column mean
+
+- **Data Verification**: Verified completeness of energy delivery data (`Energy delivered (kWh)`), which was critical for the forecasting models.
 
 ![image](https://github.com/user-attachments/assets/7151f9f4-3781-4a0a-949f-34ad3ab043bd)
 
-#### Missing Value Imputation
+#### Outlier Identification and Analysis
 
-- Assess patterns of missingness in both datasets
-- Apply appropriate imputation techniques based on data characteristics.
+- **Robust Detection Methods**: Applied Interquartile Range (IQR) method to identify outliers in the `Energy delivered (kWh)` feature:
+  ```python
+  Q1 = df_reporting['Energy delivered (kWh)'].quantile(0.25)
+  Q3 = df_reporting['Energy delivered (kWh)'].quantile(0.75)
+  IQR = Q3 - Q1
+  lower_bound = Q1 - 1.5 * IQR
+  upper_bound = Q3 + 1.5 * IQR
+  ```
+
+- **Outlier Assessment**: Identified outliers represented approximately 10% of the dataset, but closer examination revealed these were legitimate peak usage days rather than data errors.
+
+- **Treatment Exploration**: Experimented with multiple outlier treatment methods to assess their impact on forecast accuracy:
+  - Winsorization (capping values at IQR boundaries)
+  - Median filtering (replacing outliers with values derived from rolling medians)
+  - STL decomposition-based cleaning (replacing outliers in residual component)
+
+- **Findings**: Determined that preserving original data without outlier treatment produced more accurate forecasts, suggesting that peaks in energy usage represent actual patterns relevant to capacity planning rather than noise.
+
+#### Time Series Structuring
+
+- **Time Series Conversion**: Transformed the dataset into a proper time series with daily frequency:
+  ```python
+  df_reporting_timeline = df_reporting.copy()
+  df_reporting_timeline['Day'] = pd.to_datetime(df_reporting_timeline['Day'])
+  df_reporting_timeline = df_reporting_timeline.set_index('Day')
+  df_reporting_timeline = df_reporting_timeline.asfreq('D')
+  ```
+
+- **Stationarity Testing**: Applied the Augmented Dickey-Fuller (ADF) test to assess stationarity of the energy delivery time series:
+  ```python
+  result = adfuller(y_train)
+  adf_statistic, p_value = result[0], result[1]
+  ```
+  
+- **Differencing**: Applied first-order differencing to address non-stationarity identified in the ADF test (p-value > 0.05).
 
 ### Phase 2: Efficiency Analysis (Sessions Data)
 - This analysis responds to the County's request to evaluate current infrastructure efficiency before expanding capacity. Key metrics to analyze include:
