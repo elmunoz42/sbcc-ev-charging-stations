@@ -217,31 +217,109 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 ![image](https://github.com/user-attachments/assets/e4380565-e663-4620-86dd-a789d51e733d)
 
 ### Phase 3: Time Series Forecasting (Days Data)
-A SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) model will be developed to forecast future charging demand, focusing primarily on daily energy delivered (kWh).
 
-#### Time Series Decomposition
-- Adfuller test
-- Trend component
-- Seasonal components (daily, weekly, monthly patterns)
-- Irregular components
+We developed a series of time series forecasting models to predict future EV charging demand, focusing on the daily energy delivered (kWh) metric. This analysis specifically targets data from 2022 onward, when meaningful energy usage patterns emerged in the County's charging infrastructure.
 
-#### Model Development
+#### Time Series Decomposition and Stationarity Analysis
 
-- Parameter selection (p, d, q, P, D, Q)
-- Inclusion of seasonal components
-- Integration of EV adoption rates in Santa Barbara County as described in this notebook: data-analysis-vehicle-population.ipynb
+- **Augmented Dickey-Fuller Test**: Applied to assess stationarity of the energy delivery time series, revealing non-stationarity (p-value = 0.131) that required first-order differencing.
 
-#### Model Validation
+- **ACF and PACF Analysis**: Generated autocorrelation and partial autocorrelation plots for both original and differenced series:
+  ```python
+  fig, ax = plt.subplots(1, 4, figsize = (20, 5))
+  plot_acf(y_train, ax = ax[0])
+  plot_acf(y_train.diff().dropna(), ax = ax[1])
+  plot_pacf(y_train.diff().dropna(), ax = ax[2], method = 'ywm')
+  ```
+  The analysis showed significant autocorrelation at multiple lags in the original series, with improvements after differencing.
 
-- Cross-validation using time series split
-- Error metrics (RMSE, MAE, MAPE)
-- Residual analysis
+- **Seasonal Decomposition**: Used STL (Seasonal and Trend decomposition using Loess) to separate the time series into trend, seasonal, and residual components:
+  ```python
+  result = seasonal_decompose(y_train, model='additive', period=360)
+  result.plot()
+  ```
 
-#### 2030 Forecasting
+#### Model Development and Selection
 
-- Projection of daily kWh delivered through 2030
-- Confidence intervals
-- Scenario analysis based on different EV adoption rates
+- **Initial ARIMA Model**: Implemented a baseline ARIMA(1,1,0) model based on ACF and PACF analysis.
+  ```python
+  model = ARIMA(y_train, order=(1, 1, 0))
+  model_fit = model.fit()
+  ```
+
+- **STL-ARIMA Hybrid Approach**: Developed a more sophisticated model combining STL decomposition with ARIMA modeling:
+  ```python
+  stlf = STLForecast(y_train, ARIMA, model_kwargs={'order':(1, 1, 0), 'trend':"t"}, period=30)
+  stlf_results = stlf.fit()
+  ```
+
+- **Seasonality Parameter Tuning**: Systematically evaluated different seasonality periods (7, 30, 90, 180, 360 days) to identify optimal patterns, with 30-day seasonality producing the most accurate forecasts:
+  ```python
+  # Best STL period: 30 with RMSE: 482.44
+  ```
+
+- **ARIMA Parameter Optimization**: Tested various ARIMA specifications (p,d,q) including (1,1,0), (1,1,1), (2,1,0), (2,1,1), and (1,1,2), with the simpler ARIMA(1,1,0) model performing well.
+
+#### Model Validation and Performance
+
+- **Train-Test Split**: Implemented a 70/30 time series split for model validation:
+  ```python
+  split_point = int(len(energy_df) * 0.7)
+  y_train = energy_df.iloc[:split_point]
+  y_test = energy_df.iloc[split_point:]
+  ```
+
+- **Comprehensive Error Metrics**: Evaluated model performance using multiple metrics:
+  ```python
+  mse_stl = mean_squared_error(y_test, forecast)
+  rmse_stl = np.sqrt(mse_stl)
+  mae_stl = mean_absolute_error(y_test, forecast)
+  mape_stl = np.mean(np.abs((y_test - forecast) / y_test)) * 100
+  ```
+  
+- **Diagnostic Visualization**: Created forecast vs. actual plots to visually assess model performance and identify potential areas for improvement.
+
+- **Model Comparison**: The STL-ARIMA model with 30-day seasonality outperformed the baseline ARIMA model, demonstrating its effectiveness at capturing both trend and seasonal patterns.
+
+#### Long-term Forecasting to 2030
+
+- **Growth Factor Integration**: Incorporated two different growth scenarios based on:
+  1. **Zero-Emission Vehicle Plan Growth Rate**: Calculated from the CSB's plan to increase from 6,000 to 81,250 EVs by 2030
+  2. **Observed Historical Growth Rate**: Derived from California Energy Department data (1.3698 annual growth factor)
+
+- **Multi-Scenario Forecasting**: Generated three distinct forecasts:
+  ```python
+  # Base forecast without growth scaling
+  base_forecast = stlf_results.forecast(forecast_horizon)
+  
+  # Zero-Emission Vehicle Plan forecast
+  projected_forecast = base_forecast * projected_multipliers
+  
+  # Historical trend forecast
+  observed_forecast = base_forecast * observed_multipliers
+  ```
+
+- **Scenario Analysis Visualization**: Created comparative visualization of different growth scenarios, with annotated reference points at key years:
+  ```python
+  plt.figure(figsize=(15, 8))
+  plt.plot(energy_df.index, energy_df, label='Historical Data', color='black', linewidth=2)
+  plt.plot(base_forecast.index, base_forecast, label='Base Forecast (No Growth Factor)', 
+         color='blue', alpha=0.6, linestyle='--')
+  plt.plot(projected_forecast.index, projected_forecast, 
+         label=f'Zero-Emission Vehicle Plan Forecast (Growth Factor: {annual_growth_factor:.2f})', 
+         color='green', linewidth=2)
+  plt.plot(observed_forecast.index, observed_forecast, 
+         label=f'Historical Trend Forecast (Growth Factor: {observed_growth_factor:.2f})', 
+         color='red', linewidth=2)
+  ```
+
+- **Final Year Analysis**: Quantified the expected energy demand for the final forecast year (2030):
+  ```python
+  print("\nSummary of final year forecasts (2030):")
+  print(f"Base forecast total: {base_forecast[start_date_of_final_year:].sum():.0f} kWh")
+  print(f"ZEV Plan forecast total: {projected_forecast[start_date_of_final_year:].sum():.0f} kWh")
+  print(f"Historical trend forecast total: {observed_forecast[start_date_of_final_year:].sum():.0f} kWh")
+  ```
 
 ### Expected Outcomes
 

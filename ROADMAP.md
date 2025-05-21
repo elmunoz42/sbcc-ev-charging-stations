@@ -41,7 +41,7 @@ To strategically determine the optimal locations for new charging stations and t
     *   **Demographic Data:** Obtain census data or other demographic datasets for Santa Barbara County, including population density, income levels, vehicle ownership rates, and housing types (e.g., multi-unit dwellings vs. single-family homes).
     *   **City Planning Data:** Gather information on current and future zoning regulations, planned residential and commercial developments, public transportation routes, and major points of interest from the County's planning department.
 2.  **Geospatial Analysis:**
-    *   Map existing charging station locations.
+    *   Map existing charging station locations. Some of this is already in place and can be reviewed in the /maps folder in this repository. We would like to have a more integrated experience in the live dashboard.
     *   Overlay demographic data to identify areas with high potential EV adoption but currently underserved by charging infrastructure (e.g., densely populated areas with limited off-street parking).
     *   Incorporate city planning data to pinpoint locations that align with future growth, such as new housing developments, commercial centers, or public transit hubs.
 3.  **Needs Assessment Model:** Develop a scoring or weighting system that combines forecasted demand (from the neural network and SARIMAX models), demographic indicators, and urban planning priorities to rank potential locations for new charging stations.
