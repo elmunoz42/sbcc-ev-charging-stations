@@ -489,13 +489,13 @@ These enhancements will be prioritized based on the County's immediate planning 
 - Certain report tables have been added to this project as CSV files. For example, the statistical analysis of Type 2 (Webasto) and Type 3 (Delta) charging stations:
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/webasto_dx_statistics.csv
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/delta_statistics.csv
-- The maps folder has 6 maps of the County's public charging stations each focusing on a different feature's statistics.
-      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/4_plus_hour_session_map.html
-      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Charging_duration_minutes_map.html
-      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Cost_to_driver_map.html
-      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Cost_to_site_map.html
-      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Session_duration_minutes_map.html
-      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/kWh_delivered_map.html
+- The maps folder has 6 maps of the County's public charging stations each focusing on a different feature's statistics:
+     - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/4_plus_hour_session_map.html
+     - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Charging_duration_minutes_map.html
+     - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Cost_to_driver_map.html
+     - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Cost_to_site_map.html
+     - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Session_duration_minutes_map.html
+     - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/kWh_delivered_map.html
 
 ### Contact and Further Information
 
