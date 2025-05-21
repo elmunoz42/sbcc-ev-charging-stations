@@ -129,7 +129,7 @@ These evaluation metrics shift the focus from model performance to business impa
       
 - **Train the model**: We developed progressively more sophisticated forecasting models, starting with baseline ARIMA models and advancing to STL forecasting to better capture seasonal patterns. Decision Tree models were also used to provide insight into specific operational questions from the domain expert.
       
-- **Deploy the model**: The forecasting models were integrated into a Streamlit dashboard application that allows CSB staff to upload new PowerFlex data exports and receive updated predictions, including alerts for anticipated demand spikes. This deployment directly supports the County's infrastructure planning process.
+- **Deploy the model**: The forecasting models were integrated into a Streamlit dashboard application that allows CSB staff to upload new PowerFlex data exports and receive updated predictions, including alerts for anticipated demand spikes. This deployment directly supports the County's infrastructure planning process. ROADMAP and IMPLEMENTATION documentation was created to provide continuous execution.
 
 ![SB-County-Zero-Emission-Vehicle-Plan-Demo-SQR](https://github.com/user-attachments/assets/63d12f93-2ca9-4e63-8173-f39556ff0fe4)
 County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 2025 - Carlos Munoz Kampff (left) and Jerel Francisco (right)
