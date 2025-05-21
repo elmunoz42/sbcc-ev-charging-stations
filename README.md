@@ -129,7 +129,7 @@ These evaluation metrics shift the focus from model performance to business impa
       
 - **Train the model**: We developed progressively more sophisticated forecasting models, starting with baseline ARIMA models and advancing to STL forecasting to better capture seasonal patterns. Decision Tree models were also used to provide insight into specific operational questions from the domain expert.
       
-- **Deploy the model**: The forecasting models were integrated into a Streamlit dashboard application that allows CSB staff to upload new PowerFlex data exports and receive updated predictions, including alerts for anticipated demand spikes. This deployment directly supports the County's infrastructure planning process.
+- **Follow-through launch with stakeholders**: We engaged with Jerel Francisco and others in the County of Santa Barbara. Going forward we will train Jerel and others on how to use this report and the dashboard app and establish a process for fine tunement and adjustments. 
 
 ![SB-County-Zero-Emission-Vehicle-Plan-Demo-SQR](https://github.com/user-attachments/assets/63d12f93-2ca9-4e63-8173-f39556ff0fe4)
 County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 2025 - Carlos Munoz Kampff (left) and Jerel Francisco (right)
@@ -445,7 +445,7 @@ Based on our analysis and the current model performance, we've identified severa
 
 ### Advanced Time Series Techniques
 - **Optimize differencing parameters** in the ARIMA component to better capture the non-stationary aspects of the data
-- **Explore GARCH modeling** (Generalized Autoregressive Conditional Heteroskedasticity) to better handle the inherent volatility in charging demand patterns
+- **Explore RNN forecast modeling** (Recursive Neural Network) to better handle the inherent volatility in charging demand patterns. Such a model will include a larger set of features to create more robust predictions.
 - **Implement ensemble methods** combining multiple forecasting models to improve robustness across different time horizons
 
 ### Data Preprocessing Refinements

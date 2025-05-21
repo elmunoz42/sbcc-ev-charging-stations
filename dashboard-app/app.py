@@ -7,11 +7,24 @@ import os
 from model import process_data, train_model, generate_forecast
 from visualization import plot_historical_data, plot_forecast
 
+# Import required libraries if available
+try:
+    from openai import OpenAI
+    OPENAI_IMPORTED = True
+except ImportError:
+    OPENAI_IMPORTED = False
+
+try:
+    import anthropic
+    ANTHROPIC_IMPORTED = True
+except ImportError:
+    ANTHROPIC_IMPORTED = False
+
 # Import Claude API function - handle if import fails
 try:
     try:
         # First try the new implementation
-        from llm_interface_new import describe_dataset_with_claude
+        from llm_interface_new import describe_dataset_with_openai
         LLM_AVAILABLE = True
     except ImportError:
         # Fall back to original implementation if new one is not available
@@ -34,14 +47,14 @@ def main():
     st.header("Upload your CSV data to forecast energy delivery for the next three months")
     
     # Show app version info with fallback support
-    st.sidebar.info("Version 0.1.0 - Added LLM Fallback Support when Claude API is unavailable")
+    st.sidebar.info("Version 0.2.0 - Switched to OpenAI API with fallback LLM support")
     
     # Display available LLM systems in sidebar
     st.sidebar.subheader("LLM System Status")
     if LLM_AVAILABLE:
-        st.sidebar.success("✅ Claude API available")
+        st.sidebar.success("✅ OpenAI API available")
     else:
-        st.sidebar.error("❌ Claude API unavailable")
+        st.sidebar.error("❌ OpenAI API unavailable")
     
     if FALLBACK_AVAILABLE:
         st.sidebar.success("✅ Fallback LLM available")
@@ -52,8 +65,53 @@ def main():
     if st.sidebar.checkbox("Debug Secrets", False):
         try:
             st.sidebar.write("Secrets Configuration:")
+            
+            # Check for OpenAI API Key
+            if "OPENAI_API_KEY" in st.secrets:
+                st.sidebar.success("✅ OpenAI API Key found")
+                # Show first/last few chars of the key for verification without exposing it
+                api_key = st.secrets["OPENAI_API_KEY"]
+                masked_key = f"{api_key[:5]}...{api_key[-4:]}" if len(api_key) > 10 else "***masked***"
+                st.sidebar.text(f"API Key: {masked_key}")
+                
+                # Provide info about API key format
+                st.sidebar.info("API Key Format: OpenAI API keys typically start with 'sk-' and should not have quotes in the secrets.toml file.")
+                
+                # Test OpenAI API connection
+                if st.sidebar.button("Test OpenAI API Connection"):
+                    with st.sidebar:
+                        with st.spinner("Testing connection to OpenAI API..."):
+                            if OPENAI_IMPORTED:
+                                try:
+                                    # Initialize the OpenAI client
+                                    client = OpenAI(api_key=api_key)
+                                    
+                                    # List available models to test connection
+                                    models = client.models.list()
+                                    
+                                    st.success("✅ OpenAI API connection successful!")
+                                    st.write("Available models:")
+                                    
+                                    # Display available models in a more readable format
+                                    model_data = []
+                                    for model in models.data:
+                                        model_data.append({
+                                            "name": model.id,
+                                            "created": model.created
+                                        })
+                                    
+                                    st.table(model_data)
+                                except Exception as e:
+                                    st.error(f"❌ Error testing OpenAI API: {str(e)}")
+                            else:
+                                st.error("❌ OpenAI library not imported. Please install with 'pip install openai'.")
+            else:
+                st.sidebar.error("❌ OpenAI API Key not found")
+                st.sidebar.text("Check your .streamlit/secrets.toml file")
+            
+            # Check for Claude API Key for backwards compatibility
             if "CLAUDE_API_KEY" in st.secrets:
-                st.sidebar.success("✅ Claude API Key found")
+                st.sidebar.success("✅ Claude API Key found (legacy)")
                 # Show first/last few chars of the key for verification without exposing it
                 api_key = st.secrets["CLAUDE_API_KEY"]
                 masked_key = f"{api_key[:5]}...{api_key[-4:]}" if len(api_key) > 10 else "***masked***"
@@ -63,34 +121,33 @@ def main():
                 st.sidebar.info("API Key Format: Claude API keys typically start with 'sk-ant-' and should not have quotes in the secrets.toml file.")
                 
                 # Test API connection
-                if st.sidebar.button("Test API Connection"):
+                if st.sidebar.button("Test Claude API Connection"):
                     with st.sidebar:
                         with st.spinner("Testing connection to Claude API..."):
-                            try:
-                                import anthropic
-                                # Initialize the Anthropic client
-                                client = anthropic.Anthropic(api_key=api_key)
-                                
-                                # List available models to test connection
-                                models = client.models.list()
-                                
-                                st.success("✅ API connection successful!")
-                                st.write("Available models:")
-                                
-                                # Display available models in a more readable format
-                                model_data = []
-                                for model in models.data:
-                                    model_data.append({
-                                        "name": model.name,
-                                        "description": getattr(model, "description", "No description available")
-                                    })
-                                
-                                st.table(model_data)
-                            except Exception as e:
-                                st.error(f"❌ Error testing API: {str(e)}")
-            else:
-                st.sidebar.error("❌ Claude API Key not found")
-                st.sidebar.text("Check your .streamlit/secrets.toml file")
+                            if ANTHROPIC_IMPORTED:
+                                try:
+                                    # Initialize the Anthropic client
+                                    client = anthropic.Anthropic(api_key=api_key)
+                                    
+                                    # List available models to test connection
+                                    models = client.models.list()
+                                    
+                                    st.success("✅ API connection successful!")
+                                    st.write("Available models:")
+                                    
+                                    # Display available models in a more readable format
+                                    model_data = []
+                                    for model in models.data:
+                                        model_data.append({
+                                            "name": model.name,
+                                            "description": getattr(model, "description", "No description available")
+                                        })
+                                    
+                                    st.table(model_data)
+                                except Exception as e:
+                                    st.error(f"❌ Error testing API: {str(e)}")
+                            else:
+                                st.error("❌ Anthropic library not imported. Please install with 'pip install anthropic'.")
         except Exception as e:
             st.sidebar.error(f"Error checking secrets: {str(e)}")
     
@@ -176,7 +233,7 @@ def main():
             if LLM_AVAILABLE:
                 analysis_button = st.button("Generate AI Analysis", key="ai_analysis_btn")
                 if analysis_button:
-                    with st.spinner("Analyzing data with Claude AI..."):
+                    with st.spinner("Analyzing data with OpenAI AI..."):
                         try:
                             # Create a clean copy of the dataframe for analysis
                             analysis_df = df.copy()
@@ -212,12 +269,12 @@ def main():
                             
                             # Handle the API analysis
                             try:
-                                # Call Claude API for analysis
-                                analysis = describe_dataset_with_claude(simple_df)
+                                # Call OpenAI API for analysis
+                                analysis = describe_dataset_with_openai(simple_df)
                                 
                                 # Check for different types of errors that would trigger fallback
-                                if analysis and any(err in analysis for err in ["Error: No API key provided", "Error calling Claude API: 401", "Error calling Claude API", "authentication", "unauthorized"]):
-                                    st.warning("Claude API issue detected. Trying fallback LLM...")
+                                if analysis and any(err in analysis for err in ["Error: No API key provided", "Error calling OpenAI API: 401", "Error calling OpenAI API", "authentication", "unauthorized"]):
+                                    st.warning("OpenAI API issue detected. Trying fallback LLM...")
                                     
                                     # Only try fallback if it's available
                                     if FALLBACK_AVAILABLE:
@@ -237,7 +294,7 @@ def main():
                                             * **Missing Values**: Several columns contain missing values that should be addressed
                                             * **Recommendation**: Consider collecting more complete data for better analysis
                                             
-                                            *Note: This is a mock analysis since both Claude API and fallback service failed.*
+                                            *Note: This is a mock analysis since both OpenAI API and fallback service failed.*
                                             """
                                     else:
                                         st.error("Fallback LLM not available")
@@ -250,7 +307,7 @@ def main():
                                         * **Missing Values**: Several columns contain missing values that should be addressed
                                         * **Recommendation**: Consider collecting more complete data for better analysis
                                         
-                                        *Note: This is a mock analysis since the Claude API key was not correctly configured.*
+                                        *Note: This is a mock analysis since the OpenAI API key was not correctly configured.*
                                         """
                             except Exception as e:
                                 st.error(f"Error during analysis: {str(e)}")
@@ -272,7 +329,7 @@ def main():
                             st.markdown(analysis)
                         except Exception as e:
                             st.error(f"Error generating AI analysis: {str(e)}")
-                            st.info("Note: Make sure your Claude API key is properly configured in the .env file")
+                            st.info("Note: Make sure your OpenAI API key is properly configured in the .env file")
                             
                             # Show a detailed traceback for debugging
                             import traceback

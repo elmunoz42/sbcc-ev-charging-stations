@@ -50,6 +50,16 @@ To run this application on your local machine, follow these steps:
 
 The data import file is formatted to work with the Powerflex EV Charging Station Infrastructure format. As an example the sample data in the 'data\SB-County-County Public reporting 2020-01-01_2024-12-31.csv' in this repository can be used to demonstrate the functionality. For practical purposes of course newer data should be used to provide actionable forecasting.
 
+## Generating AI Statistical Analysis
+
+The dashboard application also includes a button that generates AI insight based on the statistics of the uploaded CSV file. A free Llama 2 enpoint and limited response is included for exploration, but for a more impactful response please add a /.streamlit/secrets.toml file with a open ai key. 
+
+OPENAI_API_KEY = "sk-proj-Ae2....YOUR KEY" 
+
+Documentation: https://openai.com/api/
+
+If OpenAI is not available or preferred a Claude api connection can also be potentially leveraged. It is an area of future improvement to let the user choose which model they want to work with.
+
 ### Troubleshooting
 
 **`ModuleNotFoundError: No module named 'streamlit.cli'` or similar import errors:**

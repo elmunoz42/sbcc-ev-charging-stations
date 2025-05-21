@@ -4,12 +4,10 @@ import pandas as pd
 import numpy as np
 import os
 import streamlit as st
-import anthropic
-# Import fallback module
-from llm_fallback import describe_dataset_with_fallback
+from openai import OpenAI
 
 # Default values
-DEFAULT_MODEL = 'claude-3-7-sonnet-20250219'
+DEFAULT_MODEL = 'gpt-4o'
 CUSTOM_PROMPT = """
         You are an expert data analyst providing Zero-Emission Vehicle specialist actionable insight from data collected about charging station utilization over time. Based on the dataset statistics provided, give me a concise, 
         human-readable interpretation of the key characteristics of this dataset. Focus on:
@@ -47,23 +45,22 @@ COLUMN_DESCRIPTION = """
         Uptime (%): Percentage of time stations were operational and available for use
         """
 
-def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL, 
-                                version='2023-06-01', custom_prompt=CUSTOM_PROMPT, 
-                                column_description=COLUMN_DESCRIPTION, column_info_file=None):
+def describe_dataset_with_openai(df, api_key=None, model=DEFAULT_MODEL, 
+                               custom_prompt=CUSTOM_PROMPT, 
+                               column_description=COLUMN_DESCRIPTION, column_info_file=None):
     """
-    Function to analyze a dataset using pandas describe() and then interpret the results using Claude API.
+    Function to analyze a dataset using pandas describe() and then interpret the results using OpenAI API.
     
     Parameters:
     df (pandas.DataFrame): The dataset to analyze
-    api_key (str): Anthropic API key
-    model (str, optional): Claude model to use (default: 'claude-3-opus-20240229')
-    version (str, optional): Anthropic API version (default: '2023-06-01')
-    custom_prompt (str, optional): Custom instructions for Claude
-    column_description (str, optional): Description of columns to provide context to Claude
+    api_key (str): OpenAI API key
+    model (str, optional): OpenAI model to use (default: 'gpt-4o')
+    custom_prompt (str, optional): Custom instructions for OpenAI
+    column_description (str, optional): Description of columns to provide context to OpenAI
     column_info_file (str, optional): Path to a text file containing column descriptions
     
     Returns:
-    str: Claude's interpretation of the dataset statistics
+    str: OpenAI's interpretation of the dataset statistics
     """
     # Input validation
     if not isinstance(df, pd.DataFrame):
@@ -140,7 +137,7 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
         Please use this information to better understand the context and meaning of each column.
         """
     
-    # Prepare the prompt for Claude
+    # Prepare the prompt
     # Use a custom JSON serialization function that handles all types
     def json_serialize(obj):
         if hasattr(obj, 'isoformat'):  # Handle datetime objects
@@ -150,7 +147,7 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
         else:
             return str(obj)
     
-    prompt = f"""
+    prompt_content = f"""
     {custom_prompt}
     
     {column_info}
@@ -162,35 +159,37 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
     # Get API key from Streamlit secrets
     if api_key is None:
         try:
-            api_key = st.secrets["CLAUDE_API_KEY"]
+            api_key = st.secrets["OPENAI_API_KEY"]
         except Exception as e:
             return f"Error: Unable to access API key from secrets: {str(e)}"
             
-    # Make the API request using the official Anthropic client
+    # Make the API request using the official OpenAI client
     try:
-        # Initialize the Anthropic client
-        client = anthropic.Anthropic(api_key=api_key)
+        # Initialize the OpenAI client
+        client = OpenAI(api_key=api_key)
         
-        # Create the message
-        message = client.messages.create(
+        # Create the chat completion request
+        response = client.chat.completions.create(
             model=model,
-            max_tokens=1000,
             messages=[
-                {"role": "user", "content": prompt}
-            ]
+                {"role": "system", "content": "You are an expert data analyst providing insightful analysis."},
+                {"role": "user", "content": prompt_content}
+            ],
+            max_tokens=2048,
+            temperature=0.7
         )
         
-        # Extract Claude's response
-        interpretation = message.content[0].text
+        # Extract OpenAI's response
+        interpretation = response.choices[0].message.content
         
         return interpretation
     
     except Exception as e:
         error_msg = str(e)
-        # Check if the error is a 401 authentication error
-        if "401" in error_msg or "authentication" in error_msg.lower() or "unauthorized" in error_msg.lower():
+        # Check if the error is an authentication error
+        if "401" in error_msg or "authentication" in error_msg.lower() or "unauthorized" in error_msg.lower() or "invalid api key" in error_msg.lower():
             # Log the error before trying fallback
-            fallback_msg = "Claude API returned authentication error (401). Using fallback LLM..."
+            fallback_msg = "OpenAI API returned authentication error. Using fallback LLM..."
             print(fallback_msg)
             
             try:
@@ -198,10 +197,8 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
                 from llm_fallback import describe_dataset_with_fallback
                 
                 # Call the fallback with the same DataFrame
-                # We need to reconstruct the DataFrame from the dataset_info
-                # For now, we'll just pass the prompt to the fallback
                 return describe_dataset_with_fallback(df, custom_prompt=custom_prompt)
             except Exception as fallback_error:
-                return f"Error calling Claude API: {error_msg}. Fallback also failed: {str(fallback_error)}"
+                return f"Error calling OpenAI API: {error_msg}. Fallback also failed: {str(fallback_error)}"
         
-        return f"Error calling Claude API: {error_msg}"
+        return f"Error calling OpenAI API: {error_msg}"
