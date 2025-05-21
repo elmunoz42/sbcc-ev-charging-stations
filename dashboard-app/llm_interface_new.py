@@ -1,9 +1,12 @@
+import requests
 import json
 import pandas as pd
 import numpy as np
 import os
 import streamlit as st
 import anthropic
+# Import fallback module
+from llm_fallback import describe_dataset_with_fallback
 
 # Default values
 DEFAULT_MODEL = 'claude-3-7-sonnet-20250219'
@@ -156,13 +159,13 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
     {json.dumps(dataset_info, default=json_serialize, indent=2)}
     """
     
-    # Use provided API key or fall back to Streamlit secrets
+    # Get API key from Streamlit secrets
     if api_key is None:
         try:
             api_key = st.secrets["CLAUDE_API_KEY"]
         except Exception as e:
-            return f"Error: No API key provided and could not access secret: {str(e)}"
-    
+            return f"Error: Unable to access API key from secrets: {str(e)}"
+            
     # Make the API request using the official Anthropic client
     try:
         # Initialize the Anthropic client
@@ -183,4 +186,22 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
         return interpretation
     
     except Exception as e:
-        return f"Error calling Claude API: {str(e)}"
+        error_msg = str(e)
+        # Check if the error is a 401 authentication error
+        if "401" in error_msg or "authentication" in error_msg.lower() or "unauthorized" in error_msg.lower():
+            # Log the error before trying fallback
+            fallback_msg = "Claude API returned authentication error (401). Using fallback LLM..."
+            print(fallback_msg)
+            
+            try:
+                # Import the fallback module here to avoid circular imports
+                from llm_fallback import describe_dataset_with_fallback
+                
+                # Call the fallback with the same DataFrame
+                # We need to reconstruct the DataFrame from the dataset_info
+                # For now, we'll just pass the prompt to the fallback
+                return describe_dataset_with_fallback(df, custom_prompt=custom_prompt)
+            except Exception as fallback_error:
+                return f"Error calling Claude API: {error_msg}. Fallback also failed: {str(fallback_error)}"
+        
+        return f"Error calling Claude API: {error_msg}"

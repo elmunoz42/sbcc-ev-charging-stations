@@ -9,15 +9,90 @@ from visualization import plot_historical_data, plot_forecast
 
 # Import Claude API function - handle if import fails
 try:
-    from llm_interface import describe_dataset_with_claude
-    LLM_AVAILABLE = True
+    try:
+        # First try the new implementation
+        from llm_interface_new import describe_dataset_with_claude
+        LLM_AVAILABLE = True
+    except ImportError:
+        # Fall back to original implementation if new one is not available
+        from llm_interface import describe_dataset_with_claude
+        LLM_AVAILABLE = True
+    
+    # Also import fallback module for direct access if needed
+    try:
+        from llm_fallback import describe_dataset_with_fallback
+        FALLBACK_AVAILABLE = True
+    except ImportError:
+        FALLBACK_AVAILABLE = False
 except ImportError:
     LLM_AVAILABLE = False
+    FALLBACK_AVAILABLE = False
     st.error("Claude API integration is unavailable. Make sure to install the required packages.")
 
 def main():
-    st.title("EV Energy Delivery Forecast Tool")
-    st.write("Upload your CSV data to forecast energy delivery for the next three months")
+    st.title("EV Energy Delivery Forecast Tool (Beta)")
+    st.header("Upload your CSV data to forecast energy delivery for the next three months")
+    
+    # Show app version info with fallback support
+    st.sidebar.info("Version 0.1.0 - Added LLM Fallback Support when Claude API is unavailable")
+    
+    # Display available LLM systems in sidebar
+    st.sidebar.subheader("LLM System Status")
+    if LLM_AVAILABLE:
+        st.sidebar.success("✅ Claude API available")
+    else:
+        st.sidebar.error("❌ Claude API unavailable")
+    
+    if FALLBACK_AVAILABLE:
+        st.sidebar.success("✅ Fallback LLM available")
+    else:
+        st.sidebar.error("❌ Fallback LLM unavailable")
+    
+    # Debug: Check if secrets are loaded
+    if st.sidebar.checkbox("Debug Secrets", False):
+        try:
+            st.sidebar.write("Secrets Configuration:")
+            if "CLAUDE_API_KEY" in st.secrets:
+                st.sidebar.success("✅ Claude API Key found")
+                # Show first/last few chars of the key for verification without exposing it
+                api_key = st.secrets["CLAUDE_API_KEY"]
+                masked_key = f"{api_key[:5]}...{api_key[-4:]}" if len(api_key) > 10 else "***masked***"
+                st.sidebar.text(f"API Key: {masked_key}")
+                
+                # Provide info about API key format
+                st.sidebar.info("API Key Format: Claude API keys typically start with 'sk-ant-' and should not have quotes in the secrets.toml file.")
+                
+                # Test API connection
+                if st.sidebar.button("Test API Connection"):
+                    with st.sidebar:
+                        with st.spinner("Testing connection to Claude API..."):
+                            try:
+                                import anthropic
+                                # Initialize the Anthropic client
+                                client = anthropic.Anthropic(api_key=api_key)
+                                
+                                # List available models to test connection
+                                models = client.models.list()
+                                
+                                st.success("✅ API connection successful!")
+                                st.write("Available models:")
+                                
+                                # Display available models in a more readable format
+                                model_data = []
+                                for model in models.data:
+                                    model_data.append({
+                                        "name": model.name,
+                                        "description": getattr(model, "description", "No description available")
+                                    })
+                                
+                                st.table(model_data)
+                            except Exception as e:
+                                st.error(f"❌ Error testing API: {str(e)}")
+            else:
+                st.sidebar.error("❌ Claude API Key not found")
+                st.sidebar.text("Check your .streamlit/secrets.toml file")
+        except Exception as e:
+            st.sidebar.error(f"Error checking secrets: {str(e)}")
     
     # File input section with a description
     st.write("Choose your data source:")
@@ -135,21 +210,63 @@ def main():
                             # Remove columns with all NaN values
                             simple_df = simple_df.dropna(axis=1, how='all')
                             
-                            # Use a hard-coded example API response when API key isn't available
-                            if os.getenv('CLAUDE_API_KEY') is None:
-                                analysis = """
-                                ## Data Analysis Results
-                                
-                                * **Dataset Size**: The dataset contains energy delivery data records
-                                * **Energy Delivered**: This appears to be the main metric of interest
-                                * **Missing Values**: Several columns contain missing values that should be addressed
-                                * **Recommendation**: Consider collecting more complete data for better analysis
-                                
-                                *Note: This is a mock analysis since no Claude API key was detected.*
-                                """
-                                st.warning("Using mock analysis - Claude API key not found")
-                            else:
+                            # Handle the API analysis
+                            try:
+                                # Call Claude API for analysis
                                 analysis = describe_dataset_with_claude(simple_df)
+                                
+                                # Check for different types of errors that would trigger fallback
+                                if analysis and any(err in analysis for err in ["Error: No API key provided", "Error calling Claude API: 401", "Error calling Claude API", "authentication", "unauthorized"]):
+                                    st.warning("Claude API issue detected. Trying fallback LLM...")
+                                    
+                                    # Only try fallback if it's available
+                                    if FALLBACK_AVAILABLE:
+                                        try:
+                                            # Call the fallback LLM
+                                            with st.spinner("Using fallback LLM service..."):
+                                                analysis = describe_dataset_with_fallback(simple_df)
+                                                st.success("✅ Analysis generated using fallback LLM")
+                                        except Exception as fallback_error:
+                                            st.error(f"Fallback LLM also failed: {str(fallback_error)}")
+                                            # Provide a mock analysis as last resort
+                                            analysis = """
+                                            ## Data Analysis Results
+                                            
+                                            * **Dataset Size**: The dataset contains energy delivery data records
+                                            * **Energy Delivered**: This appears to be the main metric of interest
+                                            * **Missing Values**: Several columns contain missing values that should be addressed
+                                            * **Recommendation**: Consider collecting more complete data for better analysis
+                                            
+                                            *Note: This is a mock analysis since both Claude API and fallback service failed.*
+                                            """
+                                    else:
+                                        st.error("Fallback LLM not available")
+                                        # Provide a mock analysis as fallback
+                                        analysis = """
+                                        ## Data Analysis Results
+                                        
+                                        * **Dataset Size**: The dataset contains energy delivery data records
+                                        * **Energy Delivered**: This appears to be the main metric of interest
+                                        * **Missing Values**: Several columns contain missing values that should be addressed
+                                        * **Recommendation**: Consider collecting more complete data for better analysis
+                                        
+                                        *Note: This is a mock analysis since the Claude API key was not correctly configured.*
+                                        """
+                            except Exception as e:
+                                st.error(f"Error during analysis: {str(e)}")
+                                
+                                # Try fallback if main analysis fails
+                                if FALLBACK_AVAILABLE:
+                                    try:
+                                        st.warning("Main analysis failed. Trying fallback LLM...")
+                                        with st.spinner("Using fallback LLM service..."):
+                                            analysis = describe_dataset_with_fallback(simple_df)
+                                            st.success("✅ Analysis generated using fallback LLM")
+                                    except Exception as fallback_error:
+                                        st.error(f"Fallback LLM also failed: {str(fallback_error)}")
+                                        analysis = "Error during analysis. All LLM services failed. Please check the application logs for more details."
+                                else:
+                                    analysis = "Error during analysis. Please check the application logs for more details."
                             
                             st.markdown("### AI Data Analysis")
                             st.markdown(analysis)
