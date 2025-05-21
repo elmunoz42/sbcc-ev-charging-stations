@@ -3,6 +3,7 @@
 ## Executive Summary
 
 This ongoing research project analyzes historical electric vehicle (EV) charging data to support the County of Santa Barbara's Zero Emission Vehicle Plan. With transportation accounting for 48% of the County's greenhouse gas emissions and an ambitious goal to reduce community-wide emissions by 50% by 2030, optimizing EV charging infrastructure is critical to achieving climate targets.
+
 The study examines four years (2020-2024) of charging station utilization data collected from the County's [PowerFlex](https://infohub.delltechnologies.com/en-us/t/powerflex-14/) reporting system. Two primary datasets were analyzed: a session-level dataset containing 88,919 individual charging events and a day-level dataset with 1,827 days of aggregated metrics.
 
 ### Key findings include:
@@ -13,11 +14,11 @@ The study examines four years (2020-2024) of charging station utilization data c
   
 - **Optimization Opportunities**: Decision tree analysis identified efficiency improvements that could complement new station construction—specifically, targeting the 6% of charging sessions with excessive idle times through policy adjustments could significantly increase existing infrastructure capacity.
 
-### Deployed Streamlit Application With Forecasting and Custom LLM Powered Statistical Analysis
+### Deployed Streamlit Application With Forecasting and Custom LLM-Powered Statistical Analysis
 
 [dashboard-app](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/)
 
-The application allows the specialst to get up-to-date forecasts and AI generated statistical analysis. For more detail please review the IMPLEMENTATION.md file in this repository.
+The application allows specialists to get up-to-date forecasts and AI-generated statistical analysis. For more details, please review the IMPLEMENTATION.md file in this repository.
 
 ## Research Question
 
@@ -54,7 +55,7 @@ Given CSB's stated goals, a number of specific questions arise:
 
 1) If CSB is to increase the passenger electric vehicle (EV) ownership to 25%, what impact does that have on energy utilization? Especially, what kinds of spikes should we expect?
 
-*Response strategy:* By training a forecasting model, we will be able to get a sense of the rapid oscillations and seasonal peaks and troughs we are to expect. E.g., tourist seasons, work commute rush, etc. One important consideration is that we will need to forecast the amount of total passenger cars the CSB will have by then compared to today to accurately predict the pertinent metrics for the 25% we are hoping will be EVs. In other words: If the amount of EVs today requires a charging grid with a certain capacity, how much will the future amount of EVs that we are hoping for require?
+*Response strategy:* By training a forecasting model, we will be able to get a sense of the rapid oscillations and seasonal peaks and troughs we expect to see, e.g., during tourist seasons, work commute rush, etc. One important consideration is that we will need to forecast the total number of passenger cars CSB will have by then compared to today to accurately predict the pertinent metrics for the 25% we are hoping will be EVs. In other words: If the current number of EVs requires a charging grid with a certain capacity, how much capacity will the future number of EVs require?
 
 2) Are there ways to optimize the grid to meet more energy output demand by modifying public utilization policies?
 
@@ -66,12 +67,12 @@ Given CSB's stated goals, a number of specific questions arise:
 
 CSB's charging stations are integrated with a PowerFlex reporting system with up-to-date utilization metrics. The historical charging station utilization data includes session times, idle times, and energy consumption. Jerel Francisco exported the data from January 1st 2020 to December 31st 2024 for two types of data exports:
 - [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County-Public-Portfolio-stations-report-01_01_20-12_31_24.csv):
-      - This data has 88,919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage etc.
-      - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources, we filter out for public usage only early on in our analysis of this dataset.
+      - This data has 88,919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage, etc.
+      - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources, we filtered out for public usage only early in our analysis of this dataset.
 - [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv):
       - This data has 1,827 rows and 22 columns. Each row represents a day in the 4-year period with data aggregated from all charging sites with information about metric averages.
 - [Cars](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb):
-      - This is data from the California Energy department [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. 
+      - This is data from the California Energy Department [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. 
 
 For a breakdown of all the features please review the respective feature catalogues:
 - [Sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/sessions-feature-catalogue.md)
@@ -87,7 +88,7 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
 
 - **Data Understanding**: We explored and analyzed two primary datasets (sessions and daily aggregates) from the PowerFlex reporting system, supplemented by vehicle population data from the California Energy Department, to understand patterns, quality issues, and potential insights.
 
-- **Data Preparation**: Rigorous cleaning, transformation, and feature engineering was performed, including standardizing date formats, handling outliers in charging duration data, and filtering for public charging sessions.
+- **Data Preparation**: Rigorous cleaning, transformation, and feature engineering were performed, including standardizing date formats, handling outliers in charging duration data, and filtering for public charging sessions.
 
 - **Modeling**: We developed multiple forecasting approaches, starting with baseline ARIMA models and advancing to STL (Seasonal and Trend decomposition using Loess) forecasting models to account for seasonality and external factors. Additionally, Decision Tree models were used to provide inference insight into questions the domain expert had about specific operational conditions. Lastly, future work planning includes neural network implementation for improved spike prediction (see ROADMAP.md file in this repository).
 
@@ -101,7 +102,7 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
 
 - **Establish the deployment goal**: We defined how machine learning would directly support CSB's Zero Emission Vehicle Plan. Our deployment goal was to create a Streamlit dashboard application that enables the County to anticipate charging infrastructure needs and make data-driven decisions about station placement and capacity planning. We established a ROADMAP with immediate goals and future improvements.
       
-- **Establish the prediction goal**: During our biweekly discovery sessions with [Jerel Francisco](https://www.linkedin.com/in/jerel-francisco/), Zero-Emission Vehicle Specialist and I, we determined that forecasting daily energy demand (kWh delivered) would most effectively support the deployment goal. This prediction directly addresses CSB's need to understand future infrastructure requirements as EV adoption increases toward the 25% target.
+- **Establish the prediction goal**: During our biweekly discovery sessions between [Jerel Francisco](https://www.linkedin.com/in/jerel-francisco/), Zero-Emission Vehicle Specialist, and myself, we determined that forecasting daily energy demand (kWh delivered) would most effectively support the deployment goal. This prediction directly addresses CSB's need to understand future infrastructure requirements as EV adoption increases toward the 25% target.
       
 - **Establish the evaluation metrics**: While the CRISP-DM section covers traditional model accuracy metrics, our BizML approach focused on defining success criteria for the entire deployment from an operational perspective. Working with the CSB representative, we established key performance indicators including:
 
@@ -117,7 +118,7 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
    
 These evaluation metrics shift the focus from model performance to business impact, ensuring that our technical solution translates into meaningful progress toward the Zero Emission Vehicle Plan's 25% EV adoption target.
       
-- **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (1,827 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data. Jerel and I reviewed several different data sources of which only a few were integrated in this report so far.
+- **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (1,827 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data. Jerel and I reviewed several different data sources, of which only a few were integrated into this report so far.
       
 - **Train the model**: We developed progressively more sophisticated forecasting models, starting with baseline ARIMA models and advancing to STL forecasting to better capture seasonal patterns. Decision Tree models were also used to provide insight into specific operational questions from the domain expert.
       
@@ -195,8 +196,8 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 
 #### Idle Time Analysis
 
-- At first, we had seen some concerning signs of excessive idle states for the charging stations. When Jerel and I reviewed the initial statistical data, we were both taken aback by the fact that the average session duration was upwards of 900 minutes. After some investigation though, we were able to identify some patterns and filter out CSB's fleet utilization. 
-- Fortunately, the public charging stations only have excessive idleness 6% of the time. Nevertheless, this is encouraging further investigation and perhaps some policy changes for "peak hour" utilization of charging stations.
+- At first, we observed some concerning signs of excessive idle states for the charging stations. When Jerel and I reviewed the initial statistical data, we were both taken aback by the fact that the average session duration was upwards of 900 minutes. After investigation, however, we were able to identify patterns and filter out CSB's fleet utilization. 
+- Fortunately, the public charging stations only have excessive idleness 6% of the time. Nevertheless, this encourages further investigation and perhaps some policy changes for "peak hour" utilization of charging stations.
 - The concern is that people park their cars for much longer than they need for EV charging thus reducing the availability of charging stations for those in actual need of them.
 - As you can see in this graph idleness correlates very strongly with session duration.
 
@@ -205,14 +206,14 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 
 #### Decision Tree Modeling as A Tool For Inference
 
-- By exploring a few different correlation matrixes and decision trees Jerel and I had informative conversation about what factors affect the efficiency of the charging stations. 
-- In this visualization for example you can see how the most predictive nodes when determining if a "charging" session will be 4 hours or longer is whether the driver is using the sites by the county jail. 
+- By exploring different correlation matrices and decision trees, Jerel and I had informative conversations about what factors affect the efficiency of the charging stations. 
+- In this visualization, for example, you can see how the most predictive node when determining if a "charging" session will be 4 hours or longer is whether the driver is using the sites by the county jail. 
 
 ![image](https://github.com/user-attachments/assets/19290255-5584-422d-85e8-2dd9aee48308)
 
-#### Visual Exploration w/ Mapping
+#### Visual Exploration with Mapping
 
-- To explore the relationship between proximity to highways and other landmarks to features we've produced 6 maps that can be reviewed in the /maps folder.
+- To explore the relationship between proximity to highways and other landmarks to features, we've produced 6 maps that can be reviewed in the /maps folder.
 - This will be an area for future development as per the ROADMAP.md
 ![image](https://github.com/user-attachments/assets/e4380565-e663-4620-86dd-a789d51e733d)
 
@@ -421,14 +422,15 @@ The substantial variance between scenarios highlights the importance of flexible
 
 This multi-scenario approach provides Santa Barbara County with a robust framework for EV infrastructure planning that balances immediate operational needs with strategic long-term capacity development.
 
-### Historical Data From California Department of Energy
-
-![image](https://github.com/user-attachments/assets/8d612815-f260-48f8-a3e4-b5b0620df916)
-
 ### Three Scenario Projections Based on the PowerFlex Data Modeling (Base Forecast), the Energy Department Data Trends and the Zero-Emission Vehicle Plan Targets
 
 ![image](https://github.com/user-attachments/assets/188839e2-f587-407c-bd5d-8ec6280b93de)
 
+### For Reference: This is the Historical EV Adoption Data From California Department of Energy for CSB
+
+![image](https://github.com/user-attachments/assets/8d612815-f260-48f8-a3e4-b5b0620df916)
+
+This data and visualization is described in the data-analysis-vehicle-population.ipynb notebook.
 
 ## Future Model Enhancements
 
@@ -440,7 +442,7 @@ Based on our analysis and the current model performance, we've identified severa
 - **Implement ensemble methods** combining multiple forecasting models to improve robustness across different time horizons
 
 ### Data Preprocessing Refinements
-- **Develop a robust outlier detection and treatment methodology** to address the significant outliers identified in the [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb) notebook (Fig2_C)
+- **Develop a robust outlier detection and treatment methodology** to address the significant outliers identified in the [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb) notebook
 - **Conduct causal factor analysis** to understand the operational significance of these outliers and their relationship to special events or system anomalies
 - **Create specialized holiday and event features** to account for predictable demand pattern disruptions
 
@@ -450,8 +452,9 @@ Based on our analysis and the current model performance, we've identified severa
 - **Integrate forecasts with the County's infrastructure planning tools** to translate predictions directly into actionable capacity planning recommendations
 
 These enhancements will be prioritized based on the County Transportation Department's immediate planning needs and available resources.
-  ![image](https://github.com/user-attachments/assets/cdabc2ed-4154-4071-83a2-50c2a24e2994)
-- Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary.
+
+### Additional Forecasting Targets
+- Forecast other features such as "Started Sessions" in the "Days" dataset since it might be more stationary
   
 ## Outline of project
 
@@ -459,10 +462,11 @@ These enhancements will be prioritized based on the County Transportation Depart
 - [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
 - [dashboard-app](https://github.com/elmunoz42/sbcc-ev-charging-stations/tree/main/dashboard-app)
 - [ROADMAP](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/ROADMAP.md)
+- [IMPLEMENTATION](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/IMPLEMENTATION.md)
 
-## Additional deliverables
+## Additional Deliverables
 - The data visualizations are available for download in the "Images" folder.
-- Certain report tables will have been added to this project as CSV files. For example the statistical analysis of Type 2 (Webasto) and Type 3 (Delta) charging stations.
+- Certain report tables have been added to this project as CSV files. For example, the statistical analysis of Type 2 (Webasto) and Type 3 (Delta) charging stations:
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/webasto_dx_statistics.csv
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/delta_statistics.csv
 
