@@ -134,6 +134,7 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 - Evaluate contextual validity of outliers (e.g., unusually long sessions)
 - Apply appropriate treatment (removal, capping, or flagging)
 
+![image](https://github.com/user-attachments/assets/7151f9f4-3781-4a0a-949f-34ad3ab043bd)
 
 #### Missing Value Imputation
 
@@ -254,15 +255,21 @@ The model now serves as a reliable foundation for the County's short and medium-
 
 While STL-ARIMA provides reliable short-term forecasting (3–6 months), long-term infrastructure planning requires scenario-based projections rather than strict predictive modeling.
 
-To estimate 2030 demand, we use a linear or exponential extrapolation based on current EV adoption targets and historical usage growth. The STL-ARIMA short-term forecast supports this by revealing seasonal variability and baseline trends, which are layered onto the long-range scenarios. 
+To estimate 2030 demand, we use a linear or exponential extrapolation based on current EV adoption trends and targets juxtaposed with historical usage growth. The STL-ARIMA short-term forecast supports this by revealing seasonal variability and baseline trends, which are layered onto the long-range scenarios. 
 
-Together, this hybrid approach enables both operational forecasting and strategic capacity planning—giving Santa Barbara County a way to manage the near-term while preparing for the long-term.
+Together, this hybrid approach enables both operational forecasting and strategic capacity planning—giving Santa Barbara County a way to manage the near-term while preparing for the long-term. In the short and medium term CSB needs to predict usage peaks so they can be remedied immediately. In the long term the grid needs to be built to match the projected need of ~30,000 kWh in your average day. [ADD SPECIFIC NUMBERS HERE]
 
 In this graph we are modeling 2 Scenarios, the "linear" growth trend suggested by the charging data and the exponential trend derived from the California Department of Energy's Zery-Emission Vehicle data. 
 
 One key difference between these data sources is that the energy department's vehicle population data spans from 2010 to 2023. This larger time period allows for a deeper understanding of long term trends. 
 
+### Historical Data From California Department of Energy
 
+![image](https://github.com/user-attachments/assets/8d612815-f260-48f8-a3e4-b5b0620df916)
+
+### Our Scenario Projection Based on the PowerFlex Data Modeling (Base Forecast) and Adjusted Forecast
+
+![image](https://github.com/user-attachments/assets/55ad42ee-2526-431a-8f14-cad89ed0e36f)
 
 ## Future Model Enhancements
 
