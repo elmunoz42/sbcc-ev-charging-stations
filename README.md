@@ -458,9 +458,10 @@ These enhancements will be prioritized based on the County Transportation Depart
   
 ## Outline of project
 
-- [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
-- [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
-- [dashboard-app](https://github.com/elmunoz42/sbcc-ev-charging-stations/tree/main/dashboard-app)
+- PRIMARY NOTEBOOK FOR MODEL DEVELOPMENT: [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
+- EXPLORATORY NOTEBOOK: [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
+- EXPLORATORY NOTEBOOK: [data-analysis-vehicle-population](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb)
+- DEPLOYED MODEL APPLICATION: [dashboard-app](https://github.com/elmunoz42/sbcc-ev-charging-stations/tree/main/dashboard-app)
 - [ROADMAP](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/ROADMAP.md)
 - [IMPLEMENTATION](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/IMPLEMENTATION.md)
 
