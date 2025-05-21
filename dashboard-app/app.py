@@ -109,10 +109,16 @@ def main():
                             # Make sure columns are properly formatted for analysis
                             # Convert numeric columns that might be strings
                             for col in analysis_df.columns:
-                                if col != 'Day':  # Skip the date column
+                                if col == 'Day':  
+                                    # Ensure date column is properly formatted
+                                    try:
+                                        analysis_df[col] = pd.to_datetime(analysis_df[col], errors='coerce')
+                                    except:
+                                        pass
+                                else:
                                     try:
                                         # Handle specific problematic columns
-                                        if col in ['Max kW hour (kW)']:
+                                        if col in ['Max kW hour (kW)', 'Max Utilization (%)', 'Faulted Stations', 'Uptime (%)']:
                                             # Skip columns that have text mixed with numbers
                                             continue
                                         analysis_df[col] = pd.to_numeric(analysis_df[col], errors='coerce')

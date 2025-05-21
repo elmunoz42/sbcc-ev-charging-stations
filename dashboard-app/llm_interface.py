@@ -11,22 +11,46 @@ CLAUDE_API_KEY = os.getenv('CLAUDE_API_KEY')
 
 # Default values
 DEFAULT_MODEL = 'claude-3-opus-20240229'
-DEFAULT_PROMPT = """
-        You are an expert data analyst. Based on the dataset statistics provided, give me a concise, 
+CUSTOM_PROMPT = """
+        You are an expert data analyst providing Zero-Emission Vehicle specialist actionable insight from data collected about charging station utilization over time. Based on the dataset statistics provided, give me a concise, 
         human-readable interpretation of the key characteristics of this dataset. Focus on:
         
         1. The typical values and ranges for numerical columns
         2. Ignore the categorical features since you don't have data for these. DONT DESCRIBE FEATURES FOR WHICH YOU DON'T HAVE NUMBERS.
-        3. Any potential issues with the data (e.g., missing values, outliers)
         4. Any interesting patterns or insights
         
         Format your response as bullet points that are easy to read and understand.
         Make your insights actionable for further data analysis and classification model development.
         """
 
+COLUMN_DESCRIPTION = """
+        Day: Date of recorded charging station activity
+        Started Sessions: Number of charging sessions initiated during the day
+        Completed Sessions: Number of charging sessions successfully completed during the day
+        Microsessions: Number of very short charging sessions (likely less than a few minutes)
+        AVG session duration (minutes): Average total time vehicles were connected to chargers
+        AVG charging duration (minutes): Average time vehicles were actively drawing power
+        AVG session idle (minutes): Average time vehicles remained connected after charging completed
+        Energy delivered (kWh): Total electrical energy provided to vehicles
+        AVG kWh delivered per session (kWh): Average amount of energy delivered per charging session
+        Max kWh delivered per session (kWh): Maximum amount of energy delivered in a single charging session
+        Max kW hour (kW): Hour of the day with peak power demand
+        GHGs avoided (lbs): Estimated greenhouse gas emissions avoided by using electric vs. gasoline vehicles
+        Gasoline avoided (Gal): Estimated gallons of gasoline not consumed due to EV usage
+        Electric miles provided (mi): Estimated electric vehicle miles enabled by the energy delivered
+        Potential revenue ($): Maximum possible revenue based on pricing policies
+        Collected revenue ($): Actual revenue collected from charging sessions
+        Discounts granted ($): Value of discounts or promotions applied to charging sessions
+        Utilization (%): Percentage of time charging stations were in use
+        Max Utilization (%): Time period with highest utilization percentage
+        Faulted Stations: Stations experiencing technical issues or malfunctions
+        Time in Faulted State (hours): Duration stations were non-operational due to faults
+        Uptime (%): Percentage of time stations were operational and available for use
+        """
+
 def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL, 
-                                version='2023-06-01', custom_prompt=None, 
-                                column_description=None, column_info_file=None):
+                                version='2023-06-01', custom_prompt=CUSTOM_PROMPT, 
+                                column_description=COLUMN_DESCRIPTION, column_info_file=None):
     """
     Function to analyze a dataset using pandas describe() and then interpret the results using Claude API.
     
@@ -66,15 +90,25 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
     unique_counts = pd.DataFrame(df.nunique(), columns=['Unique Values'])
     
     # Combine all information
+    # Convert all DataFrames to dictionaries with string-based keys
+    def convert_dict_keys_to_str(d):
+        if isinstance(d, dict):
+            return {str(k): convert_dict_keys_to_str(v) for k, v in d.items()}
+        elif isinstance(d, list):
+            return [convert_dict_keys_to_str(i) for i in d]
+        else:
+            return d
+            
+    # Create dataset info with string keys
     dataset_info = {
-        'statistics': stats.to_dict(),
-        'data_types': dtypes.to_dict(),
+        'statistics': convert_dict_keys_to_str(stats.to_dict()),
+        'data_types': convert_dict_keys_to_str(dtypes.to_dict()),
         'null_info': {
-            'counts': null_counts.to_dict(),
-            'percentages': null_percentages.to_dict()
+            'counts': convert_dict_keys_to_str(null_counts.to_dict()),
+            'percentages': convert_dict_keys_to_str(null_percentages.to_dict())
         },
-        'unique_values': unique_counts.to_dict(),
-        'sample_data': df.head(5).to_dict()
+        'unique_values': convert_dict_keys_to_str(unique_counts.to_dict()),
+        'sample_data': convert_dict_keys_to_str(df.head(5).to_dict())
     }
     
     # Default prompt if none is provided
@@ -108,13 +142,22 @@ def describe_dataset_with_claude(df, api_key=None, model=DEFAULT_MODEL,
         """
     
     # Prepare the prompt for Claude
+    # Use a custom JSON serialization function that handles all types
+    def json_serialize(obj):
+        if hasattr(obj, 'isoformat'):  # Handle datetime objects
+            return obj.isoformat()
+        elif pd.isna(obj):  # Handle NaN, NaT, etc.
+            return None
+        else:
+            return str(obj)
+    
     prompt = f"""
     {custom_prompt}
     
     {column_info}
     
     Here is the statistical summary of the dataset:
-    {json.dumps(dataset_info, default=str, indent=2)}
+    {json.dumps(dataset_info, default=json_serialize, indent=2)}
     """
     
     # API endpoint for Claude

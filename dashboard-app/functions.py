@@ -35,15 +35,25 @@ def describe_dataset_with_claude(df, api_key, model='claude-3-opus-20240229',
     unique_counts = pd.DataFrame(df.nunique(), columns=['Unique Values'])
     
     # Combine all information
+    # Convert all DataFrames to dictionaries with string-based keys
+    def convert_dict_keys_to_str(d):
+        if isinstance(d, dict):
+            return {str(k): convert_dict_keys_to_str(v) for k, v in d.items()}
+        elif isinstance(d, list):
+            return [convert_dict_keys_to_str(i) for i in d]
+        else:
+            return d
+            
+    # Create dataset info with string keys
     dataset_info = {
-        'statistics': stats.to_dict(),
-        'data_types': dtypes.to_dict(),
+        'statistics': convert_dict_keys_to_str(stats.to_dict()),
+        'data_types': convert_dict_keys_to_str(dtypes.to_dict()),
         'null_info': {
-            'counts': null_counts.to_dict(),
-            'percentages': null_percentages.to_dict()
+            'counts': convert_dict_keys_to_str(null_counts.to_dict()),
+            'percentages': convert_dict_keys_to_str(null_percentages.to_dict())
         },
-        'unique_values': unique_counts.to_dict(),
-        'sample_data': df.head(5).to_dict()
+        'unique_values': convert_dict_keys_to_str(unique_counts.to_dict()),
+        'sample_data': convert_dict_keys_to_str(df.head(5).to_dict())
     }
     
     # Default prompt if none is provided
@@ -77,13 +87,22 @@ def describe_dataset_with_claude(df, api_key, model='claude-3-opus-20240229',
         """
     
     # Prepare the prompt for Claude
+    # Use a custom JSON serialization function that handles all types
+    def json_serialize(obj):
+        if hasattr(obj, 'isoformat'):  # Handle datetime objects
+            return obj.isoformat()
+        elif pd.isna(obj):  # Handle NaN, NaT, etc.
+            return None
+        else:
+            return str(obj)
+    
     prompt = f"""
     {custom_prompt}
     
     {column_info}
     
     Here is the statistical summary of the dataset:
-    {json.dumps(dataset_info, default=str, indent=2)}
+    {json.dumps(dataset_info, default=json_serialize, indent=2)}
     """
     
     # API endpoint for Claude
