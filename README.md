@@ -101,7 +101,7 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
 
 - **Evaluation**: Models are assessed using time-series cross-validation with metrics like RMSE, MAE, MAPE, and residual analysis to ensure forecasts accurately capture both current utilization patterns and future growth trajectories.
 
-- **Deployment**: Results are being integrated directly into the County's decision-making process for their Zero Emission Vehicle Plan, with ongoing biweekly collaboration ensuring findings translate into actionable infrastructure planning. Furthermore, a Streamlit dashboard application was created so that the county specialist can upload new file exports and get up-to-date forecast predictions, including warnings about energy usage spikes.
+- **Deployment**: Results are being integrated directly into the County's decision-making process for their Zero Emission Vehicle Plan, with ongoing biweekly collaboration ensuring findings translate into actionable infrastructure planning. Furthermore, a [Streamlit dashboard application was created](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) so that the county specialist can upload new file exports and get up-to-date forecast predictions, including warnings about energy usage spikes.
 
 ### Discovery and Continuous Engagement with County of Santa Barbara Domain Expert
 
