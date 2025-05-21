@@ -214,8 +214,7 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 
 - To explore the relationship between proximity to highways and other landmarks to features we've produced 6 maps that can be reviewed in the /maps folder.
 - This will be an area for future development as per the ROADMAP.md
-![image](https://github.com/user-attachments/assets/67465bb9-05c5-467e-bcc5-9afb32c4486d)
-
+![image](https://github.com/user-attachments/assets/e4380565-e663-4620-86dd-a789d51e733d)
 
 ### Phase 3: Time Series Forecasting (Days Data)
 A SARIMAX (Seasonal AutoRegressive Integrated Moving Average with eXogenous variables) model will be developed to forecast future charging demand, focusing primarily on daily energy delivered (kWh).
