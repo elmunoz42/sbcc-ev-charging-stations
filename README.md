@@ -448,7 +448,7 @@ Based on our analysis and the current model performance, we've identified severa
 
 ### Advanced Time Series Techniques
 - **Optimize differencing parameters** in the ARIMA component to better capture the non-stationary aspects of the data
-- **Explore RNN forecast modeling** (Recursive Neural Network) to better handle the inherent volatility in charging demand patterns. Such a model will include a larger set of features to create more robust predictions.
+- **Explore RNN forecast modeling** (Recursive Neural Network) to better handle the inherent volatility in charging demand patterns. Such a model will include a larger set of features to create more robust predictions. SEE BONUS SECTION BELOW FOR INITIAL FINDINGS.
 - **Implement ensemble methods** combining multiple forecasting models to improve robustness across different time horizons
 
 ### Data Preprocessing Refinements
