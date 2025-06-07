@@ -482,7 +482,7 @@ These enhancements will be prioritized based on the County's immediate planning 
 - PRIMARY NOTEBOOK FOR MODEL DEVELOPMENT: [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
 - EXPLORATORY NOTEBOOK: [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
 - EXPLORATORY NOTEBOOK: [data-analysis-vehicle-population](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb)
-- DEPLOYED MODEL APPLICATION: [dashboard-app](https://github.com/elmunoz42/sbcc-ev-charging-stations/tree/main/dashboard-app)
+- DEPLOYED MODEL APPLICATION: [dashboard-app files](https://github.com/elmunoz42/sbcc-ev-charging-stations/tree/main/dashboard-app) - [dashboard-app live application](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) 
 - [ROADMAP](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/ROADMAP.md)
 - [IMPLEMENTATION](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/IMPLEMENTATION.md)
 
