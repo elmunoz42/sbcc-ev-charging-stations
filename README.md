@@ -502,9 +502,14 @@ These enhancements will be prioritized based on the County's immediate planning 
 
 # Bonus Section - RNN Forecasting Model
 
-In addition to the STL Arima forecasting model I also tested an RNN forecasting model. Currently there wasn't enough data for this to result in a significant improvement. This much more complex neural network model only improves the error rate by 0.6% in RMSE compared to our production model. While further exploration with different neural network configurations could be potentially beneficial, the main inflection point will simply be having more meaningful data. The County of Santa Barbara only has 2 years of meaningful charging data. I imagine that in a year from now the RNN model will do much better and will easily outperform the STL-Arima baseline model. At this time however it is more prudent to keep the deployed model as is since it is much easier to understand and maintain. 
+In addition to the STL Arima forecasting model I also tested an RNN forecasting model. This much more complex neural network model improves the prediction error by 19% in RMSE compared to our production model. This is a very encouraging improvement especially given the fact that the County of Santa Barbara only has 2 years of meaningful charging data. I imagine that in a year from now the RNN model will do much better and will significantly outperform the STL-Arima baseline model. At this time however it is more prudent to keep the deployed model to the STL-Arima model since it is much easier to understand and maintain. Also, there are no compute costs with STL-Arima. 
 
-![image](https://github.com/user-attachments/assets/440a6b62-31c3-4e8f-916f-d8b72e2576ad)
+One aspect that I feel is not correctly represented in the Neural Network model is that it doesn't represent the usage spikes quite as well. More research and experimentation is need to better represent that important factor. Furthermore, I've discussed with Jerel that we might want to go through each energy usage spike and to the best of our ability label these as that might help the neural network to predict for example a Labor day holiday weekend usage spike. The beauty of recursive neural network models for forecasting is that we can add additional features to create a more robust prediction. 
+
+![image](https://github.com/user-attachments/assets/3139641e-a254-4406-9351-1926ab271c83)
+
+![image](https://github.com/user-attachments/assets/1d7a719d-cf89-4359-b1b3-330210454ba6)
+
 
 
 ## IMPORTANT NOTE:
