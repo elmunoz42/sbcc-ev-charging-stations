@@ -509,7 +509,7 @@ In addition to the STL Arima forecasting model I also tested an RNN forecasting 
 
 ## IMPORTANT NOTE:
 
-Please note that the RNN model in the notebook requires a graphic card to compute. I used the Google Colab Pro A100. The model might fail if your kernel is running on a regular CPU. Below is a link to the Google Colab Notebook, a paid upgrade might be needed to fit the model. Alternatively, running the notebook on a local Anaconda server with a NVidia card can also work.
+Please note that while the RNN model can run on CPU, it will be significantly slower and may encounter memory limitations with larger datasets. For optimal performance, a GPU is recommended. I used Google Colab Pro with an A100 GPU for this project. If using the free tier of Google Colab, you may need to upgrade to Pro to access sufficient computational resources and avoid timeout issues. Alternatively, you can run the notebook locally in Jupyter/Anaconda with an Nvidia GPU (requires CUDA setup).
 
 [Google Colab Notebook](https://colab.research.google.com/drive/1wcdJn2BWfyFMBqbq5qLlqKagtWWZ4doq?usp=sharing)
 
