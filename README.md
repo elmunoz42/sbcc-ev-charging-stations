@@ -504,6 +504,9 @@ These enhancements will be prioritized based on the County's immediate planning 
 
 In addition to the STL Arima forecasting model I also tested an RNN forecasting model. Currently there wasn't enough data for this to result in a significant improvement. This much more complex neural network model only improves the error rate by 0.6% in RMSE compared to our production model. While further exploration with different neural network configurations could be potentially beneficial, the main inflection point will simply be having more meaningful data. The County of Santa Barbara only has 2 years of meaningful charging data. I imagine that in a year from now the RNN model will do much better and will easily outperform the STL-Arima baseline model. At this time however it is more prudent to keep the deployed model as is since it is much easier to understand and maintain. 
 
+![image](https://github.com/user-attachments/assets/440a6b62-31c3-4e8f-916f-d8b72e2576ad)
+
+
 ## IMPORTANT NOTE:
 
 Please note that the RNN model in the notebook requires a graphic card to compute. I used the Google Colab Pro A100. The model might fail if your kernel is running on a regular CPU. Below is a link to the Google Colab Notebook, a paid upgrade might be needed to fit the model. Alternatively, running the notebook on a local Anaconda server with a NVidia card can also work.
