@@ -499,6 +499,57 @@ These enhancements will be prioritized based on the County's immediate planning 
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/Session_duration_minutes_map.html
      - https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/maps/kWh_delivered_map.html
 
+
+# Bonus Section - RNN Forecasting Model
+
+In addition to the STL Arima forecasting model I also tested an RNN forecasting model. Currently there wasn't enough data for this to result in a significant improvement. This much more complex neural network model only improves the error rate by 0.6% in RMSE compared to our production model. While further exploration with different neural network configurations could be potentially beneficial, the main inflection point will simply be having more meaningful data. The County of Santa Barbara only has 2 years of meaningful charging data. I imagine that in a year from now the RNN model will do much better and will easily outperform the STL-Arima baseline model. At this time however it is more prudent to keep the deployed model as is since it is much easier to understand and maintain. 
+
+## IMPORTANT NOTE:
+
+Please note that the RNN model in the notebook requires a graphic card to compute. I used the Google Colab Pro A100. The model might fail if your kernel is running on a regular CPU. Below is a link to the Google Colab Notebook, a paid upgrade might be needed to fit the model. Alternatively, running the notebook on a local Anaconda server with a NVidia card can also work.
+
+[Google Colab Notebook](https://colab.research.google.com/drive/1wcdJn2BWfyFMBqbq5qLlqKagtWWZ4doq?usp=sharing)
+
+## RNN Model Structure Overview
+
+This creates a stacked LSTM model with the following layers:
+
+### Layer 1: First LSTM (50 units)
+`pythonLSTM(50, return_sequences=True, input_shape=input_shape)`
+
+50 units: Creates 50 LSTM memory cells that can learn different temporal patterns
+return_sequences=True: This is key - it outputs the full sequence rather than just the final output, allowing the next LSTM layer to see the entire processed sequence
+input_shape: Expects 3D input (batch_size, time_steps, features)
+
+### Layer 2: Dropout (20%)
+`pythonDropout(dropout_rate)`
+
+Randomly sets 20% of neurons to zero during training
+Prevents overfitting by forcing the model not to rely too heavily on specific neurons
+Only active during training, not prediction
+
+### Layer 3: Second LSTM (50 units)
+`pythonLSTM(50, return_sequences=False)`
+
+Another 50 LSTM units to capture more complex patterns
+return_sequences=False: Only outputs the final time step's result (not the full sequence)
+This creates the transition from sequence processing to final prediction
+
+### Layer 4: Another Dropout
+Same 20% dropout for regularization
+Layer 5: Dense Layer (25 units)
+pythonDense(25, activation='relu')
+
+Fully connected layer with 25 neurons
+ReLU activation: Helps with non-linear pattern recognition
+Acts as a "feature combiner" before final prediction
+
+### Layer 6: Output Layer (1 unit)
+`pythonDense(1, activation='linear')`
+
+Single output neuron for energy demand prediction
+Linear activation: No transformation, direct numeric output
+
 ### Contact and Further Information
 
 https://carlosmunozkampff.com/contact 
