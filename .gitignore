@@ -1,3 +1,5 @@
 dashboard-app/.git 
 dashboard-app/.env 
 dashboard-app/.streamlit/secrets.toml
+site-recommendation-model/site_data/raw_images
+site-recommendation-model/site_data/processed_images
