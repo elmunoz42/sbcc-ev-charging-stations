@@ -20,8 +20,10 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 #### Example Time Series Plot
 <img width="525" height="281" alt="image" src="https://github.com/user-attachments/assets/005b214d-5428-43f5-b826-25ebd1ee31d4" />
+
 #### Example Forecast w/ Predicted Peak Activity
 <img width="540" height="600" alt="image" src="https://github.com/user-attachments/assets/ddc1c999-e419-4949-8e93-54f4df99af28" />
+
 #### Example Dynamically AI Generated Statistical Analysis
 <img width="384" height="554" alt="image" src="https://github.com/user-attachments/assets/0aafcc2b-eaf1-43fd-b058-a05d5fc53a97" />
 
