@@ -18,6 +18,9 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 [dashboard-app](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/)
 
+<img width="817" height="668" alt="image" src="https://github.com/user-attachments/assets/cffbbf42-778a-4a99-b275-0a067a5fd6c8" />
+
+
 The application allows specialists to get up-to-date forecasts and AI-generated statistical analysis. For more details, please review the IMPLEMENTATION.md file in this repository.
 
 ## Research Question
