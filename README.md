@@ -16,7 +16,11 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 ### Deployed Streamlit Application With Forecasting and Custom LLM-Powered Statistical Analysis
 
+#### App URL
 [dashboard-app](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/)
+
+#### App Screenshots:
+-------------------------------------------------------------
 
 #### Example Time Series Plot
 <img width="525" height="281" alt="image" src="https://github.com/user-attachments/assets/005b214d-5428-43f5-b826-25ebd1ee31d4" />
@@ -27,6 +31,7 @@ The study examines four years (2020-2024) of charging station utilization data c
 #### Example Dynamically AI Generated Statistical Analysis
 <img width="384" height="554" alt="image" src="https://github.com/user-attachments/assets/0aafcc2b-eaf1-43fd-b058-a05d5fc53a97" />
 
+-------------------------------------------------------------
 The application allows specialists to get up-to-date forecasts and AI-generated statistical analysis. For more details, please review the IMPLEMENTATION.md file in this repository.
 
 ## Research Question
