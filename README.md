@@ -10,7 +10,7 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 - **Growth in Energy Demand**: PowerFlex time series data reveals a consistent upward trend in kilowatt-hours of energy delivered through charging stations, with identifiable seasonality patterns that have been captured in our forecasting models. STL-Arima and LSTM (RNN) Models were utilized and evaluated.
   
-- **Accelerating EV Adoption**: California Energy Commission data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans. Three long term growth projections were evaluated in particular regarding their impact on energy utiliziation.
+- **Accelerating EV Adoption**: California Energy Commission data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans. Three long term growth projections were plotted in particular regarding their impact on energy utiliziation.
   
 - **Optimization Opportunities**: Decision tree analysis identified efficiency improvements that could complement new station construction—specifically, targeting the 6% of charging sessions with excessive idle times through policy adjustments could significantly increase existing infrastructure capacity.
 
