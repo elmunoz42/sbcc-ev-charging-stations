@@ -16,7 +16,7 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 ### Deployed Streamlit Application With Forecasting and Custom LLM-Powered Statistical Analysis
 
-#### App URL
+#### App URL:
 [dashboard-app](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/)
 
 #### App Screenshots:
