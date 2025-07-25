@@ -207,3 +207,7 @@ For issues with:
 ## License
 
 This code is part of the EV Charging Station Site Recommendation capstone project.
+
+### Inspiration
+
+https://www.youtube.com/watch?v=tHL5STNJKag&t=264s
