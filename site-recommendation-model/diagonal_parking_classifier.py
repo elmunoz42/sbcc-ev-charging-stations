@@ -271,7 +271,8 @@ class DiagonalParkingClassifier:
         
         # Combine histories
         for key in self.history.history.keys():
-            self.history.history[key].extend(fine_tune_history.history[key])
+            if key in fine_tune_history.history:
+                self.history.history[key].extend(fine_tune_history.history[key])
         
         logger.info("Fine-tuning completed")
     

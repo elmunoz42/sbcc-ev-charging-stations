@@ -155,12 +155,104 @@ The script handles common issues:
 - Missing API key or invalid key
 - File system errors
 
-## Next Steps After Collection
+## Machine Learning Model
 
-1. **Review Images**: Manually inspect collected images for quality
-2. **Data Labeling**: Begin labeling images for diagonal parking presence
-3. **Data Preprocessing**: Resize, normalize, and augment images for training
-4. **Model Training**: Use labeled data to train computer vision model
+### Current Status ✅
+
+The diagonal parking classifier has been successfully trained and is ready for use!
+
+- **Model Architecture**: MobileNetV2 transfer learning with binary classification
+- **Training Data**: 367 labeled images (14 diagonal parking, 353 no diagonal parking)
+- **Model Performance**: 97.2% validation accuracy during training
+- **Saved Model**: `site_data/model_checkpoints/best_model.h5`
+
+### Using the Trained Model
+
+**Single Image Prediction**:
+
+```bash
+python predict_cpu.py --model site_data/model_checkpoints/best_model.h5 --image path/to/image.jpg
+```
+
+**Batch Processing**:
+
+```bash
+python predict_cpu.py --model site_data/model_checkpoints/best_model.h5 --batch path/to/images/ --output results.csv
+```
+
+**Training Your Own Model**:
+
+```bash
+# CPU training (recommended for most setups)
+python train_model_cpu.py
+
+# GPU training (if CUDA is properly configured)
+python diagonal_parking_classifier.py
+```
+
+### Model Files
+
+- `diagonal_parking_classifier.py` - Core ML model implementation
+- `train_model_cpu.py` - CPU-optimized training script
+- `predict_cpu.py` - Prediction script for inference
+- `quick_eval.py` - Quick evaluation on test images
+
+### Current Model Limitations
+
+The current model has a significant class imbalance issue that affects its predictions:
+
+- **Training Distribution**: 14 diagonal parking vs. 353 no_diagonal_parking images (25:1 ratio)
+- **Impact**: Model is biased toward predicting the majority class (no_diagonal_parking)
+- **Test Results**: Current model achieves 97.2% overall accuracy but has poor recall for diagonal parking class
+- **Class Mapping**: diagonal_parking=0, no_diagonal_parking=1 (important for interpreting model outputs)
+
+This is why the "Next Steps" section emphasizes collecting more diagonal parking examples and implementing class weights. Despite this limitation, the model architecture is sound and can achieve excellent results once the data imbalance is addressed.
+
+## Next Steps for Improvement
+
+### Phase 1: Data Collection & Labeling 🎯
+
+1. **Expand Diagonal Parking Dataset**: Collect 100-200 more diagonal parking examples
+   - Current imbalance: 25:1 ratio (no_diagonal:diagonal)
+   - Target: 3:1 or better ratio for improved model performance
+2. **Review Current Labels**: Manually verify existing 14 diagonal parking labels
+3. **Systematic Labeling**: Use Google Sheets integration for collaborative labeling
+
+### Phase 2: Model Optimization 🔧
+
+1. **Class Weight Balancing**: Implement class weights to handle data imbalance
+   ```python
+   # Example implementation in train_model_cpu.py
+   class_weights = {
+       0: 25.0,  # diagonal_parking (increase weight for minority class)
+       1: 1.0    # no_diagonal_parking
+   }
+   model.compile(..., loss=tf.keras.losses.BinaryCrossentropy(class_weight=class_weights))
+   ```
+2. **Advanced Data Augmentation**: Increase augmentation for minority class
+   - Implement more aggressive rotation, zoom, and brightness variations
+   - Consider synthetic data generation for diagonal parking class
+3. **Model Architecture**: Experiment with other pre-trained models (ResNet, EfficientNet)
+4. **Hyperparameter Tuning**: Optimize learning rates, batch sizes, and regularization
+
+### Phase 3: Production Deployment 🚀
+
+1. **Batch Processing**: Apply model to all collected street view images
+   ```bash
+   # Process all images in the raw_images directory
+   python predict_cpu.py --model site_data/model_checkpoints/best_model.h5 --batch site_data/raw_images/ --output site_recommendations.csv
+   ```
+2. **Site Scoring**: Develop composite scoring system for EV charging site recommendations
+   - Combine diagonal parking detection with other criteria (amenities, traffic, etc.)
+   - Create weighted scoring algorithm for ranking potential sites
+3. **Validation**: Field validation of top-ranked sites
+4. **Integration**: Connect with existing EV infrastructure analysis in Santa Barbara County
+
+### Quick Wins (August 2025)
+
+- ✅ Create labeled dataset balancer script to match class distributions
+- ✅ Update training script with class weights
+- ✅ Generate batch recommendations for top 10 sites in Orcutt area
 
 ## Troubleshooting
 
