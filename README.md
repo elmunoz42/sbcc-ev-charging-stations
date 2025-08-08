@@ -8,16 +8,36 @@ The study examines four years (2020-2024) of charging station utilization data c
 
 ### Key findings include:
 
-- **Growth in Energy Demand**: PowerFlex time series data reveals a consistent upward trend in kilowatt-hours of energy delivered through charging stations, with identifiable seasonality patterns that have been captured in our forecasting models.
+- **Growth in Energy Demand**: PowerFlex time series data reveals a consistent upward trend in kilowatt-hours of energy delivered through charging stations, with identifiable seasonality patterns that have been captured in our forecasting models. STL-Arima and LSTM (RNN) Models were utilized and evaluated.
   
-- **Accelerating EV Adoption**: California Energy Commission data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans.
+- **Accelerating EV Adoption**: California Energy Commission data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans. Three long term growth projections were reviewed in particular regarding their impact on energy utiliziation.
   
 - **Optimization Opportunities**: Decision tree analysis identified efficiency improvements that could complement new station construction—specifically, targeting the 6% of charging sessions with excessive idle times through policy adjustments could significantly increase existing infrastructure capacity.
 
 ### Deployed Streamlit Application With Forecasting and Custom LLM-Powered Statistical Analysis
 
+The Zero Emission Vehicle Data Analyzer application, allows the E.V. specialst to get up-to-date predictions and AI driven statistical analysis.
+
+#### App URL:
 [dashboard-app](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/)
 
+#### App Screenshots:
+-------------------------------------------------------------
+
+#### Example Time Series Plot
+<img width="525" height="281" alt="image" src="https://github.com/user-attachments/assets/005b214d-5428-43f5-b826-25ebd1ee31d4" />
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+#### Example Forecast w/ Predicted Peak Activity
+<img width="540" height="600" alt="image" src="https://github.com/user-attachments/assets/ddc1c999-e419-4949-8e93-54f4df99af28" />
+
+- - - - - - - - - - - - - - - - - - - - - - - - - - - - - - - 
+
+#### Example Dynamically AI Generated Statistical Analysis
+<img width="384" height="554" alt="image" src="https://github.com/user-attachments/assets/0aafcc2b-eaf1-43fd-b058-a05d5fc53a97" />
+
+-------------------------------------------------------------
 The application allows specialists to get up-to-date forecasts and AI-generated statistical analysis. For more details, please review the IMPLEMENTATION.md file in this repository.
 
 ## Research Question
@@ -502,7 +522,7 @@ These enhancements will be prioritized based on the County's immediate planning 
 
 # Bonus Section - RNN Forecasting Model
 
-In addition to the STL Arima forecasting model I also tested an RNN forecasting model. This much more complex neural network model improves the prediction error by 19% in RMSE compared to our production model. This is a very encouraging improvement especially given the fact that the County of Santa Barbara only has 2 years of meaningful charging data. I imagine that in a year from now the RNN model will do much better and will significantly outperform the STL Arima baseline model. At this time however it is more prudent to keep the deployed model to the STL Arima model since it is much easier to understand and maintain. Also, there are no compute costs with STL Arima. 
+In addition to the STL Arima forecasting model I also tested an RNN(LSTM) forecasting model. This much more complex neural network model improves the prediction error by 19% in RMSE compared to our production model. This is a very encouraging improvement especially given the fact that the County of Santa Barbara only has 2 years of meaningful charging data. I imagine that in a year from now the RNN model will do much better and will significantly outperform the STL Arima baseline model. At this time however it is more prudent to keep the deployed model to the STL Arima model since it is much easier to understand and maintain. Also, there are no compute costs with STL Arima. 
 
 One aspect that is not correctly represented in the Neural Network model is the kurtosis of the predictions. The actual data is more leptokurtic than the predictions. In other words the model doesn't predict the usage spikes quite as well. More research and experimentation is needed to better represent that important factor. Furthermore, I've discussed with Jerel (from CSB) that we might want to go through each energy usage spike and to the best of our ability label these as that might help the neural network to predict for example a Labor day holiday weekend energy usage peak. The advantage of recursive neural network models for forecasting when compared to STL Arima is that we can add additional features to create a more robust prediction. 
 
