@@ -16,13 +16,20 @@ def run_prediction(model_path, image_path):
             '--model', model_path,
             '--image', image_path
         ], capture_output=True, text=True)
-        
+
+        print(f"\n[DEBUG] Running prediction for {image_path}")
+        print(f"[DEBUG] Subprocess return code: {result.returncode}")
+        print(f"[DEBUG] Subprocess stdout:\n{result.stdout}")
+        print(f"[DEBUG] Subprocess stderr:\n{result.stderr}")
+
         if result.returncode == 0:
             # Parse the output to extract prediction
             lines = result.stdout.strip().split('\n')
             for line in lines:
-                if 'Prediction:' in line:
-                    prediction = line.split('Prediction:')[1].strip()
+                line_stripped = line.strip()
+                if line_stripped.startswith('Prediction:') or 'Prediction:' in line_stripped:
+                    # Handles both 'Prediction:' at start and with leading spaces
+                    prediction = line_stripped.split('Prediction:')[1].strip()
                     return prediction
         return None
     except Exception as e:
@@ -45,7 +52,10 @@ def main():
         correct = prediction == 'diagonal_parking'
         if correct:
             diagonal_correct += 1
-        print(f"{filename:40} | {prediction:20} | {'✓' if correct else '✗'}")
+        if filename is not None and prediction is not None:
+            print(f"{filename:40} | {prediction:20} | {'✓' if correct else '✗'}")
+        else:
+            print(f"Missing data for sample: filename={filename}, prediction={prediction}")
     
     print(f"\nNo Diagonal Parking Test Images:")
     print("=" * 50)
@@ -56,7 +66,10 @@ def main():
         correct = prediction == 'no_diagonal_parking'
         if correct:
             no_diagonal_correct += 1
-        print(f"{filename:40} | {prediction:20} | {'✓' if correct else '✗'}")
+        if filename is not None and prediction is not None:
+            print(f"{filename:40} | {prediction:20} | {'✓' if correct else '✗'}")
+        else:
+            print(f"Missing data for sample: filename={filename}, prediction={prediction}")
     
     print(f"\nSummary:")
     print(f"Diagonal parking accuracy: {diagonal_correct}/{len(diagonal_files)} ({diagonal_correct/len(diagonal_files)*100:.1f}%)")
