@@ -4,13 +4,17 @@
 
 Create a data processing and inference endpoint that can be consumed by a data dashboard for the County of Santa Barbara electric vehicle charging infrastructure forecasting workload.
 
+---
+
+## Inference and Dashboard Prototypes for Initial Development and Experimentation
+
+Jupyter notebooks were run either locally or with Google Colab Pro to leverage A100 GPUs (more on this in the README section). A prototype version of the dashboard was created using [Streamlit](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) to visualize key insights from EV charging session data. This dashboard will be incorporated into a larger AI Interface project using Next.js, Django and MySQL and will be described in [this repository](https://github.com/elmunoz42/ai-interface).
+
+---
+
 ## Current Project Phase
 
 We are currently in a **planning phase with the County of Santa Barbara's IT department** to determine the cloud resources that need to be provisioned for production workloads. The subsequent sections of this document outline the architecture that is being planned for secure, scalable deployment on AWS.
-
-## Inference and Dashboard Prototypes 
-
-Jupyter notebooks were run either locally or with Google Colab Pro to leverage A100 GPUs (more on this in the README section). A prototype version of the dashboard was created using [Streamlit](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) to visualize key insights from EV charging session data. This dashboard will be incorporated into a larger AI Interface project using Next.js, Django and MySQL and will be described in [this repository](https://github.com/elmunoz42/ai-interface).
 
 ---
 
