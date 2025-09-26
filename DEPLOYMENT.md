@@ -2,7 +2,7 @@
 
 ## Inference and Dashboard Prototypes 
 
-Jupyter notebooks were run either locally or with Google Colab Pro to leverage A100 GPUs. A prototype version of the dashboard was created using [Streamlit](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) to visualize key insights from EV charging session data. This dashboard will be incorporated into a larger AI Interface project using Next.js, Django and MySQL and will be described in [this repository](https://github.com/elmunoz42/ai-interface).
+Jupyter notebooks were run either locally or with Google Colab Pro to leverage A100 GPUs (more on this in the README section). A prototype version of the dashboard was created using [Streamlit](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) to visualize key insights from EV charging session data. This dashboard will be incorporated into a larger AI Interface project using Next.js, Django and MySQL and will be described in [this repository](https://github.com/elmunoz42/ai-interface).
 
 ## Current Project Phase
 
