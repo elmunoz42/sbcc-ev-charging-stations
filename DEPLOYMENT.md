@@ -88,7 +88,7 @@ Each endpoint has a **policy** attached to define:
 2. Notebooks are launched inside the **VPC private subnet**.
 3. EV charging session data is pulled from:
    - Amazon S3 (historical data)
-   - Streaming sources (if applicable, not shown)
+   - Streaming sources (PowerFlex Data API - setup TBD)
 4. Notebooks process and analyze data.
 5. Processed outputs/logs are stored back in Amazon S3 or logged in CloudWatch.
 
