@@ -1,5 +1,13 @@
 # DEPLOYMENT PLAN (BETA)
 
+## Inference and Dashboard Prototypes
+
+Jupyter notebooks were run either locally or with Google Colab Pro to leverage A100 GPUs. A prototype version of the dashboard was created using **Streamlit** to visualize key insights from EV charging session data. 
+
+We are currently in a **planning phase with the County of Santa Barbara's IT department** to determine the cloud resources that need to be provisioned for production workloads. The subsequent sections of this document outline the architecture that is being planned for secure, scalable deployment on AWS. 
+
+---
+
 ## EV Charging Data Processing System on Amazon SageMaker
 
 This document describes the secure and scalable AWS architecture used to process EV charging session data using Amazon SageMaker Studio notebooks. The architecture is designed with network isolation, controlled access, and VPC endpoints to restrict data movement while enabling necessary AWS service communication.
