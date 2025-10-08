@@ -74,14 +74,28 @@ class DiagonalParkingClassifier:
         tf.keras.mixed_precision.set_global_policy(policy)
         logger.info("Mixed precision training enabled")
     
+    def _custom_preprocessing(self, img):
+        import tensorflow as tf
+        import tensorflow_addons as tfa
+        import numpy as np
+        # Random crop
+        img = tf.image.random_crop(img, size=[self.img_height, self.img_width, 3])
+        # Gaussian noise
+        noise = tf.random.normal(shape=tf.shape(img), mean=0.0, stddev=0.05, dtype=tf.float32)
+        img = img + noise
+        img = tf.clip_by_value(img, 0.0, 1.0)
+        # Gaussian blur (using tensorflow_addons)
+        img = tfa.image.gaussian_filter2d(img, filter_shape=(3,3), sigma=1.0)
+        return img
+
     def create_data_generators(self):
         """
-        Create data generators with heavy augmentation for small dataset.
-        
+        Create data generators with heavy augmentation for small dataset, including custom noise, blur, and cropping.
         Returns:
             tuple: (train_generator, validation_generator, test_generator)
         """
-        # Heavy augmentation for training data (small dataset needs this)
+        from tensorflow.keras.preprocessing.image import ImageDataGenerator
+        # Heavy augmentation for training data
         train_datagen = ImageDataGenerator(
             rescale=1./255,
             rotation_range=30,
@@ -90,22 +104,23 @@ class DiagonalParkingClassifier:
             shear_range=0.2,
             zoom_range=0.2,
             horizontal_flip=True,
-            vertical_flip=False,  # Don't flip vertically for street views
+            vertical_flip=False,
             brightness_range=[0.8, 1.2],
             channel_shift_range=0.1,
             fill_mode='nearest',
-            validation_split=0.2  # Use 20% of training data for validation
+            validation_split=0.2,
+            preprocessing_function=self._custom_preprocessing
         )
-        
-        # Minimal augmentation for validation (from training split)
+
+        # Minimal augmentation for validation
         validation_datagen = ImageDataGenerator(
             rescale=1./255,
             validation_split=0.2
         )
-        
+
         # No augmentation for test data
         test_datagen = ImageDataGenerator(rescale=1./255)
-        
+
         # Training generator
         train_generator = train_datagen.flow_from_directory(
             self.train_dir,
@@ -115,8 +130,8 @@ class DiagonalParkingClassifier:
             subset='training',
             seed=42
         )
-        
-        # Validation generator (from training data split)
+
+        # Validation generator
         validation_generator = validation_datagen.flow_from_directory(
             self.train_dir,
             target_size=(self.img_height, self.img_width),
@@ -125,7 +140,7 @@ class DiagonalParkingClassifier:
             subset='validation',
             seed=42
         )
-        
+
         # Test generator
         test_generator = test_datagen.flow_from_directory(
             self.test_dir,
@@ -134,12 +149,12 @@ class DiagonalParkingClassifier:
             class_mode='binary',
             shuffle=False
         )
-        
+
         logger.info(f"Training samples: {train_generator.samples}")
         logger.info(f"Validation samples: {validation_generator.samples}")
         logger.info(f"Test samples: {test_generator.samples}")
         logger.info(f"Classes: {train_generator.class_indices}")
-        
+
         return train_generator, validation_generator, test_generator
     
     def create_model(self):
@@ -181,7 +196,7 @@ class DiagonalParkingClassifier:
         
         return model
     
-    def train_model(self, train_generator, validation_generator, epochs=50):
+    def train_model(self, train_generator, validation_generator, epochs=50, class_weight=None):
         """
         Train the model with callbacks for early stopping and checkpointing.
         
@@ -224,13 +239,14 @@ class DiagonalParkingClassifier:
             epochs=epochs,
             validation_data=validation_generator,
             callbacks=callbacks,
-            verbose=1
+            verbose=1,
+            class_weight=class_weight
         )
         
         logger.info("Initial training completed")
         return self.history
     
-    def fine_tune_model(self, train_generator, validation_generator, epochs=30):
+    def fine_tune_model(self, train_generator, validation_generator, epochs=30, class_weight=None):
         """
         Fine-tune the model by unfreezing some layers of the base model.
         
@@ -266,7 +282,8 @@ class DiagonalParkingClassifier:
             epochs=epochs,
             validation_data=validation_generator,
             initial_epoch=len(self.history.history['loss']),
-            verbose=1
+            verbose=1,
+            class_weight=class_weight
         )
         
         # Combine histories

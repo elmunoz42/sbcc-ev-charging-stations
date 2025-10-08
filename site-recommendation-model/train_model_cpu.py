@@ -77,7 +77,16 @@ def main():
         
         print("Building model...")
         model = classifier.create_model()
-        
+
+        # Compute class weights
+        from sklearn.utils.class_weight import compute_class_weight
+        import numpy as np
+        class_indices = train_gen.class_indices
+        labels = train_gen.classes
+        class_weights = compute_class_weight('balanced', classes=np.unique(labels), y=labels)
+        class_weight_dict = {i: w for i, w in enumerate(class_weights)}
+        print(f"Class weights: {class_weight_dict}")
+
         # Recompile model without mixed precision
         import tensorflow as tf
         model.compile(
@@ -85,32 +94,32 @@ def main():
             loss='binary_crossentropy',
             metrics=['accuracy', 'precision', 'recall']
         )
-        
+
         print("\nModel Summary:")
         model.summary()
-        
+
         print(f"\nDataset Summary:")
         print(f"  Training samples: {train_gen.samples}")
         print(f"  Validation samples: {val_gen.samples}")
         print(f"  Test samples: {test_gen.samples}")
         print(f"  Classes: {train_gen.class_indices}")
-        
+
         # Ask user if they want to proceed
         response = input("\nProceed with CPU training? (y/n): ").lower().strip()
         if response != 'y':
             print("Training cancelled.")
             return False
-        
+
         print("\nStarting CPU training...")
         print("Expected time: 20-30 minutes")
         print("The model will train for up to 30 epochs with early stopping.")
-        
-        # Train the model with fewer epochs for CPU
+
+        # Train the model with class weights
         print("\nPhase 1: Initial training with frozen base layers...")
-        classifier.train_model(train_gen, val_gen, epochs=30)
-        
+        classifier.train_model(train_gen, val_gen, epochs=30, class_weight=class_weight_dict)
+
         print("\nPhase 2: Fine-tuning with unfrozen layers...")
-        classifier.fine_tune_model(train_gen, val_gen, epochs=20)
+        classifier.fine_tune_model(train_gen, val_gen, epochs=20, class_weight=class_weight_dict)
         
         # Evaluate
         print("\nEvaluating model on test set...")
