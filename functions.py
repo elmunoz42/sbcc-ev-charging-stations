@@ -9,8 +9,6 @@ def inspect_dataframe_column(dataframe, column):
     percentage_of_missing = dataframe[column].isnull().mean() * 100
     print(f"Percentage missing: {percentage_of_missing}")
 
-
-
 def plot_dataframe_missing_values(dataframe, filepath):
     # Gets the mean of missing values in each column. Since True = 1 and False = 0 the mean tells us how much of the data is missing.
     missing_values = dataframe.isnull().mean().sort_values(ascending=False)
