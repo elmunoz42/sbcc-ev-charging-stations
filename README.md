@@ -104,7 +104,7 @@ For a breakdown of all the features please review the respective feature catalog
 - PRIMARY NOTEBOOK FOR MODEL DEVELOPMENT: [data-analysis-days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-days.ipynb)
 - EXPLORATORY NOTEBOOK: [data-analysis-sessions](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-sessions.ipynb)
 - EXPLORATORY NOTEBOOK: [data-analysis-vehicle-population](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb)
-- EXPLORATORY NOTEBOOK: [llama-3-qlora-fine-tuning](https://colab.research.google.com/drive/1aJcd11a2gQodzcxJwivvj_ezESAV1NC2?usp=sharing)
+- EXPLORATORY NOTEBOOK: [llama-3-qlora-fine-tuning](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/llama_3_qlora_fine_tuning_local.ipynb)
   
 ## Methodology
 
