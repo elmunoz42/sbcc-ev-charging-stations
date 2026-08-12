@@ -6,7 +6,7 @@ def process_data(df):
     """
     Preprocess the uploaded CSV data to prepare it for modeling.
     This function handles date conversion, missing values, and prepares
-    the data in the format needed for the STL-ARIMA model.
+    the data in the format needed for the forecasting model.
     """
     # Check if the expected columns exist (similar to the ones in original dataset)
     expected_cols = ['Energy delivered (kWh)', 'Day']
@@ -56,57 +56,94 @@ def process_data(df):
 
 def train_model(data):
     """
-    Train an STL-ARIMA model on the processed data
+    Train an MSTL-ARIMA model on the processed data: decompose the series
+    with MSTL (weekly + annual seasonality), then fit ARIMA on the
+    deseasonalized trend+residual.
+
+    Falls back to a single-period STL-ARIMA when there isn't enough history
+    for a reliable annual estimate (see MODEL-CHANGES.md for why).
+
     Parameters:
     - data: DataFrame with 'Energy delivered (kWh)' column and datetime index
-    
+
     Returns:
-    - Fitted STL-ARIMA model
+    - dict describing the fitted model, consumed by generate_forecast()
     """
+    from statsmodels.tsa.seasonal import MSTL
+    from statsmodels.tsa.arima.model import ARIMA
+    from statsmodels.tsa.forecasting.stl import STLForecast
+
+    energy_df = data['Energy delivered (kWh)']
+    n = len(energy_df)
+
     try:
-        from statsmodels.tsa.forecasting.stl import STLForecast
-        from statsmodels.tsa.arima.model import ARIMA
-        
-        # Extract energy data
-        energy_df = data['Energy delivered (kWh)']
-        
-        # Train STL model
-        stlf = STLForecast(energy_df, ARIMA, 
-                          model_kwargs={'order': (1, 1, 0), 'trend': "t"}, 
-                          period=30)
-        stlf_results = stlf.fit()
-        
-        return stlf_results
+        if n < 60:
+            # Too little data for any seasonal decomposition to be meaningful
+            period = max(min(30, n // 2), 2)
+            stlf = STLForecast(energy_df, ARIMA,
+                                model_kwargs={'order': (1, 1, 0), 'trend': 't'},
+                                period=period)
+            return {'type': 'stl', 'result': stlf.fit()}
+
+        # Annual seasonality needs at least ~2 full cycles to estimate reliably
+        periods = [7, 365] if n >= 2 * 365 else [7]
+
+        mstl_result = MSTL(energy_df, periods=periods).fit()
+        deseasonalized = mstl_result.trend + mstl_result.resid
+        arima_fit = ARIMA(deseasonalized, order=(1, 1, 0), trend='t').fit()
+
+        # With a single period, statsmodels returns `seasonal` as a plain
+        # Series instead of a DataFrame with one column per period
+        if len(periods) == 1:
+            seasonal_cycles = {periods[0]: mstl_result.seasonal.iloc[-periods[0]:].values}
+        else:
+            seasonal_cycles = {
+                p: mstl_result.seasonal[f'seasonal_{p}'].iloc[-p:].values
+                for p in periods
+            }
+
+        return {'type': 'mstl', 'arima_fit': arima_fit, 'seasonal_cycles': seasonal_cycles}
     except Exception as e:
         raise Exception(f"Error training model: {str(e)}. Please check if your data has the right format.")
 
 def generate_forecast(model, data, months=3):
     """
     Generate forecasts for the specified number of months
-    
+
     Parameters:
-    - model: Fitted STL-ARIMA model
+    - model: dict returned by train_model()
     - data: DataFrame with datetime index
     - months: Number of months to forecast
-    
+
     Returns:
     - DataFrame with forecast values and datetime index
     """
     try:
         # Generate forecast for specified number of months
         forecast_horizon = 30 * months  # Approx. days in months
-        forecast = model.forecast(forecast_horizon)
-        
+
+        if model['type'] == 'stl':
+            forecast = model['result'].forecast(forecast_horizon)
+        else:
+            # ARIMA forecasts the deseasonalized trend; each seasonal
+            # component is added back by repeating its last observed cycle
+            arima_forecast = model['arima_fit'].forecast(forecast_horizon).values
+            seasonal_total = np.zeros(forecast_horizon)
+            for period, last_cycle in model['seasonal_cycles'].items():
+                reps = int(np.ceil(forecast_horizon / period))
+                seasonal_total += np.tile(last_cycle, reps)[:forecast_horizon]
+            forecast = arima_forecast + seasonal_total
+
         # Create future date index
         last_date = data.index[-1]
-        future_dates = pd.date_range(start=last_date + pd.Timedelta(days=1), 
+        future_dates = pd.date_range(start=last_date + pd.Timedelta(days=1),
                                     periods=forecast_horizon, freq='D')
-        
+
         # Create forecast dataframe
         forecast_df = pd.DataFrame({
             'forecast': forecast
         }, index=future_dates)
-        
+
         return forecast_df
     except Exception as e:
         raise Exception(f"Error generating forecast: {str(e)}.")
