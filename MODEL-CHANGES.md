@@ -74,6 +74,22 @@ Note: this experiment's "top-down" baseline uses a total reconstructed by summin
 
 Reproduction script: `hierarchical_forecast_comparison.py`.
 
+### Follow-up: hybrid (top-K sites + "Other" bucket)
+
+Before ruling hierarchical approaches out entirely, tried a middle ground: forecast only the biggest sites individually (top 4 by training-window volume, re-ranked each fold to avoid lookahead — consistently `SB Admin`, `SB Health Services`, `LPC Health Services`, `SB Social Services`) and bucket everything else into a single "Other" series, on the theory that the pure 16-way split was hurt by noise from very low-volume sites specifically.
+
+| Approach | Mean MAPE | Std dev |
+|---|---|---|
+| Top-down (county total) | 36.64% | ±30.94 |
+| Bottom-up (16 sites) | 37.01% | ±32.51 |
+| Hybrid (top-4 sites + Other bucket) | 37.26% | ±32.23 |
+
+Still no improvement — hybrid tracks top-down almost exactly fold-for-fold (e.g. 18.65% vs 18.66% MAPE in fold 2), which makes sense in hindsight: the top-4 sites dominate total volume, so summing "top-4 individually + one Other series" is nearly equivalent to modeling the total directly, just decomposed differently.
+
+Three granularities now tested (1 aggregate, 16-way split, 4+1 hybrid) all land within noise of each other. This is a reasonably well-triangulated negative result — **splitting by site, at any granularity, isn't the lever that improves this model's accuracy.** Don't spend more time on site-count variations; the county-wide station-growth confound (see Suggested next steps) is a more promising unexplored direction.
+
+Reproduction script: `hybrid_forecast_comparison.py`.
+
 ## Suggested next steps
 
 - Re-point `IMPLEMENTATION.md`'s pretrained-model section at a freshly pickled MSTL-ARIMA model, or remove it if that workflow isn't used.
