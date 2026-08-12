@@ -57,10 +57,25 @@ Reproduction scripts for all of the above live in the repo root: `sarimax_experi
 1. **MSTL's `.seasonal` output shape depends on how many periods you pass in.** With 2+ periods it's a DataFrame with one column per period (`seasonal_7`, `seasonal_365`); with exactly 1 period it silently becomes a plain `Series` instead. The initial implementation didn't account for this and raised `KeyError: 'seasonal_7'` on the weekly-only fallback path — found via the walk-forward CV script (one fold failed with the same error) and again while smoke-testing this change on a ~400-day slice. Fixed by branching on `len(periods)`.
 2. **`stlf_model.pkl` at the repo root is now stale.** It was pickled from the old `STLForecast` object (see `IMPLEMENTATION.md`'s "Loading the Pre-trained Model" section) and is unrelated to the live dashboard, which always retrains from the uploaded CSV. Anyone relying on loading that pickle directly for standalone analysis should regenerate it from the new MSTL-ARIMA pipeline, or that section of `IMPLEMENTATION.md` should be updated/removed.
 3. **The 2-year annual-seasonality threshold is a judgment call**, not a statistically derived cutoff — it was chosen because it's the smallest window where MSTL didn't visibly misbehave in testing. Worth revisiting once a few more years of PowerFlex data accumulate.
-4. This change has **not been tested through the live Streamlit UI** — validation so far is calling `process_data` → `train_model` → `generate_forecast` directly with the same arguments `app.py` uses, confirming correct output shape, no NaNs, and sane forecast dates. Running it once through the actual deployed app before the next release is still worth doing.
+4. ~~This change has not been tested through the live Streamlit UI~~ — **done.** Ran the app locally, uploaded the full 2022-2024 CSV, clicked "Generate Forecast": the chart renders correctly, the red forecast picks up cleanly where the historical data ends (no divergence, no negative values), and it preserves the same weekly zigzag amplitude as the historical series. Top 10 predicted peak-energy days skewed heavily to Thursday/Friday and zero to weekends, consistent with the site-level weekday finding below.
+
+## Hierarchical (site-level) forecasting — tested, not adopted
+
+Given the site-level weekday pattern above, the natural next question was whether forecasting each site individually and summing ("bottom-up") beats forecasting the county total directly ("top-down", i.e. what's implemented above). Tested with the same 4-fold walk-forward CV, 90-day horizon, applying `train_model()`/`generate_forecast()` per site (16 sites, built from the Sessions dataset grouped by `Site` + date) and summing the results:
+
+| Approach | Mean MAPE | Std dev |
+|---|---|---|
+| Top-down (county total) | 36.64% | ±30.94 |
+| Bottom-up (sum of 16 per-site forecasts) | 37.01% | ±32.51 |
+
+**No meaningful difference** — the two are within noise of each other (bottom-up wins on RMSE in 3/4 folds, loses narrowly on mean MAPE). Likely explanation: several of the 16 sites have very low session counts (e.g. SB District Attorney: 70 sessions across 3 years), so per-site models are individually noisy, and summing doesn't recover enough signal to beat modeling the total directly. **Recommendation: don't adopt hierarchical forecasting for the dashboard's total-energy forecast** — it adds 16x the modeling complexity for no accuracy gain. Site-level models may still be useful for a different purpose (e.g. flagging which specific site is approaching capacity), just not for improving the county-wide number.
+
+Note: this experiment's "top-down" baseline uses a total reconstructed by summing the Sessions dataset by site+date (so both approaches are evaluated against an identical, self-consistent ground truth), not the official Days-report total used everywhere else in this doc — the two totals may differ slightly in scope/filtering, so the 36.64% figure here isn't directly comparable to the 22.3% MSTL-ARIMA number above.
+
+Reproduction script: `hierarchical_forecast_comparison.py`.
 
 ## Suggested next steps
 
 - Re-point `IMPLEMENTATION.md`'s pretrained-model section at a freshly pickled MSTL-ARIMA model, or remove it if that workflow isn't used.
-- Consider normalizing energy delivered by active station count before modeling (station rollout over 2022-2024 is a trend confound this change doesn't address — see the earlier discussion thread for detail).
-- Extend the site-level weekday finding into an explicit fleet-vs-public-usage flag, since the biggest-volume sites (SB Admin, SB Health Services, SB Jail) look like government commuter charging rather than public/tourist usage.
+- Consider normalizing energy delivered by active station count before modeling (station rollout over 2022-2024 is a trend confound this change doesn't address — see the earlier discussion thread for detail). Still the single highest-value unaddressed item.
+- Extend the site-level weekday finding into an explicit fleet-vs-public-usage flag, since the biggest-volume sites (SB Admin, SB Health Services, SB Jail) look like government commuter charging rather than public/tourist usage — this is a policy finding, not a modeling change, and stands regardless of the hierarchical-forecasting result above.
