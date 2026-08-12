@@ -90,8 +90,41 @@ Three granularities now tested (1 aggregate, 16-way split, 4+1 hybrid) all land 
 
 Reproduction script: `hybrid_forecast_comparison.py`.
 
+## Station-count normalization — tested, inconclusive
+
+The station-count growth confound flagged earlier (more chargers came online through 2022-2024, so part of the total kWh growth is capacity growth, not demand growth) was tested directly: divide daily total kWh by the number of stations live that day to get a per-station rate, forecast the rate with the same MSTL-ARIMA approach, then multiply back by the last known station count to get a total forecast. Same 4-fold walk-forward CV as the experiments above.
+
+| Approach | Mean MAPE | Std dev |
+|---|---|---|
+| Raw total (current approach) | 36.64% | ±30.94 |
+| Per-station rate × held-constant station count | 36.54% | ±28.86 |
+
+Essentially a wash (2/4 folds favor each side; the difference is within noise). An ADF stationarity test on both series also showed no meaningful difference (raw p=0.61, normalized p=0.49 — both clearly non-stationary).
+
+The likely reason: station count here is inferred from each station's first-ever session date, not a real install date, since the data doesn't include one. Given how little charging activity happened in 2020-2021, several stations that were probably already installed don't show up as "live" until their first real session in 2022+, which understates early station counts and distorts the normalization. There's also likely genuine demand growth on top of capacity growth, so dividing by station count alone wouldn't fully flatten the trend even with a perfect count.
+
+This is worth revisiting if a real install-date field becomes available from the PowerFlex system (rather than inferring "live" from first session), but isn't worth further effort on the current data.
+
+Reproduction script: `station_normalization_experiment.py`.
+
+## Decision tree evaluation rework: precision/recall over accuracy
+
+Separate from the forecasting work above, this also reworks the decision tree in `data-analysis-sessions.ipynb` that classifies sessions as `4_plus_hour_session` (used to inform idle-time policy). The original 95.5% accuracy score (vs. a 93.75% majority-class baseline, added earlier — see the class-balance check cell) sounds like a small but real edge. Breaking it down by precision/recall tells a different story:
+
+| Model | Precision (`>4hr`) | Recall (`>4hr`) | F1 (`>4hr`) |
+|---|---|---|---|
+| Baseline (unweighted `DecisionTreeClassifier`) | 0.88 | 0.33 | 0.475 |
+| `class_weight='balanced'` | 0.29 | 0.74 | 0.418 |
+| SMOTE oversampling | 0.29 | 0.72 | 0.413 |
+
+The baseline only catches about a third of the sessions that actually run longer than 4 hours — it's a cautious model that's usually right when it flags something, but misses most of what this analysis is meant to find. `class_weight='balanced'` roughly doubles recall (to 0.74) at the cost of precision dropping to 0.29; SMOTE lands in essentially the same place, so there's no reason to prefer its added complexity over the simpler `class_weight` argument.
+
+Neither alternative "wins" on F1 — this is a precision/recall trade-off, not a strict improvement. Which one is more useful depends on the goal: for identifying idle-time patterns to inform policy, recall matters more than precision (missing two-thirds of the relevant sessions, as the baseline does, means the policy is only informed by a third of the real behavior), so `class_weight='balanced'` is the more useful model here even though its accuracy number looks worse in isolation.
+
+Both alternatives, the comparison table, and the reasoning above are now in `data-analysis-sessions.ipynb` directly after the original decision tree cell.
+
 ## Suggested next steps
 
 - Re-point `IMPLEMENTATION.md`'s pretrained-model section at a freshly pickled MSTL-ARIMA model, or remove it if that workflow isn't used.
-- Consider normalizing energy delivered by active station count before modeling (station rollout over 2022-2024 is a trend confound this change doesn't address — see the earlier discussion thread for detail). Still the single highest-value unaddressed item.
+- If a real station install-date field ever becomes available (rather than inferring "live" from first session), the station-count normalization experiment above is worth rerunning — the current result is inconclusive because of the proxy, not necessarily because the underlying idea is wrong.
 - Extend the site-level weekday finding into an explicit fleet-vs-public-usage flag, since the biggest-volume sites (SB Admin, SB Health Services, SB Jail) look like government commuter charging rather than public/tourist usage — this is a policy finding, not a modeling change, and stands regardless of the hierarchical-forecasting result above.
