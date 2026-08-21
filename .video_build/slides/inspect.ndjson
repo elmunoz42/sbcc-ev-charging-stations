@@ -1,0 +1,91 @@
+{"kind":"slide","id":"sl/ym7qwt","slide":1,"title":"NOTEBOOK MODEL COMPARISON","textShapes":5}
+{"kind":"textbox","id":"sh/tgfu90j2","slide":1,"textChars":25,"textLines":1}
+{"kind":"textbox","id":"sh/6d4bylkb","slide":1,"textChars":30,"textLines":1}
+{"kind":"textbox","id":"sh/redc7q1w","slide":1,"textChars":47,"textLines":1}
+{"kind":"textbox","id":"sh/4bmtwb25","slide":1,"textChars":45,"textLines":1}
+{"kind":"shape","id":"sh/5cvu5gjq","slide":1,"bbox":[628,42,604,588]}
+{"kind":"textbox","id":"sh/jadc361k","slide":1,"textChars":41,"textLines":1}
+{"kind":"image","id":"im/3i503i5g","slide":1,"name":"","alt":"Forecast comparison","bbox":[650,88,560,470]}
+{"kind":"notes","id":"nt/ym7qwt","slide":1,"text":"This notebook asks which model best forecasts daily energy delivered by Santa..."}
+{"kind":"slide","id":"sl/29ckmi","slide":2,"title":"EVALUATION DESIGN","textShapes":8}
+{"kind":"textbox","id":"sh/d0v698by","slide":2,"textChars":17,"textLines":1}
+{"kind":"textbox","id":"sh/qd47etcn","slide":2,"textChars":37,"textLines":1}
+{"kind":"textbox","id":"sh/bedo7yt8","slide":2,"textChars":2,"textLines":1}
+{"kind":"shape","id":"sh/pcv65ov2","slide":2,"bbox":[812,180,380,126]}
+{"kind":"textbox","id":"sh/29k7atcb","slide":2,"textChars":10,"textLines":1}
+{"kind":"textbox","id":"sh/3ado3ydw","slide":2,"textChars":35,"textLines":1}
+{"kind":"shape","id":"sh/876ponul","slide":2,"bbox":[812,326,380,126]}
+{"kind":"textbox","id":"sh/98fqhsb6","slide":2,"textChars":8,"textLines":1}
+{"kind":"textbox","id":"sh/1s7ud0zq","slide":2,"textChars":31,"textLines":1}
+{"kind":"textbox","id":"sh/0ryt4vy5","slide":2,"textChars":39,"textLines":1}
+{"kind":"image","id":"im/1kj6tonu","slide":2,"name":"","alt":"Reporting scope plot","bbox":[48,170,720,420]}
+{"kind":"notes","id":"nt/29ckmi","slide":2,"text":"All three models train on eleven hundred seventy days, then forecast the next..."}
+{"kind":"slide","id":"sl/71znyb","slide":3,"title":"HOW THEY FORECAST","textShapes":12}
+{"kind":"textbox","id":"sh/rmt4ja90","slide":3,"textChars":17,"textLines":1}
+{"kind":"textbox","id":"sh/cn25cfal","slide":3,"textChars":40,"textLines":1}
+{"kind":"textbox","id":"sh/dobmlkr6","slide":3,"textChars":2,"textLines":1}
+{"kind":"shape","id":"sh/epknepsb","slide":3,"bbox":[48,175,360,432]}
+{"kind":"shape","id":"sh/zqd4nu9w","slide":3,"bbox":[48,175,360,12]}
+{"kind":"textbox","id":"sh/0rm5gfah","slide":3,"textChars":9,"textLines":1}
+{"kind":"textbox","id":"sh/1svmpkr2","slide":3,"textChars":51,"textLines":1}
+{"kind":"textbox","id":"sh/mt4nipsn","slide":3,"textChars":46,"textLines":2}
+{"kind":"shape","id":"sh/nud4ru98","slide":3,"bbox":[456,175,360,432]}
+{"kind":"shape","id":"sh/vapkj2p0","slide":3,"bbox":[456,175,360,12]}
+{"kind":"textbox","id":"sh/u9g3axof","slide":3,"textChars":10,"textLines":1}
+{"kind":"textbox","id":"sh/hc72lc76","slide":3,"textChars":50,"textLines":1}
+{"kind":"textbox","id":"sh/wbylc76l","slide":3,"textChars":38,"textLines":2}
+{"kind":"shape","id":"sh/7m5kf2p4","slide":3,"bbox":[864,175,360,432]}
+{"kind":"shape","id":"sh/mlwj6xoj","slide":3,"bbox":[864,175,360,12]}
+{"kind":"textbox","id":"sh/9872hs7u","slide":3,"textChars":3,"textLines":1}
+{"kind":"textbox","id":"sh/87y18n6p","slide":3,"textChars":51,"textLines":1}
+{"kind":"textbox","id":"sh/r29krmp8","slide":3,"textChars":47,"textLines":2}
+{"kind":"notes","id":"nt/71znyb","slide":3,"text":"STL ARIMA separates seasonality and trend. The RNN uses thirty days of energy..."}
+{"kind":"slide","id":"sl/a9inh5","slide":4,"title":"RESULTS","textShapes":8}
+{"kind":"textbox","id":"sh/4jq5grat","slide":4,"textChars":7,"textLines":1}
+{"kind":"textbox","id":"sh/jihonm9o","slide":4,"textChars":46,"textLines":1}
+{"kind":"textbox","id":"sh/ihonehs3","slide":4,"textChars":2,"textLines":1}
+{"kind":"shape","id":"sh/wf65c7ax","slide":4,"bbox":[790,172,402,130]}
+{"kind":"textbox","id":"sh/vexoj29c","slide":4,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/udonaxsr","slide":4,"textChars":25,"textLines":1}
+{"kind":"shape","id":"sh/1cj6xgrm","slide":4,"bbox":[790,322,402,130]}
+{"kind":"textbox","id":"sh/gba5oba1","slide":4,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/edsz690f","slide":4,"textChars":23,"textLines":1}
+{"kind":"textbox","id":"sh/zelgfe1k","slide":4,"textChars":47,"textLines":1}
+{"kind":"chart","id":"ch/98ja5kby","slide":4,"name":"","chartType":"bar","bbox":[48,170,700,440]}
+{"kind":"notes","id":"nt/a9inh5","slide":4,"text":"STL ARIMA scores RMSE nine hundred four point nine five. The RNN finishes las..."}
+{"kind":"slide","id":"sl/xsyicq","slide":5,"title":"WHY TFT WON","textShapes":6}
+{"kind":"textbox","id":"sh/36xgbip0","slide":5,"textChars":11,"textLines":1}
+{"kind":"textbox","id":"sh/476x4nq5","slide":5,"textChars":38,"textLines":1}
+{"kind":"textbox","id":"sh/p8fyds7q","slide":5,"textChars":2,"textLines":1}
+{"kind":"textbox","id":"sh/f2dg7i9o","slide":5,"textChars":20,"textLines":1}
+{"kind":"textbox","id":"sh/g3mx0nq9","slide":5,"textChars":19,"textLines":1}
+{"kind":"textbox","id":"sh/h4vy987u","slide":5,"textChars":25,"textLines":1}
+{"kind":"image","id":"im/nepgzilg","slide":5,"name":"","alt":"Model forecast paths","bbox":[48,156,1184,420]}
+{"kind":"notes","id":"nt/xsyicq","slide":5,"text":"Across five hundred two recursive steps, the RNN's error compounds. STL ARIMA..."}
+{"kind":"slide","id":"sl/fm7xzi","slide":6,"title":"INTERPRETATION AND CAVEATS","textShapes":11}
+{"kind":"textbox","id":"sh/zelsj69g","slide":6,"textChars":26,"textLines":1}
+{"kind":"textbox","id":"sh/0futsbq1","slide":6,"textChars":39,"textLines":1}
+{"kind":"textbox","id":"sh/lgnalwrm","slide":6,"textChars":2,"textLines":1}
+{"kind":"textbox","id":"sh/bqlsfm94","slide":6,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/crutorqp","slide":6,"textChars":32,"textLines":1}
+{"kind":"textbox","id":"sh/ds3ahwra","slide":6,"textChars":5,"textLines":1}
+{"kind":"textbox","id":"sh/alwbyl83","slide":6,"textChars":34,"textLines":1}
+{"kind":"shape","id":"sh/vm5crqpo","slide":6,"bbox":[812,175,380,164]}
+{"kind":"textbox","id":"sh/7mpkjm1w","slide":6,"textChars":12,"textLines":1}
+{"kind":"textbox","id":"sh/6lg3qh0r","slide":6,"textChars":26,"textLines":1}
+{"kind":"shape","id":"sh/to72lwj2","slide":6,"bbox":[812,366,380,164]}
+{"kind":"textbox","id":"sh/8nylsrih","slide":6,"textChars":20,"textLines":1}
+{"kind":"textbox","id":"sh/fq9kn618","slide":6,"textChars":55,"textLines":1}
+{"kind":"image","id":"im/zed8valw","slide":6,"name":"","alt":"TFT variable importance","bbox":[48,156,720,340]}
+{"kind":"notes","id":"nt/fm7xzi","slide":6,"text":"TFT anchors the level on recent observed energy, then shapes the future with ..."}
+{"kind":"slide","id":"sl/a8jpbs","slide":7,"title":"BOTTOM LINE","textShapes":7}
+{"kind":"textbox","id":"sh/q5k7q5wz","slide":7,"textChars":11,"textLines":1}
+{"kind":"textbox","id":"sh/d8vq1kva","slide":7,"textChars":27,"textLines":1}
+{"kind":"textbox","id":"sh/s72psfep","slide":7,"textChars":17,"textLines":1}
+{"kind":"textbox","id":"sh/fad83udg","slide":7,"textChars":62,"textLines":1}
+{"kind":"textbox","id":"sh/e947upwv","slide":7,"textChars":17,"textLines":1}
+{"kind":"textbox","id":"sh/1cvq5kvm","slide":7,"textChars":98,"textLines":1}
+{"kind":"shape","id":"sh/0bmpwze1","slide":7,"bbox":[48,548,1144,8]}
+{"kind":"textbox","id":"sh/ve9orqdc","slide":7,"textChars":61,"textLines":1}
+{"kind":"notes","id":"nt/a8jpbs","slide":7,"text":"Treat TFT as the leading candidate, not a finished production model. Validate..."}
+{"kind":"notice","message":"Truncated: omitted 0 lines. Increase maxChars or narrow target."}

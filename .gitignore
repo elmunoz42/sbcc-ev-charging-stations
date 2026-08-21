@@ -3,3 +3,4 @@ dashboard-app/.env
 dashboard-app/.streamlit/secrets.toml
 site-recommendation-model/site_data/raw_images
 site-recommendation-model/site_data/processed_images
+data_analysis_days_model_comparison.mp4

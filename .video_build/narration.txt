@@ -1,0 +1,13 @@
+This notebook asks which model best forecasts daily energy delivered by Santa Barbara County's EV charging network.
+
+All three models face the same test. They train on eleven hundred seventy days, then forecast the next five hundred two days without seeing any test observation. That long horizon is deliberately difficult.
+
+STL ARIMA separates seasonality and trend, then models the remainder. It is transparent and fast, but its fitted linear trend continues upward after demand turns down. Its RMSE is nine hundred four point nine five.
+
+The RNN is a stacked LSTM using thirty days of energy history. It predicts one day, feeds that prediction back, and repeats. Across five hundred two recursive steps, error compounds. It finishes last, with RMSE nine hundred eighty three point nine one.
+
+The Temporal Fusion Transformer uses ninety days of history plus calendar features, and emits the entire horizon in one pass. It avoids recursive drift and an explicit extrapolated trend. Its RMSE is five hundred forty four point three three: thirty nine point eight percent better than STL ARIMA, and forty four point seven percent better than the RNN.
+
+TFT learned a coherent strategy: anchor the level on recent observed energy, then shape the future with annual seasonality. But its uncertainty is overconfident. The nominal eighty percent interval covered only fifty percent of actual days, and its percentage error remained high on low-demand days.
+
+The practical conclusion is to treat TFT as the leading candidate, not a finished production model. Validate it across seeds and rolling forecast origins, shorten the horizon to thirty or ninety days, forecast each site separately, recalibrate prediction intervals, and keep naive baselines visible.

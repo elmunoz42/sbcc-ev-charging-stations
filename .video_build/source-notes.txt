@@ -1,0 +1,3 @@
+Primary source: /Users/carlosm.kampff/Desktop/dev/sbcc-ev-charging-stations/data_analysis_days_colab.ipynb
+Figures: images/days/scope_harmonisation.jpg, tft_forecast.jpg, tft_interpretability.jpg
+All metrics, model descriptions, caveats, and recommendations come from the notebook's executed outputs and conclusions.
