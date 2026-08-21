@@ -4,11 +4,13 @@
 
 This ongoing research project analyzes historical electric vehicle (EV) charging data to support the County of Santa Barbara's Zero Emission Vehicle Plan. With transportation accounting for 48% of the County's greenhouse gas emissions and an ambitious goal to reduce community-wide emissions by 50% by 2030, optimizing EV charging infrastructure is critical to achieving climate targets.
 
-The study examines four years (2020-2024) of charging station utilization data collected from the County's [PowerFlex](https://infohub.delltechnologies.com/en-us/t/powerflex-14/) Axcess reporting system. Two primary datasets were analyzed: a session-level dataset containing 88,919 individual charging events and a day-level dataset with 1,827 days of aggregated metrics.
+The study examines six and a half years (January 2020 - July 2026) of charging station utilization data collected from the County's [PowerFlex](https://infohub.delltechnologies.com/en-us/t/powerflex-14/) Axcess reporting system. Two primary datasets were analyzed: a session-level dataset containing 88,919 individual charging events (2020-2024) and a day-level dataset now covering 2,403 days of aggregated metrics through 30 July 2026.
+
+> **Note on reporting scope:** the daily export widened from 16 County Public sites to all 22 County sites on 2025-01-01. The 6 added sites account for 10.59% of all-sites energy, so roughly a quarter of the apparent step up at that date is a reporting artefact rather than demand growth. See Phase 3 for the decomposition.
 
 ### Key findings include:
 
-- **Growth in Energy Demand**: PowerFlex time series data reveals a consistent upward trend in kilowatt-hours of energy delivered through charging stations, with identifiable seasonality patterns that have been captured in our forecasting models. STL-Arima and LSTM (RNN) Models were utilized and evaluated.
+- **Energy Demand Grew, Then Contracted**: PowerFlex time series data shows a sustained upward trend in kilowatt-hours delivered through 2024, followed by a plateau and decline. Trailing-twelve-month delivered energy is 928.6 kWh/day against 1,488.4 kWh/day for the prior twelve months - a realised growth factor of **0.6239**, a 38% contraction. Seasonality remains clearly identifiable and is captured by the forecasting models. Three model classes were evaluated on an identical held-out task: STL-ARIMA, an LSTM (RNN), and a Temporal Fusion Transformer.
   
 - **Accelerating EV Adoption**: California Energy Commission data demonstrates an exponential increase in battery electric vehicles, confirming the need for Santa Barbara County's ambitious infrastructure expansion plans. Three long term growth projections were reviewed in particular regarding their impact on energy utiliziation.
   
@@ -90,7 +92,7 @@ CSB's charging stations are integrated with a PowerFlex reporting system with up
       - This data has 88,919 rows and 30 columns. Each row represents a unique charging session, with information about the charging site, session duration, energy usage, etc.
       - The samples include public and CSB fleet vehicle utilization. Since Jerel Francisco had particular interest in the public utilization of the resources, we filtered out for public usage only early in our analysis of this dataset.
 - [Days](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data/SB-County-County%20Public%20reporting%202020-01-01_2024-12-31.csv):
-      - This data has 1,827 rows and 22 columns. Each row represents a day in the 4-year period with data aggregated from all charging sites with information about metric averages.
+      - This data now has 2,403 rows and 22 columns, spanning 2020-01-01 to 2026-07-30 with no gaps or duplicate days. Each row represents a day with data aggregated across charging sites, with information about metric averages. It is assembled from four exports; the loader adds `Reporting Scope` and `Source File` provenance columns. Note that the first export covers 16 County Public sites and the three 2025-2026 exports cover all 22 sites.
 - [Cars](https://github.com/elmunoz42/sbcc-ev-charging-stations/blob/main/data-analysis-vehicle-population.ipynb):
       - This is data from the California Energy Commission [website](https://www.energy.ca.gov/data-reports/energy-almanac/zero-emission-vehicle-and-infrastructure-statistics-collection/light). It tracks the light-duty vehicle population in California. 
 
@@ -146,7 +148,7 @@ The project follows the Cross-Industry Standard Process for Data Mining (CRISP-D
    
 These evaluation metrics shift the focus from model performance to business impact, ensuring that our technical solution translates into meaningful progress toward the Zero Emission Vehicle Plan's 25% EV adoption target.
       
-- **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (1,827 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data. Jerel and I reviewed several different data sources, of which only a few were integrated into this report so far.
+- **Prepare the data**: We integrated three distinct datasets: session-level charging data (88,919 events), daily aggregates (2,403 days), and vehicle population statistics. Data preparation included filtering for public usage, standardizing temporal features, and addressing the substantial outliers discovered in the charging duration data. Jerel and I reviewed several different data sources, of which only a few were integrated into this report so far.
       
 - **Train the model**: We developed progressively more sophisticated forecasting models, starting with baseline ARIMA models and advancing to STL forecasting to better capture seasonal patterns. Decision Tree models were also used to provide insight into specific operational questions from the domain expert.
       
@@ -160,7 +162,7 @@ County of Santa Barbara - Zero Emission Vehicle Plan Demo Booth at Earth Day 202
 
 #### Data Cleaning and Feature Engineering
 
-- **Dataset Assessment**: The daily PowerFlex reporting data contained 1,827 rows and 22 columns, covering the period from January 2020 to December 2024.
+- **Dataset Assessment**: The daily PowerFlex reporting data contains 2,403 rows and 22 columns, covering January 2020 to July 2026. It is concatenated from four separate exports and validated for contiguity: the loader asserts zero duplicate days and zero missing days across the full range.
 
 - **Feature Removal**: Removed problematic features including:
   - `Max kW hour (kW)` due to systematic logging errors (consistently reporting 1am regardless of actual peak usage time)
@@ -283,10 +285,11 @@ We developed a series of time series forecasting models to predict future EV cha
   stlf_results = stlf.fit()
   ```
 
-- **Seasonality Parameter Tuning**: Systematically evaluated different seasonality periods (7, 30, 90, 180, 360 days) to identify optimal patterns, with 30-day seasonality producing the most accurate forecasts:
+- **Seasonality Parameter Tuning**: Systematically evaluated different seasonality periods (7, 30, 90, 180, 360 days) to identify optimal patterns. On the extended series the search selects **180-day** seasonality:
   ```python
-  # Best STL period: 30 with RMSE: 482.44
+  # Best STL period: 180 with RMSE: 904.95
   ```
+  An earlier version of the notebook hard-coded `best_period = 30` after running this search, silently discarding its result. With data only running to 2024 the hard-coded value happened to agree with the tuner; on the extended series it does not, and the hard-coding has been removed.
 
 - **ARIMA Parameter Optimization**: Tested various ARIMA specifications (p,d,q) including (1,1,0), (1,1,1), (2,1,0), (2,1,1), and (1,1,2), with the simpler ARIMA(1,1,0) model performing well.
 
@@ -309,7 +312,7 @@ We developed a series of time series forecasting models to predict future EV cha
   
 - **Diagnostic Visualization**: Created forecast vs. actual plots to visually assess model performance and identify potential areas for improvement.
 
-- **Model Comparison**: The STL-ARIMA model with 30-day seasonality outperformed the baseline ARIMA model, demonstrating its effectiveness at capturing both trend and seasonal patterns.
+- **Model Comparison**: The tuned STL-ARIMA model (180-day seasonality) outperformed the baseline ARIMA model, capturing both trend and seasonal structure more effectively. Note that on the 502-day held-out horizon both are beaten by a naive constant forecast - see Performance Metrics below.
 
 #### Long-term Forecasting to 2030
 
@@ -383,30 +386,33 @@ This analysis contributes to the County's 2030 Climate Action Plan Zero Emission
 
 ## Results
 
-### STL-ARIMA Model with 30-Day Seasonality
+### STL-ARIMA Model with 180-Day Seasonality
 
-Our final model implements a hybrid STL-ARIMA approach with 30-day seasonality, which has significantly improved forecasting accuracy compared to earlier iterations. This sophisticated model:
+Our production model implements a hybrid STL-ARIMA approach. On the extended series the tuned configuration is **STL(period=180) + ARIMA(1,1,0)** with a linear trend term. This model:
 
-1. **Decomposes the time series** using Seasonal and Trend decomposition with Loess (STL), effectively separating the data into seasonal, trend, and residual components.
-2. **Applies ARIMA modeling** to the residual component to capture remaining patterns after seasonality and trend have been accounted for.
-3. **Reintroduces the 30-day seasonality pattern** based on detailed analysis of the historical charging data, which revealed monthly utilization cycles aligned with county employee work patterns and public facility usage.
-
-As shown in the forecast visualization, the model successfully:
-
-1. Tracks the rising trend in energy delivered (kWh), aligning with the accelerating EV adoption rates in Santa Barbara County.
-2. Captures both weekly and monthly seasonal fluctuations in charging patterns.
-3. Provides predictions that follow the general volatility pattern of the actual test data, including appropriate confidence intervals.
+1. **Decomposes the time series** using Seasonal and Trend decomposition with Loess (STL), separating the data into seasonal, trend, and residual components.
+2. **Applies ARIMA modeling** to the deseasonalised component to capture the remaining structure.
+3. **Reintroduces a 180-day seasonal pattern.** The 30-day figure reported previously came from a hard-coded value that overrode the tuning search; re-running the search on the full series selects 180 days.
 
 ### Performance Metrics
 
-The model demonstrates strong performance with the following metrics:
-- **RMSE (Root Mean Square Error)**: 482.44 kWh
-- **MAE (Mean Absolute Error)**: 394.62 kWh
-- **MAPE (Mean Absolute Percentage Error)**: 33.43%
+All three model classes were evaluated on an identical task: the same 70/30 split, the same forecast origin, and the same 502-day held-out horizon, with no access to test observations by any model.
 
-These metrics represent a substantial improvement over previous models, with a 27% reduction in RMSE compared to our baseline ARIMA model. While there remains opportunity for enhancement, particularly in capturing extreme peak values during high-demand periods, the forecast provides statistically robust insights for infrastructure planning.
+| Model | RMSE | MAE | MAPE | R2 vs test mean |
+|---|---|---|---|---|
+| STL-ARIMA (period 180) | 904.95 | 742.77 | 225.16% | -1.499 |
+| LSTM / RNN (recursive) | 983.91 | 848.28 | 238.92% | -1.954 |
+| **Temporal Fusion Transformer** | **544.33** | **413.06** | 122.69% | **+0.096** |
+| *Naive: random walk* | *587.15* | *500.38* | *116.88%* | *-0.052* |
+| *Naive: training mean* | *632.58* | *545.30* | *104.11%* | *-0.221* |
 
-The model now serves as a reliable foundation for the County's short and medium-term planning needs, enabling projection of both "natural" growth trends and the "aspirational" upward trajectory targets outlined in the Zero Emission Vehicle Plan.
+**These numbers are not comparable to the 482.44 kWh RMSE reported previously.** That figure came from a shorter series ending in 2024, scored over a shorter and considerably easier horizon. The task changed; the model did not get worse.
+
+The final column is the informative one. A forecast that somehow *knew* the test-period mean in advance (1,043.7 kWh/day) and predicted that constant every day would score RMSE 572.47. The Temporal Fusion Transformer is the only one of the five forecasts that beats that oracle constant, and the only one with positive out-of-sample R2. **Both STL-ARIMA and the LSTM score worse than a flat line** - the test window rose and then fell, while STL-ARIMA projects its fitted growth trend straight through it and the LSTM compounds its own recursive error across 502 steps.
+
+Two qualifications on the TFT result. Its P10-P90 prediction interval covers only 50% of actuals against a nominal 80%, so those intervals are overconfident and should not be quoted without recalibration. And its MAPE is worse than both naive baselines, because 110 of the 502 test days fall below 400 kWh where percentage error explodes. The win is on absolute error, from a single seed and a single split.
+
+**Operational implication.** The 502-day evaluation above is far longer than the horizon the County actually plans on. The deployed Streamlit forecast operates in a 3-6 month regime, which is a substantially easier task, and STL-ARIMA remains the appropriate production model there: interpretable, cheap to retrain, and no GPU required. What should change is the reporting practice - long-range point forecasts should not be published without a naive baseline shown alongside them.
 
 ![image](https://github.com/user-attachments/assets/f09ba3df-0102-4b99-b1dd-283ee2e9deda)
 
@@ -427,11 +433,13 @@ This approach enables both operational forecasting and strategic capacity planni
 
 Our analysis modeled three distinct scenarios for daily energy demand by 2030:
 
-| Scenario | Daily Energy (2030) | Growth Factor | Data Source |
-|----------|---------------------|---------------|-------------|
-| Conservative | 2,929 kWh | 1.0862 | Empirical charging station usage trends |
-| Historical Trend | 14,111 kWh | 1.3698 | California Energy Commission vehicle adoption data (2010-2023) |
-| ZEV Plan Target | 39,601 kWh | 1.5784 | California Zero-Emission Vehicle plan targets |
+| Scenario | Avg Daily Energy (2030) | 2030 Annual Total | Growth Factor | Data Source |
+|----------|------------------------|-------------------|---------------|-------------|
+| Conservative (base forecast) | 2,756 kWh | 1,008,724 kWh | - | Empirical charging station usage trends |
+| Historical Trend | 11,423 kWh | 4,181,096 kWh | 1.3698 | California Energy Commission vehicle adoption data (2010-2023) |
+| ZEV Plan Target | 29,174 kWh | 10,677,503 kWh | 1.6840 | California Zero-Emission Vehicle plan targets |
+
+> **Read these as an upper bound, not a projection.** The Historical Trend and ZEV Plan multipliers are external *adoption* targets applied on top of the base forecast. Realised demand has moved the other way: trailing-twelve-month delivered energy is down 38% (growth factor 0.6239). Daily figures are averages across the final forecast year, derived from the notebook's 2030 totals.
 
 ## Key Insights
 
@@ -469,7 +477,10 @@ Based on our analysis and the current model performance, we've identified severa
 
 ### Advanced Time Series Techniques
 - **Optimize differencing parameters** in the ARIMA component to better capture the non-stationary aspects of the data
-- **Explore RNN forecast modeling** (Recursive Neural Network) to better handle the inherent volatility in charging demand patterns. Such a model will include a larger set of features to create more robust predictions. SEE BONUS SECTION BELOW FOR INITIAL FINDINGS.
+- **Prioritise rolling-origin evaluation at 30- and 90-day horizons.** The 502-day held-out evaluation is far longer than the County's planning horizon and is the least informative way to compare these models. This is the single most valuable change to the protocol.
+- **Extend the Temporal Fusion Transformer to per-site forecasting.** Treating the 22 sites as separate entities multiplies the available training windows by roughly 22 and suits the TFT's static-covariate design. See the bonus sections below for the current single-series results.
+- **Deprioritise further LSTM work.** Scored honestly, the LSTM is the weakest of the three models tested; its earlier apparent advantage was a measurement artefact (see the corrected bonus section below).
+- **Always report naive baselines** alongside any model. Persistence and constant forecasts are what exposed both the leakage and the trend-extrapolation failure documented here.
 - **Implement ensemble methods** combining multiple forecasting models to improve robustness across different time horizons
 
 ### Data Preprocessing Refinements
@@ -494,7 +505,7 @@ These enhancements will be prioritized based on the County's immediate planning 
 - The [Streamlit dashboard application](https://zero-emission-vehicle-data-analyzer-csb.streamlit.app/) serves as the primary tool for transportation department staff to interact with the EV charging data and forecasting models, providing valuable insights to support the Zero Emission Vehicle Plan implementation. This dashboard uses OpenAI-powered AI analysis (with fallback support) to automatically highlight significant trends and anomalies in the charging data, while also enabling staff to generate forecasts that directly support capacity planning, policy optimization, and progress tracking toward climate goals. 
 
 ### The data revealed two key actionable insights:
-1. The Zero-Emission Vehicle Plan sets an aggressive target that exceeds current trends revealed by the data. If that target is to be reached, 39,601 kWh of daily electricity usage would be needed according to our model. More comprehensive evaluation is necessary to create robust predictions and to understand potential energy spikes. At minimum, consultation with an energy capacity expert is recommended.
+1. The Zero-Emission Vehicle Plan sets an aggressive target that exceeds current trends revealed by the data. If that target is to be reached, roughly 29,200 kWh of average daily electricity usage would be needed according to our model - against a current trailing-year average of 928.6 kWh/day, and with realised demand currently contracting rather than growing. More comprehensive evaluation is necessary to create robust predictions and to understand potential energy spikes. At minimum, consultation with an energy capacity expert is recommended.
 
 2. The civilian fleet is engaging in excessively long "idling" sessions. This pattern was initially masked by the County's BEV fleet, since county cars are parked for days on charging stations used exclusively by the county. Our data filtering revealed that while public utilization is mostly efficient, there are specific areas for improvement. Although only 6% of sessions last 4 hours or longer (as shown in the data-analysis-sessions notebook), each such vehicle occupies valuable charging station space. For perspective, 8 cars could each charge for 30 minutes during a 4-hour window. This indicates significant opportunity to increase capacity through smart policy changes.
 
@@ -523,7 +534,19 @@ These enhancements will be prioritized based on the County's immediate planning 
 
 # Bonus Section - RNN Forecasting Model
 
-In addition to the STL Arima forecasting model I also tested an RNN(LSTM) forecasting model. This much more complex neural network model improves the prediction error by 19% in RMSE compared to our production model. This is a very encouraging improvement especially given the fact that the County of Santa Barbara only has 2 years of meaningful charging data. I imagine that in a year from now the RNN model will do much better and will significantly outperform the STL Arima baseline model. At this time however it is more prudent to keep the deployed model to the STL Arima model since it is much easier to understand and maintain. Also, there are no compute costs with STL Arima. 
+> ### Correction (2026 data refresh)
+>
+> **An earlier version of this section reported that the LSTM improved RMSE by 19% over STL-ARIMA (390.72 vs 482.44). That result was an artefact and does not hold.** Three defects produced it:
+>
+> 1. **The target was present in the inputs.** The feature list included `GHGs avoided (lbs)`, `Gasoline avoided (Gal)` and `Electric miles provided (mi)`. PowerFlex derives all three from `Energy delivered (kWh)` by fixed conversion factors, so their correlation with the target is 1.00000000 to eight decimal places. The model was being handed the answer.
+> 2. **The two models were solving different problems.** The LSTM was scored one step ahead, receiving 30 days of *actually observed* history before each prediction, while STL-ARIMA was scored on a recursive multi-step forecast that never sees a test observation. That asymmetry is why the LSTM appeared to track the test data's turns.
+> 3. **The scalers were fitted on the full series**, leaking test-period minima and maxima into training.
+>
+> The decisive check: naive persistence - simply predicting yesterday's value - scored RMSE 383.89 on that setup, beating the "winning" LSTM's 390.72. Any model that loses to predicting yesterday is not forecasting.
+>
+> The section has been rebuilt as a univariate, recursive, leakage-audited forecaster scored on the same task as every other model. Scored that way the LSTM is the **weakest** of the three model classes at RMSE 983.91, behind STL-ARIMA's 904.95 and the Temporal Fusion Transformer's 544.33. The narrative below is retained because its qualitative observations about kurtosis and event labelling remain valid, and because the original claim should stay visible next to its correction.
+
+In addition to the STL-ARIMA forecasting model I also tested an RNN (LSTM) forecasting model. It remains prudent to keep the deployed model as STL-ARIMA: it is much easier to understand and maintain, and there are no compute costs. 
 
 One aspect that is not correctly represented in the Neural Network model is the kurtosis of the predictions. The actual data is more leptokurtic than the predictions. In other words the model doesn't predict the usage spikes quite as well. More research and experimentation is needed to better represent that important factor. Furthermore, I've discussed with Jerel (from CSB) that we might want to go through each energy usage spike and to the best of our ability label these as that might help the neural network to predict for example a Labor day holiday weekend energy usage peak. The advantage of recursive neural network models for forecasting when compared to STL Arima is that we can add additional features to create a more robust prediction. 
 
@@ -578,6 +601,47 @@ Acts as a "feature combiner" before final prediction
 
 Single output neuron for energy demand prediction
 Linear activation: No transformation, direct numeric output
+
+# Bonus Section - Temporal Fusion Transformer
+
+A third model class was added after the 2026 data refresh: the Temporal Fusion Transformer (TFT), from Lim, Arik, Loeff and Pfister, *"Temporal Fusion Transformers for Interpretable Multi-horizon Time Series Forecasting"* ([arXiv:1912.09363](https://arxiv.org/abs/1912.09363), International Journal of Forecasting 37(4), 2021).
+
+It is implemented directly from the paper's equations in Keras rather than imported from `pytorch-forecasting`. That keeps the Colab notebook free of torch/lightning version pinning, and - more importantly after the leakage found in the RNN section - it keeps the data path auditable. The notebook includes an explicit no-leakage check cell that asserts the boundary rather than assuming it.
+
+### Why it outperforms both incumbents
+
+TFT avoids the specific failure mode of each existing model by construction:
+
+- It is a **direct multi-horizon** model. One forward pass emits all 502 days, so there is no recursive error accumulation - the failure that put the LSTM last.
+- It has **no explicit trend term**, so it cannot mechanically extrapolate a slope - the failure that put STL-ARIMA behind a constant forecast.
+
+A normalised time index was deliberately **excluded** from its known-future inputs, despite most TFT tutorials including one, precisely because it would reintroduce the trend-extrapolation handle. The result supports that choice.
+
+### Input taxonomy and the leakage boundary
+
+TFT separates inputs into three groups, which maps onto this dataset as:
+
+| Group | Contents here |
+|---|---|
+| Observed past inputs | Daily energy delivered - the encoder's only observed channel |
+| Known future inputs | Calendar features only: day-of-week, month and day-of-year as sine/cosine pairs, plus a weekend flag |
+| Static covariates | One charging network, so a single learned context vector |
+
+Calendar features are a deterministic function of the date and carry no information about the outcome, which is what distinguishes them from the derived columns that leaked in the original RNN section.
+
+### Results
+
+RMSE 544.33, MAE 413.06, MAPE 122.69% on the same 502-day horizon - a 39.8% RMSE improvement over STL-ARIMA, and the only model tested that beats an oracle constant set at the test-period mean. Full metrics and caveats are in the Performance Metrics table above.
+
+The model's variable-selection weights report what it actually used: `energy_observed` carries the largest encoder weight at 34.4%, while `month_sin` dominates the decoder at 62.3%. In plain terms, it sets its level from recent observed demand and then modulates it with an annual cycle. Nothing in its inputs anticipates the mid-2025 turn, so it cannot forecast that turn - only avoid being destroyed by it.
+
+### Limitations
+
+With 1,170 training days yielding roughly 580 heavily overlapping windows against 142,126 parameters, this is far outside the data regime TFT was designed for; the paper's own experiments use datasets orders of magnitude larger. Training loss of 0.0738 against validation 0.1371 confirms overfitting, and early stopping is what kept the model useful. The result is from a single seed and a single split and should be replicated across seeds and forecast origins before it is relied on.
+
+### Requirements
+
+The section runs on a standard Colab GPU runtime with no additional installs - it uses the bundled Keras 3. Training took under two minutes on a T4 (early stopping at epoch 24 of a 60-epoch budget).
 
 ### Contact and Further Information
 
