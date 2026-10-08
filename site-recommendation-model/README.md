@@ -6,6 +6,72 @@ This module collects Google Street View images in a systematic grid pattern arou
 
 The script collects street view images that can be analyzed for diagonal parking availability - a key criterion for accessible EV charging station placement. It creates a grid covering approximately 5 square miles around coordinates 34.865838, -120.447520 (Orcutt, CA).
 
+## Interactive Site Explorer
+
+The Charge Atlas dashboard connects the collected images, GPS metadata, and saved
+classifier in a local browser interface:
+
+```bash
+pip install -r requirements.txt
+python ui_server.py
+```
+
+Open **http://127.0.0.1:5000**. Use `--port 5001` if port 5000 is occupied.
+
+- The initial **labeled-data preview** uses actual existing dataset labels, with
+  no invented model probabilities. The included geolocated dataset contains 484
+  images across 122 locations, eight of which have diagonal-parking labels.
+- Select a map marker or table row to review the location's images, cycle through
+  headings, and open its coordinates in Google Maps.
+- **Run model analysis** reads the images using the saved model, then replaces the
+  preview labels with model results. CPU inference runs in a background job with
+  progress feedback. TensorFlow and `site_data/model_checkpoints/best_model.h5`
+  are required; the labeled preview works without TensorFlow.
+- A location is a candidate when any image has a positive parking label or its
+  diagonal-parking probability meets the selected threshold. Model results rank
+  by the highest image probability. This score is a screening signal, not a
+  calibrated probability of charging-station feasibility.
+- **Add image** accepts a JPG, PNG, or WebP and explicit latitude/longitude, then
+  runs model analysis on that image. Uploads are stored locally in
+  `site_data/ui_uploads/`; their dashboard metadata and inference results are
+  kept in memory and reset when the server restarts. Uploaded files are ignored
+  by Git.
+- Search and filter the table, adjust the model threshold, and export the visible
+  locations and evidence to CSV.
+
+### Embedded Google Maps
+
+The geographic coordinate preview and **Open in Google Maps** links work without
+an API key. To show all markers on an embedded Google map, add a **separate
+browser key** to your local `.env` or environment:
+
+```dotenv
+GOOGLE_MAPS_BROWSER_API_KEY=YOUR_BROWSER_MAPS_KEY
+```
+
+Enable the **Maps JavaScript API** with billing in the key's Google Cloud project,
+restrict the key to your dashboard's HTTP referrers (for example,
+`http://127.0.0.1:5000/*` and `http://localhost:5000/*`), and restart the server.
+The browser key is necessarily visible to clients. The collector's
+`google_maps_street_view_api` key remains server-side and is never reused or
+exposed by the UI. See Google's [Maps JavaScript API setup](https://developers.google.com/maps/documentation/javascript/get-api-key)
+and [API key security guidance](https://developers.google.com/maps/api-security-best-practices).
+
+The embedded map uses Google's `DEMO_MAP_ID` for prototype advanced markers;
+configure your own map ID when adapting it for deployment. The server binds to
+localhost by default and is a research prototype, not a production deployment.
+
+### Interpreting the results
+
+Pins represent **collection coordinates**, not verified parking bay positions.
+The existing classifier has limited diagonal-parking recall because its training
+data was heavily imbalanced. Check image evidence, including negative results.
+Electrical capacity, accessibility, ownership, and installation feasibility still
+need a field review before choosing a charging site. Images without GPS metadata
+are deliberately excluded from the mapped dataset.
+
+Backend checks can be run with `python -m unittest discover -s tests -v`.
+
 ## Files
 
 - `street_view_collector.py` - Main collection script with StreetViewCollector class

@@ -8,6 +8,7 @@ googlemaps>=4.6.0
 folium>=0.12.0
 geopandas>=0.11.0
 python-dotenv>=1.0.0
+flask>=3.0.0
 
 # Machine Learning Dependencies
 tensorflow>=2.13.0
